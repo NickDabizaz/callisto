@@ -17,10 +17,6 @@
 
 <body style="background-color: black;">
     <div class="kotak"></div>
-    
-    <h1> Hello World! </h1>
-    <h1> Hello World! </h1>
-    <h1> Hello World! </h1>
 </body>
 
 </html>
