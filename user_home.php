@@ -98,12 +98,12 @@
             <img src="asset/logo.jpg" class="card-img-top" width="150px" height="300px">
             <div class="card-body m-auto">
                 <h5 class="card-title text-center">Card title</h5>
-                <button class="btn btn-warning">
+                <button class="btn btn-warning"  onclick="addCart()">
                     <li class=" fas fa-shopping-cart"></li> ADD TO CART
                 </button>
             </div>
         </div>
-         <!-- ini template card -->
+        <!-- ini template card -->
 
 
         <h1 style="text-align:center;">Click Here to Request Your Custom style</h1>
@@ -114,6 +114,11 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
     <script>
         // code ajax
+
+        function addCart(){
+            //add ajax add cart
+            alert('add ke carttt');
+        }
     </script>
 </body>
 
