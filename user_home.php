@@ -14,6 +14,8 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 
 <body>
@@ -75,13 +77,44 @@
         </div>
         <!-- Jumbotron -->
 
-        <h1>home</h1>
+
 
     </header>
     <!--Main Navigation-->
+    <div class="container-fluid">
+        <h1 style="text-align:center;">Best Seller</h1>
+        <!-- php fetch top 5/10? (pakai limit) stok di order by dari kecil ke terbesar -->
+        <h1 style="text-align:center;">Reccomendation Product</h1>
+        <!-- php fetch top 5/10? (pakai limit) stok di order by dari besar ke kecil -->
 
+
+        <h1 style="text-align:center;">ALL Product</h1>
+        <!-- php select * from product pakai AJAX -->
+        <div id="all_product" style="height: auto; width: 100%; background-color: black; display: flex;">
+        </div>
+
+        <!-- ini template card -->
+        <div class="card" style="width: 18rem; display: flex;">
+            <img src="asset/logo.jpg" class="card-img-top" width="150px" height="300px">
+            <div class="card-body m-auto">
+                <h5 class="card-title text-center">Card title</h5>
+                <button class="btn btn-warning">
+                    <li class=" fas fa-shopping-cart"></li> ADD TO CART
+                </button>
+            </div>
+        </div>
+         <!-- ini template card -->
+
+
+        <h1 style="text-align:center;">Click Here to Request Your Custom style</h1>
+        <a href="user_custom.php"><button class="btn btn-primary">Custom Request</button></a>
+
+    </div>
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
+    <script>
+        // code ajax
+    </script>
 </body>
 
 </html>
