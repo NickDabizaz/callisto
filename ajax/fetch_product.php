@@ -14,3 +14,6 @@ while ($row = $res->fetch_assoc()) {
 if ($ctr == 0) {
 	echo "Belum ada Product!";
 }
+
+
+?>

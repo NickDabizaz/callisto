@@ -14,6 +14,8 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 
 <body>
@@ -75,32 +77,46 @@
         </div>
         <!-- Jumbotron -->
 
-        <div id="semuacart">
-            <!-- semua barang di card -->
-            <!-- ini template card -->
-            <div class='card' style='width: 18rem; display: flex;'>
-                <img src='asset/logo.jpg' class='card-img-top' width='150px' height='300px'>
-                <div class='card-body m-auto'>
-                    <h5 class='card-title text-center'>Card title</h5>
-                    <p class="card-text">Harga : ???</p>
-                    <p class="card-text">Size : ???</p>
-                    <button type="submit" class="btn btn-primary" onclick="deleteItem(this)" value='$_REQUEST[`id product`]'>DELETE</button>
-                </div>
-            </div>
-            <!-- ini template card -->
-        </div>
+
 
     </header>
     <!--Main Navigation-->
+    </div>
+
+    <!-- template detail product -->
+    <div class="container">
+
+        <div class="card mx-auto" style="width: 30rem;">
+            <img src="asset/logo.jpg" class="card-img-top" width='150px' height='300px'>
+            <div class="card-body mx-auto">
+                <h5 class="card-title">Nama Product</h5>
+                <p class="card-text">Color : ???</p>
+                <p class="card-text">Harga : ???</p>
+                <p class="card-text">Tersedia : ???</p>
+                <p class="card-text">Size : ???</p>
+                <p class="card-text">Detail : ???</p>
+                <input type="number" style="width:50px ;" class="mx-auto" min="1" value="1" max="$row['stok']" id="qty"> <br>
+                <button class="btn btn-warning mx-auto" onclick="addCart()">
+                    <li class=" fas fa-shopping-cart"></li> ADD TO CART
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- template detail product -->
+
+
+
 
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
     <script>
-        // ajax delete
-        function deleteItem(object) {
-            id = object.value;
-            //kirim pake ajax
-            alert('item deleted! ' + id);
+        // code ajax
+        qty = document.querySelector("#qty");
+
+        function addCart() {
+            //add ajax add cart
+            alert('add ke carttt sebanyak' + qty.value);
         }
     </script>
 </body>
