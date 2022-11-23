@@ -93,22 +93,10 @@ require('helper.php');
         <h1 style="text-align:center;">ALL Product</h1>
         <!-- php select * from product pakai AJAX -->
         <div id="all_product" style="height: auto; width: 100%; background-color: black; display: flex;">
+        <!-- ajax fetch_product -->
         </div>
 
-        <!-- ini template card -->
-        <div class='card' style='width: 18rem; display: flex;'>
-            <img src='asset/logo.jpg' class='card-img-top' width='150px' height='300px'>
-            <div class='card-body m-auto'>
-                <h5 class='card-title text-center'>Card title</h5>
-                <p class="card-text">Harga : ???</p>
-                <p class="card-text">Size : ???</p>
-                <form action='product_detail.php' method='get'>
-                    <input type='hidden' name='product_id' value='$_REQUEST[`id product`]'>
-                    <button type="submit" class="btn btn-primary">DETAIL</button>
-                </form>
-            </div>
-        </div>
-        <!-- ini template card -->
+        
 
 
         <h1 style="text-align:center;">Click Here to Request Your Custom style</h1>
@@ -120,10 +108,6 @@ require('helper.php');
     <script>
         // code ajax
 
-        function addCart() {
-            //add ajax add cart
-            alert('add ke carttt');
-        }
     </script>
 </body>
 

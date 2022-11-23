@@ -79,17 +79,7 @@ require('helper.php');
 
         <div id="semuacart">
             <!-- semua barang di card -->
-            <!-- ini template card -->
-            <div class='card' style='width: 18rem; display: flex;'>
-                <img src='asset/logo.jpg' class='card-img-top' width='150px' height='300px'>
-                <div class='card-body m-auto'>
-                    <h5 class='card-title text-center'>Card title</h5>
-                    <p class="card-text">Harga : ???</p>
-                    <p class="card-text">Size : ???</p>
-                    <button type="submit" class="btn btn-primary" onclick="deleteItem(this)" value='$_REQUEST[`id product`]'>DELETE</button>
-                </div>
-            </div>
-            <!-- ini template card -->
+            
         </div>
 
     </header>
