@@ -1,4 +1,7 @@
 <?php
+require('helper.php');
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,6 +79,37 @@
         <!-- Jumbotron -->
 
         <h1>custom</h1>
+        <div class="row">
+            <div class="col-sm"></div>
+            <form class="col-sm">
+                Size : <br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="size" id="size" value="s">
+                    <label class="form-check-label" for="size">S</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="size" id="size" value="m">
+                    <label class="form-check-label" for="size">M</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="size" id="size" value="l">
+                    <label class="form-check-label" for="size">L</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="size" id="size" value="xl">
+                    <label class="form-check-label" for="size">XL</label>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="detail">Detail</label>
+                    <input type="text" class="form-control" id="detail" aria-describedby="emailHelp" placeholder="Detail Custom here...">
+                </div>
+                <button type="submit" class="btn btn-success" name="btnRequest">REQUEST</button>
+            </form>
+            <div class="col-sm"></div>
+        </div>
+    
+
 
     </header>
     <!--Main Navigation-->

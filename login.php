@@ -14,9 +14,9 @@ if (isset($_REQUEST["login"])) {
             if ($result) {
                 $result_row = mysqli_fetch_array($result);
                 if ($result_row != NULL) {
-                    if ($result_row["us_password"] == $password) {
+                    if ($result_row["acc_pass"] == $password) {
                         $_SESSION["userLogin"] = $result_row['acc_user'];
-
+                        header('location:user_home.php');
                         // ke user home
                     } else {
                         $error = "Password salah!";
