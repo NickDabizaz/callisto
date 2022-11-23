@@ -92,6 +92,7 @@ require('helper.php');
         <div class="card mx-auto" style="width: 30rem;">
             <img src="asset/logo.jpg" class="card-img-top" width='150px' height='300px'>
             <div class="card-body mx-auto">
+                <!-- <?php isset($_REQUEST[`id product`]) ?> -->
                 <h5 class="card-title">Nama Product</h5>
                 <p class="card-text">Color : ???</p>
                 <p class="card-text">Harga : ???</p>
