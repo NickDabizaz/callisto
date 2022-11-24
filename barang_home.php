@@ -159,7 +159,7 @@ require('helper.php');
                         <td>".
                         
                         //ini gambar
-                        "<img src='./asset/product_1.png' width='200px'>" .
+                        "<img src='./img_product/" . $row['pro_picture'] . "' width='200px'>" .
                         
                         "</td>" .
                         

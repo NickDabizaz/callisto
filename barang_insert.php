@@ -1,6 +1,61 @@
 <?php
 require('helper.php');
 
+$err = "";
+
+function generateIdProduct(){
+    global $con;
+    //cari max dari id
+    $query = "SELECT MAX(pro_id) as 'id' FROM `product`";
+    $res = mysqli_query($con, $query);
+    $row = mysqli_fetch_assoc($res);
+    //ambil id
+    $getId = substr($row['id'],2);
+    //nambah no urut
+    $noUrut = (int) $getId;
+    $noUrut++;
+    $noUrut = str_pad($noUrut,3,"0",STR_PAD_LEFT);
+    //return id dengan no urut naik
+    return "PD" . $noUrut;
+}
+
+if (isset($_REQUEST['add'])) {
+    $nama = $_REQUEST['nama']; 
+    $size = $_REQUEST['size']; 
+    $harga = $_REQUEST['harga']; 
+    $detail = $_REQUEST['detail']; 
+
+
+    if (isset($_FILES['image']["name"])) {
+        $errors = array();
+        $file_name = $_FILES['image']['name'];
+        $file_size = $_FILES['image']['size'];
+        $file_tmp = $_FILES['image']['tmp_name'];
+        $file_type = $_FILES['image']['type'];
+
+        if ($file_size > 2097152) {
+            $errors[] = 'File size must be excately 2 MB';
+        }
+
+        if (empty($errors) == true && $file_name != "") {
+            move_uploaded_file($file_tmp, "img_product/" . $file_name);
+        } else {
+            print_r($errors);
+        }
+
+        if ($nama != "" && $size != "" && $harga != "" && $file_name != "") {
+            $queryInsert = "INSERT INTO product VALUES ( '".generateIdProduct()."' , '".$nama."' , '".$harga."' , '50' , '".$size."' , '".$detail."' , '" . $_FILES['image']['name'] . "' , '')";
+            $resInsert = mysqli_query($con,$queryInsert);
+            if($resInsert) $err = 'Product Berhasil ditambahkan!';
+        } else {
+            $err = 'Field Tidak Boleh Kosong!';
+        }
+    }else{
+        $err = "Semua harus diisi!";
+    }
+
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,20 +73,20 @@ require('helper.php');
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    
+
     <style>
-        a{
+        a {
             text-decoration: none;
             color: black;
             font-size: 14pt;
         }
 
-        a:hover{
+        a:hover {
             font-weight: bold;
             color: black;
         }
 
-        .form-container{
+        .form-container {
             width: fit-content;
             padding: 2vh;
             margin: auto;
@@ -39,7 +94,7 @@ require('helper.php');
             /* background-color: yellow; */
         }
 
-        .nav-border{
+        .nav-border {
             border: 1px solid gray;
             margin-bottom: 3vh;
         }
@@ -48,7 +103,7 @@ require('helper.php');
 
 <body>
     <header>
-        <div class="p-3 text-center bg-white nav-border">        
+        <div class="p-3 text-center bg-white nav-border">
             <div class="container mt-4">
                 <div class="row">
                     <div class="col-md-4 d-flex justify-content-center justify-content-md-start align-items-center">
@@ -63,7 +118,7 @@ require('helper.php');
                     </div>
 
                     <div class="col-md-4">
-                        <a href="user_home.php">
+                        <a href="barang_home.php">
                             <img src="asset/logo.png" height="70" />
                         </a>
                     </div>
@@ -82,66 +137,66 @@ require('helper.php');
         <div class="form-container">
 
             <h1 class="text-center">Master Barang Insert</h1>
-            
+
             <div class="row">
                 <h3 class="text-center">Form Tambah Barang</h3>
-                <form role="form" action="insert.php" method="post">
+                <form role="form" method="post" enctype="multipart/form-data">
                     <div class="form-group my-2">
                         <label>Nama Baju</label>
                         <input type="text" name="nama" class="form-control">
                     </div>
-                    
+
                     <div class="form-group my-2">
                         <label>Harga</label>
                         <input type="text" name="harga" class="form-control">
                     </div>
-                    
+
                     <div class="form-group my-2">
                         <label>Ukuran</label>
-                    
+
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="size" id="size" value="s">
+                            <input class="form-check-input" type="radio" name="size" id="size" value="s" checked>
                             <label class="form-check-label" for="size">S</label>
                         </div>
-                    
+
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="size" id="size" value="m">
-                            <label class="form-check-label" for="size">M</label>
-                        </div>
-                    
+                            <label class="form-check-label" for="size">M</label>    
+
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="size" id="size" value="l">
                             <label class="form-check-label" for="size">L</label>
                         </div>
-                    
+
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="size" id="size" value="xl">
                             <label class="form-check-label" for="size">XL</label>
                         </div>
                     </div>
-                    
+
                     <div class="form-group my-2">
                         <label>Detail Baju</label>
                         <input type="text" name="detail" class="form-control">
                     </div>
-                    
+
                     <div class="form_group my-2">
                         <label>Gambar Baju</label>
-                        <input type="file" name="foto" id="imageFile" class="form-control" onchange="viewImage()">
+                        <input type="file" name="image" id="imageFile" class="form-control" onchange="viewImage()" accept=".jpg, .jpeg, .png">
                     </div>
 
-                    <img id="uploadedImage" width="200" />	
+                    <img id="uploadedImage" width="200" />
 
-                    <button type="submit" class="btn btn-primary btn-block">Tambah Item</button>
+                    <button type="submit" class="btn btn-primary btn-block mt-2" name="add">Tambah Item</button>
+                    <div style="color:green;"><?= $err; ?></div>
                 </form>
-                
+
             </div>
-            
+
         </div>
     </div>
-    
+
     <script lang="javascript">
-        function viewImage(){
+        function viewImage() {
             // document.getElementById("uploadedImage").innerHTML = document.getElementById("imageFile").value;
             var uploadedImage = document.getElementById('uploadedImage');
             uploadedImage.src = URL.createObjectURL(event.target.files[0]);

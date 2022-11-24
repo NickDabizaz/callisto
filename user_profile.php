@@ -137,9 +137,10 @@ require('helper.php');
                                 <i class="fa fa-camera" style="color: #fff;"></i>
                             </div>
                         </form>
-                        
-                        <h5 class="my-3">John Smith</h5>
-                        <p class="text-muted mb-1"><?php echo $row['acc_name'];
+
+                        <h5 class="my-3"><?php echo $row['acc_name'];
+                                            ?></h5>
+                        <p class="text-muted mb-1"><?php echo $row['acc_id'];
                                                     ?></p>
                         <p class="text-muted mb-4"><?php echo $row['acc_alamat'];
                                                     ?></p>
@@ -151,6 +152,28 @@ require('helper.php');
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-3">
+                                <p class="mb-0">ID</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">
+                                    <?php echo $row['acc_id'];
+                                    ?></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Username</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">
+                                    <?php echo $row['acc_user'];
+                                    ?></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
                                 <p class="mb-0">Full Name</p>
                             </div>
                             <div class="col-sm-9">
@@ -159,6 +182,7 @@ require('helper.php');
                                     ?></p>
                             </div>
                         </div>
+
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
@@ -247,8 +271,6 @@ require('helper.php');
     ";
         }
     }
-
-    var_dump($_FILES);
     ?>
 </body>
 

@@ -37,7 +37,7 @@ CREATE TABLE `account` (
 /*Data for the table `account` */
 
 insert  into `account`(`acc_id`,`acc_email`,`acc_user`,`acc_name`,`acc_pass`,`acc_telp`,`acc_gender`,`acc_alamat`,`acc_profile`,`acc_tglLahir`) values 
-('AC001','akunpertama@gmail.com','akun_pertama','akun pertama','akun1','123456781234',1,'jl. rumah akun pertama 1 no 1',NULL,'2001-01-01');
+('AC001','akunpertama@gmail.com','akun_pertama','akun pertama','akun1','123456781234',1,'jl. rumah akun pertama 1 no 1','kucing.jpg','2001-01-01');
 
 /*Table structure for table `cart` */
 
@@ -123,6 +123,12 @@ CREATE TABLE `product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `product` */
+
+insert  into `product`(`pro_id`,`pro_name`,`pro_price`,`pro_stock`,`pro_size`,`pro_detail`,`pro_picture`,`pro_status`) values 
+('PD001','CASABLANCA L\'Arche De Nuit Printed T-Shirt Black',8700000,50,'s','CASABLANCA L\'Arche De Nuit Printed T-Shirt with Black color and 100% Cotton','product_1.png',1),
+('PD002','CASABLANCA L\'Arche De Nuit Printed T-Shirt Black',9200000,50,'m','CASABLANCA L\'Arche De Nuit Printed T-Shirt with Black color and 100% Cotton','product_1.png',1),
+('PD003','CASABLANCA L\'Arche De Nuit Printed T-Shirt Black',9700000,50,'l','CASABLANCA L\'Arche De Nuit Printed T-Shirt with Black color and 100% Cotton','product_1.png',1),
+('PD004','CASABLANCA L\'Arche De Nuit Printed T-Shirt Black',10000000,50,'xl','CASABLANCA L\'Arche De Nuit Printed T-Shirt with Black color and 100% Cotton','product_1.png',1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
