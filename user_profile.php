@@ -1,6 +1,7 @@
 <?php
 require('helper.php');
 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,9 +19,39 @@ require('helper.php');
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
 
     <style>
-        .nav-border{
+        .nav-border {
             border: 1px solid gray;
             margin-bottom: 3vh;
+        }
+
+        .round {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 56%;
+            top: 44%;
+            background: #00B4FF;
+            width: 32px;
+            height: 32px;
+            line-height: 33px;
+            text-align: center;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .round input[type="file"] {
+            position: absolute;
+            transform: scale(2);
+            opacity: 0;
+        }
+
+        input[type=file]::-webkit-file-upload-button {
+            cursor: pointer;
+        }
+
+        .fotoprofile {
+            border-radius: 50%;
+            border: 8px solid #DCDCDC;
         }
     </style>
 </head>
@@ -85,83 +116,140 @@ require('helper.php');
         <!-- Jumbotron -->
     </header>
 
-        <div class="container">
-            <h1 class="text-center">Profile</h1>
+    <div class="container">
+        <h1 class="text-center">Profile</h1>
 
-            <div class="row" style="display: block;">
-                <div class="col-lg-4 m-auto">
-                    <div class="card mb-4">
-                        <div class="card-body text-center">
-                            <?php
-                                //query get id pake $_SESSION['userLogin'];
-                                //if foto profile ada, pake, klo ga pake yang asset/no-profile
-                                
-                                //ini yang no profile
-                                echo "<img src='asset/no-profile.jpg' alt='fotoprofil' class='rounded-circle img-fluid' style='width: 150px;'>";
-                                ?>
-                            <h5 class="my-3">John Smith</h5>
-                            <p class="text-muted mb-1"><?php //nama ?></p>
-                            <p class="text-muted mb-4"><?php //alamat ?></p>
-                        </div>
+        <div class="row" style="display: block;">
+            <div class="col-lg-4 m-auto">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <?php
+                        $query = "SELECT * FROM account WHERE acc_user = '" . $_SESSION['userLogin'] . "'";
+                        $result = mysqli_query($con, $query);
+                        $row = mysqli_fetch_assoc($result);
+                        ?>
+                        <form method="post" class="form" id="form" enctype="multipart/form-data">
+                            <img src="./img_profile/<?php echo $row['acc_profile']; ?>" class="fotoprofile" width="150px" height="150px" title="<?php echo $row['acc_profile']; ?>">
+                            <!-- gnti profile -->
+                            <div class="round">
+                                <input type="hidden" name="id" value="<?php echo $row['acc_id']; ?>">
+                                <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png">
+                                <i class="fa fa-camera" style="color: #fff;"></i>
+                            </div>
+                        </form>
+                        
+                        <h5 class="my-3">John Smith</h5>
+                        <p class="text-muted mb-1"><?php echo $row['acc_name'];
+                                                    ?></p>
+                        <p class="text-muted mb-4"><?php echo $row['acc_alamat'];
+                                                    ?></p>
                     </div>
                 </div>
-                <div class="col-lg-8 m-auto">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p class="mb-0">Full Name</p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <p class="text-muted mb-0">J<?php //nama ?></p>
-                                </div>
+            </div>
+            <div class="col-lg-8 m-auto">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Full Name</p>
                             </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p class="mb-0">Email</p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <p class="text-muted mb-0"><?php //email ?></p>
-                                </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">
+                                    <?php echo $row['acc_name'];
+                                    ?></p>
                             </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p class="mb-0">Phone</p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <p class="text-muted mb-0"><?php //telp ?></p>
-                                </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Email</p>
                             </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p class="mb-0">Mobile</p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <p class="text-muted mb-0">(098) 765-4321</p>
-                                </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">
+                                    <?php echo $row['acc_email'];
+                                    ?></p>
                             </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p class="mb-0">Address</p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <p class="text-muted mb-0"><?php //alamat ?></p>
-                                </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Phone</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">
+                                    <?php echo $row['acc_telp'];
+                                    ?></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Address</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">
+                                    <?php echo $row['acc_alamat'];
+                                    ?></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!--Main Navigation-->
-        
-        <!-- MDB -->
     </div>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
-    </body>
-    
+    <!--Main Navigation-->
+
+    <!-- MDB -->
+    </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
+    <script type="text/javascript">
+        document.getElementById("image").onchange = function() {
+            document.getElementById("form").submit();
+        };
+    </script>
+    <?php
+    if (isset($_FILES["image"]["name"])) {
+        $id = $_POST["id"];
+
+        $imageName = $_FILES["image"]["name"];
+        $imageSize = $_FILES["image"]["size"];
+        $tmpName = $_FILES["image"]["tmp_name"];
+
+        // Image validation
+        $validImageExtension = ['jpg', 'jpeg', 'png'];
+        $imageExtension = explode('.', $imageName);
+        $imageExtension = strtolower(end($imageExtension));
+        if (!in_array($imageExtension, $validImageExtension)) {
+            echo
+            "
+    <script>
+      alert('Invalid Image Extension');
+      document.location.href = './user_profile.php';
+    </script>
+    ";
+        } elseif ($imageSize > 1200000) {
+            echo
+            "
+    <script>
+      alert('Image Size Is Too Large');
+      document.location.href = './user_profile.php';
+    </script>
+    ";
+        } else {
+            $query2 = "UPDATE account SET acc_profile = '" . $_FILES["image"]["name"] . "' WHERE acc_id = '" . $id . "'";
+            mysqli_query($con, $query2);
+            move_uploaded_file($tmpName, 'img_profile/' . $_FILES["image"]["name"]);
+            echo
+            "
+    <script>
+    document.location.href = './user_profile.php';
+    </script>
+    ";
+        }
+    }
+
+    var_dump($_FILES);
+    ?>
+</body>
+
 </html>
