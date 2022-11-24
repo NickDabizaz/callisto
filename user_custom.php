@@ -17,14 +17,29 @@ require('helper.php');
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
+
+    <style>
+        .nav-border{
+            border: 1px solid gray;
+            margin-bottom: 3vh;
+        }
+
+        .custom-container{
+            width: 40vw;
+            padding: 2vh;
+            margin: auto;
+
+            /* background-color: yellow; */
+        }
+    </style>
 </head>
 
 <body>
     <!--Main Navigation-->
     <header>
         <!-- Jumbotron -->
-        <div class="p-3 text-center bg-white">
-            <div class="container">
+        <div class="p-3 text-center bg-white nav-border">
+            <div class="container mt-4">
                 <div class="row">
                     <div class="col-md-4 d-flex justify-content-center justify-content-md-start align-items-center">
                         <ul class="navbar-nav d-flex flex-row">
@@ -44,7 +59,7 @@ require('helper.php');
 
                     <div class="col-md-4">
                         <a href="user_home.php">
-                            <img src="asset/logo.jpg" height="70" />
+                            <img src="asset/logo.png" height="70" />
                         </a>
                     </div>
 
@@ -78,39 +93,49 @@ require('helper.php');
         </div>
         <!-- Jumbotron -->
 
-        <h1>custom</h1>
-        <div class="row">
-            <div class="col-sm"></div>
-            <form class="col-sm">
-                Size : <br>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="size" id="size" value="s">
-                    <label class="form-check-label" for="size">S</label>
+        <div class="container">
+            <div class="custom-container">
+
+                <h1 class="text-center">CUSTOM</h1>
+                <div class="row">
+                    <div class="col-sm"></div>
+                    <form>
+                        Size : <br>
+                        
+                        <div class="form-check form-check-inline mb-2">
+                            <input class="form-check-input" type="radio" name="size" id="size" value="s">
+                            <label class="form-check-label" for="size">S</label>
+                        </div>
+                        
+                        <div class="form-check form-check-inline my-2">
+                            <input class="form-check-input" type="radio" name="size" id="size" value="m">
+                        <label class="form-check-label" for="size">M</label>
+                        </div>
+                        
+                        <div class="form-check form-check-inline my-2">
+                            <input class="form-check-input" type="radio" name="size" id="size" value="l">
+                            <label class="form-check-label" for="size">L</label>
+                        </div>
+                        
+                        <div class="form-check form-check-inline my-2">
+                            <input class="form-check-input" type="radio" name="size" id="size" value="xl">
+                            <label class="form-check-label" for="size">XL</label>
+                        </div>
+                        <br>
+                        
+                        <div class="form-group my-2">
+                            <label for="detail">Detail</label>
+                            <input type="text" class="form-control" id="detail" aria-describedby="emailHelp" placeholder="Detail Custom here...">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success mt-2" name="btnRequest">REQUEST</button>
+                    </form>
+                    <div class="col-sm"></div>
                 </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="size" id="size" value="m">
-                    <label class="form-check-label" for="size">M</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="size" id="size" value="l">
-                    <label class="form-check-label" for="size">L</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="size" id="size" value="xl">
-                    <label class="form-check-label" for="size">XL</label>
-                </div>
-                <br>
-                <div class="form-group">
-                    <label for="detail">Detail</label>
-                    <input type="text" class="form-control" id="detail" aria-describedby="emailHelp" placeholder="Detail Custom here...">
-                </div>
-                <button type="submit" class="btn btn-success" name="btnRequest">REQUEST</button>
-            </form>
-            <div class="col-sm"></div>
+            </div>
         </div>
-    
-
-
+        
+        
     </header>
     <!--Main Navigation-->
 

@@ -18,14 +18,21 @@ require('helper.php');
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <style>
+        .nav-border{
+            border: 1px solid gray;
+            margin-bottom: 3vh;
+        }
+    </style>
 </head>
 
 <body>
     <!--Main Navigation-->
     <header>
         <!-- Jumbotron -->
-        <div class="p-3 text-center bg-white">
-            <div class="container">
+        <div class="p-3 text-center bg-white nav-border">
+            <div class="container mt-4">
                 <div class="row">
                     <div class="col-md-4 d-flex justify-content-center justify-content-md-start align-items-center">
                         <ul class="navbar-nav d-flex flex-row">
@@ -45,7 +52,7 @@ require('helper.php');
 
                     <div class="col-md-4">
                         <a href="user_home.php">
-                            <img src="asset/logo.jpg" height="70" />
+                            <img src="asset/logo.png" height="70" />
                         </a>
                     </div>
 

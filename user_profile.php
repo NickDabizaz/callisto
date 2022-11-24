@@ -16,14 +16,21 @@ require('helper.php');
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
+
+    <style>
+        .nav-border{
+            border: 1px solid gray;
+            margin-bottom: 3vh;
+        }
+    </style>
 </head>
 
 <body>
     <!--Main Navigation-->
     <header>
         <!-- Jumbotron -->
-        <div class="p-3 text-center bg-white">
-            <div class="container">
+        <div class="p-3 text-center bg-white nav-border">
+            <div class="container mt-4">
                 <div class="row">
                     <div class="col-md-4 d-flex justify-content-center justify-content-md-start align-items-center">
                         <ul class="navbar-nav d-flex flex-row">
@@ -43,7 +50,7 @@ require('helper.php');
 
                     <div class="col-md-4">
                         <a href="user_home.php">
-                            <img src="asset/logo.jpg" height="70" />
+                            <img src="asset/logo.png" height="70" />
                         </a>
                     </div>
 
@@ -76,81 +83,85 @@ require('helper.php');
             </div>
         </div>
         <!-- Jumbotron -->
-
-        <h1>profile</h1>
-        <div class="row" style="align-items:center ;">
-            <div class="col-lg-4">
-                <div class="card mb-4">
-                    <div class="card-body text-center">
-                        <?php
-                            //query get id pake $_SESSION['userLogin'];
-                            //if foto profile ada, pake, klo ga pake yang asset/no-profile
-
-                            //ini yang no profile
-                            echo "<img src='asset/no-profile.jpg' alt='fotoprofil' class='rounded-circle img-fluid' style='width: 150px;'>";
-                        ?>
-                        <h5 class="my-3">John Smith</h5>
-                        <p class="text-muted mb-1"><?php //nama ?></p>
-                        <p class="text-muted mb-4"><?php //alamat ?></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-8">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Full Name</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0">J<?php //nama ?></p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Email</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0"><?php //email ?></p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Phone</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0"><?php //telp ?></p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Mobile</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0">(098) 765-4321</p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Address</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0"><?php //alamat ?></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
     </header>
-    <!--Main Navigation-->
 
-    <!-- MDB -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
-</body>
+        <div class="container">
+            <h1 class="text-center">Profile</h1>
 
+            <div class="row" style="display: block;">
+                <div class="col-lg-4 m-auto">
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            <?php
+                                //query get id pake $_SESSION['userLogin'];
+                                //if foto profile ada, pake, klo ga pake yang asset/no-profile
+                                
+                                //ini yang no profile
+                                echo "<img src='asset/no-profile.jpg' alt='fotoprofil' class='rounded-circle img-fluid' style='width: 150px;'>";
+                                ?>
+                            <h5 class="my-3">John Smith</h5>
+                            <p class="text-muted mb-1"><?php //nama ?></p>
+                            <p class="text-muted mb-4"><?php //alamat ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 m-auto">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Full Name</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">J<?php //nama ?></p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Email</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0"><?php //email ?></p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Phone</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0"><?php //telp ?></p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Mobile</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">(098) 765-4321</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Address</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0"><?php //alamat ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Main Navigation-->
+        
+        <!-- MDB -->
+    </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
+    </body>
+    
 </html>

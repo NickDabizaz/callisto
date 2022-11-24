@@ -78,7 +78,7 @@ if (isset($_REQUEST["login"])) {
 
 <body>
     <div class="box-login">
-        <img src="./asset/logo.jpg" alt="logo" width="250px" height="125px" style="margin-left:100px">
+        <img src="./asset/logo.png" alt="logo" width="250px" height="125px" style="margin-left:100px">
         <form action="./login.php" method="post">
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" placeholder=" " id="username" name="username">

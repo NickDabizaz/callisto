@@ -16,14 +16,21 @@ require('helper.php');
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
+
+    <style>
+        .nav-border{
+            border: 1px solid gray;
+            margin-bottom: 3vh;
+        }
+    </style>
 </head>
 
 <body>
     <!--Main Navigation-->
     <header>
         <!-- Jumbotron -->
-        <div class="p-3 text-center bg-white">
-            <div class="container">
+        <div class="p-3 text-center bg-white nav-border">
+            <div class="container mt-4">
                 <div class="row">
                     <div class="col-md-4 d-flex justify-content-center justify-content-md-start align-items-center">
                         <ul class="navbar-nav d-flex flex-row">
@@ -43,7 +50,7 @@ require('helper.php');
 
                     <div class="col-md-4">
                         <a href="user_home.php">
-                            <img src="asset/logo.jpg" height="70" />
+                            <img src="asset/logo.png" height="70" />
                         </a>
                     </div>
 
@@ -85,8 +92,10 @@ require('helper.php');
     </header>
     <!--Main Navigation-->
 
-    <div id="allcart">
-        <!-- ajax fetch cart -->
+    <div class="container">
+        <div id="allcart">
+            <!-- ajax fetch cart -->
+        </div>
     </div>
 
     <!-- MDB -->

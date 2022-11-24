@@ -30,26 +30,58 @@ if (isset($_REQUEST['add'])) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <style>
+        
+        a{
+            text-decoration: none;
+            color: black;
+            font-size: 14pt;
+        }
+
+        a:hover{
+            font-weight: bold;
+            color: black;
+        }
+
+        .nav-border{
+            border: 1px solid gray;
+            margin-bottom: 3vh;
+        }
+    </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="barang_home.php">Home</a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a href="barang_insert.php">Insert</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">
-                        <a href="login.php">Logout</a>
-                    </li>
-                </ol>
-            </nav>
+    <header>
+        <div class="p-3 text-center bg-white nav-border">        
+            <div class="container mt-4">
+                <div class="row">
+                    <div class="col-md-4 d-flex justify-content-center justify-content-md-start align-items-center">
+                        <ul class="navbar-nav d-flex flex-row">
+                            <li class="nav-item">
+                                <a href="barang_home.php">Home</a>
+                            </li>
+                            <li class="nav-item mx-3">
+                                <a href="barang_insert.php">Insert</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-4">
+                        <a href="user_home.php">
+                            <img src="asset/logo.png" height="70" />
+                        </a>
+                    </div>
+
+                    <div class="col-md-4 d-flex justify-content-center justify-content-md-end align-items-center">
+                        <div class="d-flex">
+                            <a href="login.php">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </nav>
+    </header>
     <h1>ADD STOCK</h1>
     <?php if($err != ""){
         echo "<div style='color:green;'>".$err."</div>";
