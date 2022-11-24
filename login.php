@@ -6,6 +6,8 @@ $error = "";
 if (isset($_REQUEST["login"])) {
     $username = $_REQUEST['username'];
     $password = $_REQUEST['password'];
+    if($username == "barang" && $password == "barang")
+        header('location:barang_home.php');
     if ($username == "" || $password == ""){
         $error = "Ada isian kosong!";
     } else {

@@ -94,7 +94,6 @@ require('helper.php');
             <div class="card-body mx-auto">
                 <!-- <?php isset($_REQUEST[`id product`]) ?> -->
                 <h5 class="card-title">Nama Product</h5>
-                <p class="card-text">Color : ???</p>
                 <p class="card-text">Harga : ???</p>
                 <p class="card-text">Tersedia : ???</p>
                 <p class="card-text">Size : ???</p>
