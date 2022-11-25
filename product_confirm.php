@@ -1,6 +1,13 @@
 <?php
 require('helper.php');
 
+if (isset($_REQUEST['product_name'])) {
+    $name = $_REQUEST['product_name'];
+}
+if (isset($_REQUEST['submit'])) {
+    header("location:product_detail.php?size=" . $_REQUEST['size'] . "&name=" . $_REQUEST['nama'] . "");
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,16 +25,9 @@ require('helper.php');
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-
-    <style>
-        .nav-border {
-            border: 1px solid gray;
-            margin-bottom: 3vh;
-        }
-    </style>
 </head>
 
-<body onload="load_product()">
+<body>
     <!--Main Navigation-->
     <header>
         <!-- Jumbotron -->
@@ -70,16 +70,16 @@ require('helper.php');
 
                             <?php
 
-                            $query = "SELECT * FROM account WHERE acc_user = '" . $_SESSION['userLogin'] . "' ";
-                            $res = mysqli_query($con, $query);
-                            $row = mysqli_fetch_assoc($res);
+                            $sql = "SELECT * FROM account WHERE acc_user = '" . $_SESSION['userLogin'] . "' ";
+                            $res = mysqli_query($con, $sql);
+                            $rows = mysqli_fetch_assoc($res);
 
                             ?>
 
                             <!-- User -->
                             <div class="dropdown">
                                 <a class="text-reset dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                                    <img src="img_profile/<?= $row['acc_profile'] ?>" class="rounded-circle" height="25" alt="" loading="lazy" />
+                                    <img src="img_profile/<?= $rows['acc_profile'] ?>" class="rounded-circle" height="25" alt="" loading="lazy" />
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                                     <li><a class="dropdown-item" href="user_profile.php">My profile</a></li>
@@ -97,45 +97,58 @@ require('helper.php');
 
     </header>
     <!--Main Navigation-->
-    <div class="container-fluid">
-        <h1 style="text-align:center;">Best Seller</h1>
-        <!-- php fetch top 5/10? (pakai limit) stok di order by dari kecil ke terbesar -->
-        <h1 style="text-align:center;">Reccomendation Product</h1>
-        <!-- php fetch top 5/10? (pakai limit) stok di order by dari besar ke kecil -->
-
-
-        <h1 style="text-align:center;">ALL Product</h1>
-        <!-- php select * from product pakai AJAX -->
-        <div id="all_product" style="height: auto; width: 100%;display: flex;">
-            <!-- ajax fetch_product -->
-        </div>
-
-
-
-
-        <h1 style="text-align:center;">Click Here to Request Your Custom style</h1>
-        <a href="user_custom.php"><button class="btn btn-primary">Custom Request</button></a>
-
     </div>
+
+
+    <!-- template detail product -->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm"></div>
+            <form>
+                Size : <br>
+
+                <div class="form-check form-check-inline mb-2">
+                    <input class="form-check-input" type="radio" name="size" id="size" value="s">
+                    <label class="form-check-label" for="size">S</label>
+                </div>
+
+                <div class="form-check form-check-inline my-2">
+                    <input class="form-check-input" type="radio" name="size" id="size" value="m">
+                    <label class="form-check-label" for="size">M</label>
+                </div>
+
+                <div class="form-check form-check-inline my-2">
+                    <input class="form-check-input" type="radio" name="size" id="size" value="l">
+                    <label class="form-check-label" for="size">L</label>
+                </div>
+
+                <div class="form-check form-check-inline my-2">
+                    <input class="form-check-input" type="radio" name="size" id="size" value="xl">
+                    <label class="form-check-label" for="size">XL</label>
+                </div>
+                <br>
+                <input type="hidden" name="nama" value="<?= $name ?>">
+                <button type="submit" class="btn btn-success mt-2" name="submit">SUBMIT</button>
+            </form>
+            <div class="col-sm"></div>
+        </div>
+    </div>
+
+    <!-- template detail product -->
+
+
+
+
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
     <script>
         // code ajax
-        function load_product() {
-            productlist = document.getElementById("all_product");
-            fetch_product();
-        }
+        qty = document.querySelector("#qty");
 
-        function fetch_product() {
-            r = new XMLHttpRequest();
-            r.onreadystatechange = function() {
-                if ((this.readyState == 4) && (this.status == 200)) {
-                    productlist.innerHTML = this.responseText;
-                }
-            }
-
-            r.open('GET', 'fetch_product.php');
-            r.send();
+        function addCart() {
+            //add ajax add cart
+            alert('add ke carttt sebanyak' + qty.value);
         }
     </script>
 </body>

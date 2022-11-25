@@ -75,11 +75,18 @@ require('helper.php');
                                 <span class="badge rounded-pill badge-notification bg-danger"></span>
                             </a>
 
+                            <?php
+
+                                $sql = "SELECT * FROM account WHERE acc_user = '".$_SESSION['userLogin']."' ";
+                                $res = mysqli_query($con, $sql);
+                                $rows = mysqli_fetch_assoc($res);
+
+                            ?>
 
                             <!-- User -->
                             <div class="dropdown">
                                 <a class="text-reset dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                                    <img src="asset/no-profile.jpg" class="rounded-circle" height="25" alt="" loading="lazy" />
+                                    <img src="img_profile/<?= $rows['acc_profile'] ?>" class="rounded-circle" height="25" alt="" loading="lazy" />
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                                     <li><a class="dropdown-item" href="user_profile.php">My profile</a></li>
@@ -92,6 +99,11 @@ require('helper.php');
             </div>
         </div>
         <!-- Jumbotron -->
+
+
+
+    </header>
+    <!--Main Navigation-->
 
         <div class="container">
             <div class="custom-container">
@@ -136,8 +148,6 @@ require('helper.php');
         </div>
         
         
-    </header>
-    <!--Main Navigation-->
 
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>

@@ -44,8 +44,9 @@ insert  into `account`(`acc_id`,`acc_email`,`acc_user`,`acc_name`,`acc_pass`,`ac
 DROP TABLE IF EXISTS `cart`;
 
 CREATE TABLE `cart` (
-  `cart_customer_id` varchar(5) NOT NULL,
-  `cart_pro_id` varchar(5) NOT NULL,
+  `cart_customer_id` varchar(6) NOT NULL,
+  `cart_pro_id` varchar(6) NOT NULL,
+  `qty` int(11) NOT NULL,
   KEY `cart_customer_id` (`cart_customer_id`),
   KEY `cart_pro_id` (`cart_pro_id`),
   CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`cart_customer_id`) REFERENCES `account` (`acc_id`),

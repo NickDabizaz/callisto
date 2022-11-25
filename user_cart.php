@@ -66,11 +66,18 @@ require('helper.php');
                                 <span class="badge rounded-pill badge-notification bg-danger"></span>
                             </a>
 
+                            <?php
+
+                                $sql = "SELECT * FROM account WHERE acc_user = '".$_SESSION['userLogin']."' ";
+                                $res = mysqli_query($con, $sql);
+                                $rows = mysqli_fetch_assoc($res);
+
+                            ?>
 
                             <!-- User -->
                             <div class="dropdown">
                                 <a class="text-reset dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                                    <img src="asset/no-profile.jpg" class="rounded-circle" height="25" alt="" loading="lazy" />
+                                    <img src="img_profile/<?= $rows['acc_profile'] ?>" class="rounded-circle" height="25" alt="" loading="lazy" />
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                                     <li><a class="dropdown-item" href="user_profile.php">My profile</a></li>
@@ -84,14 +91,15 @@ require('helper.php');
         </div>
         <!-- Jumbotron -->
 
-        <div id="semuacart">
-            <!-- semua barang di card -->
-            
-        </div>
+
 
     </header>
     <!--Main Navigation-->
-
+    
+    <div id="semuacart">
+        <!-- semua barang di card -->
+        
+    </div>
     <div class="container">
         <div id="allcart">
             <!-- ajax fetch cart -->

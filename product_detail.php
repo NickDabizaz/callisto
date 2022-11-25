@@ -1,6 +1,10 @@
 <?php
 require('helper.php');
 
+$size = $_REQUEST['size'];
+$picture = $_REQUEST['name'];
+$err = "";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,8 +28,8 @@ require('helper.php');
     <!--Main Navigation-->
     <header>
         <!-- Jumbotron -->
-        <div class="p-3 text-center bg-white">
-            <div class="container">
+        <div class="p-3 text-center bg-white nav-border">
+            <div class="container mt-4">
                 <div class="row">
                     <div class="col-md-4 d-flex justify-content-center justify-content-md-start align-items-center">
                         <ul class="navbar-nav d-flex flex-row">
@@ -45,7 +49,7 @@ require('helper.php');
 
                     <div class="col-md-4">
                         <a href="user_home.php">
-                            <img src="asset/logo.jpg" height="70" />
+                            <img src="asset/logo.png" height="70" />
                         </a>
                     </div>
 
@@ -61,11 +65,18 @@ require('helper.php');
                                 <span class="badge rounded-pill badge-notification bg-danger"></span>
                             </a>
 
+                            <?php
+
+                            $sql = "SELECT * FROM account WHERE acc_user = '" . $_SESSION['userLogin'] . "' ";
+                            $res = mysqli_query($con, $sql);
+                            $rows = mysqli_fetch_assoc($res);
+
+                            ?>
 
                             <!-- User -->
                             <div class="dropdown">
                                 <a class="text-reset dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                                    <img src="asset/no-profile.jpg" class="rounded-circle" height="25" alt="" loading="lazy" />
+                                    <img src="img_profile/<?= $rows['acc_profile'] ?>" class="rounded-circle" height="25" alt="" loading="lazy" />
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                                     <li><a class="dropdown-item" href="user_profile.php">My profile</a></li>
@@ -88,20 +99,32 @@ require('helper.php');
 
     <!-- template detail product -->
     <div class="container">
+        <?php
 
+        $sql2 = "SELECT * FROM product WHERE pro_picture = '" . $picture . "' AND pro_size = '" . $size . "' ";
+        $res2 = mysqli_query($con, $sql2);
+        $rows2 = mysqli_fetch_assoc($res2);
+
+        ?>
         <div class="card mx-auto" style="width: 30rem;">
-            <img src="asset/logo.jpg" class="card-img-top" width='150px' height='300px'>
+            <img src="img_product/<?= $rows2['pro_picture'] ?>" class='card-img-top' width='150px' height='300px'>
             <div class="card-body mx-auto">
                 <!-- <?php isset($_REQUEST[`id product`]) ?> -->
-                <h5 class="card-title">Nama Product</h5>
-                <p class="card-text">Harga : ???</p>
-                <p class="card-text">Tersedia : ???</p>
-                <p class="card-text">Size : ???</p>
-                <p class="card-text">Detail : ???</p>
+                <h5 class="card-title"><?= $rows2['pro_name'];  ?></h5>
+                <p class="card-text">Harga : <?= $rows2['pro_price'];  ?></p>
+                <p class="card-text">Tersedia : <?= $rows2['pro_stock'];  ?></p>
+                <p class="card-text">Size : <?= $rows2['pro_size'];  ?></p>
+                <p class="card-text">Detail : <?= $rows2['pro_detail'];  ?></p>
                 <input type="number" style="width:50px ;" class="mx-auto" min="1" value="1" max="$row['stok']" id="qty"> <br>
-                <button class="btn btn-warning mx-auto" onclick="addCart()">
+                <button class="btn btn-warning mx-auto" onclick="addCart(this)" value="<?= $rows2['pro_id'] ?>">
                     <li class=" fas fa-shopping-cart"></li> ADD TO CART
                 </button>
+                <div style="color:green ;">
+                    <?php 
+                        if($err != "")
+                            echo $err;
+                    ?>
+                </div>
             </div>
         </div>
     </div>
@@ -117,9 +140,18 @@ require('helper.php');
         // code ajax
         qty = document.querySelector("#qty");
 
-        function addCart() {
-            //add ajax add cart
-            alert('add ke carttt sebanyak' + qty.value);
+        function addCart(obj) {
+            update_id = obj.value;
+            r = new XMLHttpRequest();
+            r.onreadystatechange = function() {
+                if ((this.readyState == 4) && (this.status == 200)) {
+                    <?php $err = "BERHASIL TAMBAHKAN KE KERANJANG!" ?>
+                    qty.value = "1";
+                }
+            }
+
+            r.open('GET', 'fetch_add_cart.php?pro_id=' + update_id + '&qty=' + qty.value + '');
+            r.send();
         }
     </script>
 </body>
