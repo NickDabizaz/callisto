@@ -19,6 +19,15 @@ function generateIdProduct(){
     return "PD" . $noUrut;
 }
 
+if(!isset($_SESSION['userLogin'])){
+    header('location: ./login.php');
+}
+else{
+    if($_SESSION['userLogin'] != "barang"){
+        header(('location: ./login.php'));
+    }
+}
+
 if (isset($_REQUEST['add'])) {
     $nama = $_REQUEST['nama']; 
     $size = $_REQUEST['size']; 
@@ -34,7 +43,7 @@ if (isset($_REQUEST['add'])) {
         $file_type = $_FILES['image']['type'];
 
         if ($file_size > 2097152) {
-            $errors[] = 'File size must be excately 2 MB';
+            $errors[] = 'File size must be exactly 2 MB';
         }
 
         if (empty($errors) == true && $file_name != "") {
@@ -155,21 +164,21 @@ if (isset($_REQUEST['add'])) {
                         <label>Ukuran</label>
 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="size" id="size" value="s" checked>
+                            <input class="form-check-input" type="radio" name="size" id="size" value="S" checked>
                             <label class="form-check-label" for="size">S</label>
                         </div>
 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="size" id="size" value="m">
+                            <input class="form-check-input" type="radio" name="size" id="size" value="M">
                             <label class="form-check-label" for="size">M</label>    
 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="size" id="size" value="l">
+                            <input class="form-check-input" type="radio" name="size" id="size" value="L">
                             <label class="form-check-label" for="size">L</label>
                         </div>
 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="size" id="size" value="xl">
+                            <input class="form-check-input" type="radio" name="size" id="size" value="XL">
                             <label class="form-check-label" for="size">XL</label>
                         </div>
                     </div>

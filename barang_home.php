@@ -1,6 +1,23 @@
 <?php
 require('helper.php');
 
+unset($_SESSION["idproduk"]);
+
+if(!isset($_SESSION['userLogin'])){
+    header('location: ./login.php');
+}
+else{
+    if($_SESSION['userLogin'] != "barang"){
+        header(('location: ./login.php'));
+    }
+}
+
+if(isset($_POST['edit'])){
+    $id = $_POST['id'];
+    $_SESSION['idproduk'] = $id;
+    header('location: ./barang_edit.php');
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,7 +93,7 @@ require('helper.php');
     </style>
 </head>
 
-<body>
+<body onload="load_product()">
     <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container"> -->
             <!-- <nav aria-label="breadcrumb">
@@ -139,7 +156,7 @@ require('helper.php');
             <h1 class="text-center">Product List</h1>
 
             <form action="" method="post">
-                <table>
+                <table id="productlist">
                     <!-- <thead>
                     <th style="width: 5vw;">ID</th>
                     <th style="width: 10vw;">Name</th>
@@ -148,56 +165,46 @@ require('helper.php');
                     <th style="width: 10vw;">Size</th>
                     <th style="width: 10vw;">Action</th>
                     </thead> -->
-                    
-                    <?php
-                    $query = "SELECT * FROM product";
-                    $result = mysqli_query($con, $query);
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        echo 
-                        "<tr><td colspan='4'><hr></td></tr>
-                        <tr>
-                        <td>".
-                        
-                        //ini gambar
-                        "<img src='./img_product/" . $row['pro_picture'] . "' width='200px'>" .
-                        
-                        "</td>" .
-                        
-                        //ini buat spasi gamabr sama tulisan
-                        "<td style='width: 2vw;'></td>" .
 
-                        //ini tulisannya
-                        "<td style='width: 30vw;'> " .
-                            "<div class='prod-id'>&nbsp;" . $row['pro_id'] . "</div>" .
-                            
-                            "<div class='prod-name mb-2' style='margin-top: -1rem;'>" . $row['pro_name'] . "</div>" .
-                            
-                            "<div class='prod-price my-2'> Rp. " . $row['pro_price'] . "</div>" .
-                            
-                            "<div class='prod-size mt-2'> Size : " . $row['pro_size'] . "</div>" .
-                        
-                            "<div class='prod-stock my-2'> Stock : " . $row['pro_stock'] . "</div>" .
-                        "</td>" .
-                            
-                        //ini actionnya
-                        "<td>
-                            <div>
-                            <input type='hidden' name='id' value='" . $row['pro_id'] . "'>".
-                            // <button type='submit' name='addstok' formaction='barang_addstock.php' class='btn btn-primary'>ADD STOCK</button><br>
-                            "<button class='btn btn-primary'>EDIT</button><br>
-                            <button class='btn btn-danger'>REMOVE</button>
-                            </div>
-                        </td>
-                        </tr>
-                        
-                        ";
-                        }
-                        ?>
-
+                    <!-- Isi Tabel List Product Pindah Ke File fetch_product.php -->
                 </table>
             </form>
         </div>
     </div>
 </body>
+
+<script>
+    function load_product() {
+        productlist =  document.getElementById("productlist");		
+		fetch_product();
+	}
+
+    function fetch_product() {			
+		r = new XMLHttpRequest();
+		r.onreadystatechange = function() {
+			if ((this.readyState==4) && (this.status==200)) {
+				productlist.innerHTML = this.responseText;
+			}
+		}
+
+		r.open('GET', 'fetch_barang.php');
+		r.send();
+	}
+
+    function delete_product(obj){;
+		product_id = obj.value;
+
+		r = new XMLHttpRequest();
+		r.onreadystatechange = function() {
+			if ((this.readyState==4) && (this.status==200)) {
+				fetch_product();
+			}
+		}
+			
+		r.open('POST', `delete_barang.php`);
+		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		r.send(`product_id=${product_id}`);
+	}
+</script>
 
 </html>
