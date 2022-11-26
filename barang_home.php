@@ -134,7 +134,7 @@ if(isset($_POST['edit'])){
                     </div>
 
                     <div class="col-md-4">
-                        <a href="user_home.php">
+                        <a href="barang_home.php">
                             <img src="asset/logo.png" height="70" />
                         </a>
                     </div>
