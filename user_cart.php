@@ -1,6 +1,8 @@
 <?php
 require('helper.php');
 
+if(!isset($_SESSION['userLogin'])) header('location:login.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +27,7 @@ require('helper.php');
     </style>
 </head>
 
-<body>
+<body onload="load_product()">
     <!--Main Navigation-->
     <header>
         <!-- Jumbotron -->
@@ -110,10 +112,21 @@ require('helper.php');
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
     <script>
         // ajax delete
-        function deleteItem(object) {
-            id = object.value;
-            //kirim pake ajax
-            alert('item deleted! ' + id);
+        function load_product() {
+            semuacart = document.getElementById("semuacart");
+            fetch_cart();
+        }
+
+        function fetch_cart() {
+            r = new XMLHttpRequest();
+            r.onreadystatechange = function() {
+                if ((this.readyState == 4) && (this.status == 200)) {
+                    semuacart.innerHTML = this.responseText;
+                }
+            }
+
+            r.open('GET', 'fetch_cart.php?user='+<?= $_SESSION['userLogin'] ?>);
+            r.send();
         }
     </script>
 </body>

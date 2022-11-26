@@ -47,7 +47,7 @@ if (isset($_REQUEST['register'])) {
             }
 
             if ($error == "") {
-                $result = mysqli_query($con, "INSERT INTO `ACCOUNT` VALUES ( '".generateIdAccount()."' , '".$email."' , '".$username."' , '".$fname."' , '".$password."' , '".$telp."' , '".$gender."' , '".$alamat."' , '' , '".$tglLahir."' )");
+                $result = mysqli_query($con, "INSERT INTO `ACCOUNT` VALUES ( '".generateIdAccount()."' , '".$email."' , '".$username."' , '".$fname."' , '".$password."' , '".$telp."' , '".$gender."' , '".$alamat."' , 'no-profile.jpg' , '".$tglLahir."' )");
                 if ($result) {
                     $error = "Register berhasil";
                 } else {
@@ -106,7 +106,7 @@ if (isset($_REQUEST['register'])) {
         ?>
         <div class="box-register">
 
-            <img src="./asset/logo.jpg" alt="logo callisto" width="250px" height="125px" style="margin-left:240px">
+            <img src="./asset/logo.png" alt="logo callisto" width="250px" height="125px" style="margin-left:240px">
 
 
             <form action="./register.php" method="post">

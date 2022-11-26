@@ -1,5 +1,6 @@
 <?php
 require('helper.php');
+if (!isset($_SESSION['userLogin'])) header('location:login.php');
 
 ?>
 <!DOCTYPE html>
@@ -100,9 +101,44 @@ require('helper.php');
     <div class="container-fluid">
         <h1 style="text-align:center;">Best Seller</h1>
         <!-- php fetch top 5/10? (pakai limit) stok di order by dari kecil ke terbesar -->
+        <?php
+        $select_query2 = "SELECT * FROM product GROUP BY pro_name ORDER BY pro_stock desc LIMIT 5 ";
+        $res2 = mysqli_query($con, $select_query2);
+
+
+        while ($row2 = mysqli_fetch_assoc($res2)) {
+            echo    "<div class='card ms-2' style='width: 18rem; display: flex;'>
+            <img src='img_product/" . $row2['pro_picture'] . "' class='card-img-top' width='150px' height='300px'>
+            <div class='card-body m-auto'>
+                <h5 class='card-title text-center'>" . $row2['pro_name'] . "</h5>
+                <form action='product_confirm.php' method='post'>
+                    <input type='hidden' name='product_name' value='" . $row2['pro_picture'] . "'>
+                    <button type='submit' class='btn btn-primary'>CHOOSE</button>
+                </form>
+            </div>
+        </div>";
+        }
+        ?>
         <h1 style="text-align:center;">Reccomendation Product</h1>
         <!-- php fetch top 5/10? (pakai limit) stok di order by dari besar ke kecil -->
+        <?php
+        $select_query3 = "SELECT * FROM product GROUP BY pro_name ORDER BY pro_stock asc LIMIT 5 ";
+        $res3 = mysqli_query($con, $select_query3);
 
+
+        while ($row3 = mysqli_fetch_assoc($res3)) {
+            echo    "<div class='card ms-2' style='width: 18rem; display: flex;'>
+            <img src='img_product/" . $row3['pro_picture'] . "' class='card-img-top' width='150px' height='300px'>
+            <div class='card-body m-auto'>
+                <h5 class='card-title text-center'>" . $row3['pro_name'] . "</h5>
+                <form action='product_confirm.php' method='post'>
+                    <input type='hidden' name='product_name' value='" . $row3['pro_picture'] . "'>
+                    <button type='submit' class='btn btn-primary'>CHOOSE</button>
+                </form>
+            </div>
+        </div>";
+        }
+        ?>
 
         <h1 style="text-align:center;">ALL Product</h1>
         <!-- php select * from product pakai AJAX -->
