@@ -2,14 +2,14 @@
 require('helper.php');
 if(!isset($_SESSION['userLogin'])) header('location:login.php');
 
-if (isset($_REQUEST['product_name'])) {
-    $name = $_REQUEST['product_name'];
+if (isset($_REQUEST['product'])) {
+    $name = $_REQUEST['product'];
 }
 if (isset($_REQUEST['submit'])) {
     header("location:product_detail.php?size=" . $_REQUEST['size'] . "&name=" . $_REQUEST['nama'] . "");
 }
 
-$curProduct = $_GET['product'];
+$curProduct = $_REQUEST['product'];
 
 ?>
 <!DOCTYPE html>

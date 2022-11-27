@@ -3,7 +3,7 @@ require('helper.php');
 if(!isset($_SESSION['userLogin'])) header('location:login.php');
 
 $size = $_REQUEST['size'];
-$picture = $_REQUEST['name'];
+$name = $_REQUEST['name'];
 $err = "";
 
 ?>
@@ -102,7 +102,7 @@ $err = "";
     <div class="container">
         <?php
 
-        $sql2 = "SELECT * FROM product WHERE pro_picture = '" . $picture . "' AND pro_size = '" . $size . "' ";
+        $sql2 = "SELECT * FROM product WHERE pro_name = '" . $name . "' AND pro_size = '" . $size . "' ";
         $res2 = mysqli_query($con, $sql2);
         $rows2 = mysqli_fetch_assoc($res2);
 

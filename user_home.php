@@ -136,7 +136,7 @@ if (!isset($_SESSION['userLogin'])) header('location:login.php');
             echo "<div class='card-container'>";
             while ($row2 = mysqli_fetch_assoc($res2)) {
                 echo 
-                "<a class='card ms-2' style='width: 20vw; background-color: lightgray; height: fit-content;font-size: 1vw;' id='card' href='product_confirm.php?product=" . $row2['pro_name'] . "'>
+                "<a class='card ms-2' style='width: 20vw; background-color: lightgray; height: fit-content;font-size: 1vw;' id='card' href='product_confirm.php?product=".$row2['pro_name']."'>
                     <img src='img_product/" . $row2['pro_picture'] . "' class='card-img-top'>
                     <div class='card-body m-auto'>
                         <div style='height: 15vh'>

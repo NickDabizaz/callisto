@@ -109,7 +109,7 @@ if(!isset($_SESSION['userLogin'])) header('location:login.php');
 
     <!-- tombol bayar -->
     <form action="user_payment.php" method="post">
-        <div class="btn btn-primary">BAYAR</div>
+        <button type="submit" class="btn btn-primary">BAYAR</button>
     </form>
 
     <!-- MDB -->
