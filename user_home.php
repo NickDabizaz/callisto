@@ -30,7 +30,7 @@ if (!isset($_SESSION['userLogin'])) header('location:login.php');
             margin-bottom: 3vh;
         }
 
-        .best-seller-container{
+        .card-container{
             width: 100%;
             height: fit-content;
             display: flex;
@@ -46,6 +46,11 @@ if (!isset($_SESSION['userLogin'])) header('location:login.php');
             font-size: 1.25vw !important;
             border: 10px sollid gray !important;
             box-shadow: 0px 0px 10px #888888;
+        }
+
+        a{
+            text-decoration: none;
+            color: black !important;
         }
     </style>
 </head>
@@ -128,54 +133,97 @@ if (!isset($_SESSION['userLogin'])) header('location:login.php');
             $select_query2 = "SELECT * FROM product GROUP BY pro_name ORDER BY pro_stock desc LIMIT 5 ";
             $res2 = mysqli_query($con, $select_query2);
             
-            echo "<div class='best-seller-container'>";
+            echo "<div class='card-container'>";
             while ($row2 = mysqli_fetch_assoc($res2)) {
                 echo 
-                "<div class='card ms-2' style='width: 20vw; background-color: lightgray; height: fit-content;font-size: 1vw;' id='card'>
-                <img src='img_product/" . $row2['pro_picture'] . "' class='card-img-top'>
+                "<a class='card ms-2' style='width: 20vw; background-color: lightgray; height: fit-content;font-size: 1vw;' id='card' href='product_confirm.php?product=" . $row2['pro_name'] . "'>
+                    <img src='img_product/" . $row2['pro_picture'] . "' class='card-img-top'>
                     <div class='card-body m-auto'>
-                    <div style='height: 15vh'>
-                    <div class='card-title text-center fw-bolder' style=''>" . $row2['pro_name'] . "</div>
-                        </div>
-                        <div class='m-auto' style='width: fit-content'>
-                            <form action='product_confirm.php' method='post'>
-                            <input type='hidden' name='product_name' value='" . $row2['pro_picture'] . "'>
-                            <button type='submit' class='btn btn-primary'>CHOOSE</button>
-                            </form>
-                            </div>
-                        </div>
-                    </div>
+                        <div style='height: 15vh'>
+                            <div class='card-title text-center fw-bolder' style=''>" . $row2['pro_name'] . "</div>
+                        </div>" .
+                        // <div class='m-auto' style='width: fit-content'>
+                        //     <form action='product_confirm.php' method='post'>
+                        //         <input type='hidden' name='product_name' value='" . $row2['pro_picture'] . "'>
+                        //         <button type='submit' class='btn btn-primary' style='width: 10vw; font-size: 1vw; padding: 0.5vw;'>CHOOSE</button>
+                        //     </form>
+                        // </div>
+                    "</div>
                     <div style='width: 2vh'>
-                    </div>";
-                }
-                echo "</div>";
+                    </div>
+                </a>";
+
+                // echo
+                // "<form action='product_confirm.php' method='post' style='width: 80vw;'>
+                //     <div class='card ms-2' style='width: 100%; background-color: lightgray; height: fit-content;font-size: 1vw;' id='card' >
+                //         <img src='img_product/" . $row2['pro_picture'] . "' class='card-img-top'>
+                //         <div class='card-body m-auto'>
+                //             <div style='height: 15vh'>
+                //                 <div class='card-title text-center fw-bolder' style=''>" . $row2['pro_name'] . "</div>
+                //             </div>
+                //             <div class='m-auto' style='width: fit-content'>
+                //                 <form action='product_confirm.php' method='post'>
+                //                     <input type='hidden' name='product_name' value='" . $row2['pro_picture'] . "'>
+                //                     <button type='submit' class='btn btn-primary'>CHOOSE</button>
+                //                 </form>
+                //             </div>
+                //         </div>
+                //         <div style='width: 2vh'>
+                //         </div>
+                //     </div>
+                // </form>";
+            }
+            echo "</div>";
             ?>
         </div>
 
-        <h1 style="text-align:center;">Reccomendation Product</h1>
-        <!-- php fetch top 5/10? (pakai limit) stok di order by dari besar ke kecil -->
-        <?php
-        $select_query3 = "SELECT * FROM product GROUP BY pro_name ORDER BY pro_stock asc LIMIT 5 ";
-        $res3 = mysqli_query($con, $select_query3);
+        <div style='height: 90vh;'>
+            <h1 style="text-align:center;">Reccomendation Product</h1>
+            <!-- php fetch top 5/10? (pakai limit) stok di order by dari besar ke kecil -->
+            <?php
+            // $select_query3 = "SELECT * FROM product GROUP BY pro_name ORDER BY pro_stock asc LIMIT 5 ";
+            $select_query3 = "SELECT * FROM product GROUP BY pro_name ORDER BY pro_price asc LIMIT 5 ";
+            $res3 = mysqli_query($con, $select_query3);
 
-
-        while ($row3 = mysqli_fetch_assoc($res3)) {
-            echo    "<div class='card ms-2' style='width: 18rem; display: flex;'>
-            <img src='img_product/" . $row3['pro_picture'] . "' class='card-img-top' width='150px' height='300px'>
-            <div class='card-body m-auto'>
-                <h5 class='card-title text-center'>" . $row3['pro_name'] . "</h5>
-                <form action='product_confirm.php' method='post'>
-                    <input type='hidden' name='product_name' value='" . $row3['pro_picture'] . "'>
-                    <button type='submit' class='btn btn-primary'>CHOOSE</button>
-                </form>
-            </div>
-        </div>";
-        }
-        ?>
+            echo "<div class='card-container'>";
+                while ($row3 = mysqli_fetch_assoc($res3)) {
+                    // echo
+                    // "<div class='card ms-2' style='width: 18rem; display: flex;'>
+                    //     <img src='img_product/" . $row3['pro_picture'] . "' class='card-img-top' width='150px' height='300px'>
+                    //     <div class='card-body m-auto'>
+                    //         <h5 class='card-title text-center'>" . $row3['pro_name'] . "</h5>
+                    //         <form action='product_confirm.php' method='post'>
+                    //             <input type='hidden' name='product_name' value='" . $row3['pro_picture'] . "'>
+                    //             <button type='submit' class='btn btn-primary'>CHOOSE</button>
+                    //         </form>
+                    //     </div>
+                    // </div>";
+                    
+                    echo 
+                    "<div class='card ms-2' style='width: 20vw; background-color: lightgray; height: fit-content;font-size: 1vw;' id='card'>
+                        <img src='img_product/" . $row3['pro_picture'] . "' class='card-img-top'>
+                        <div class='card-body m-auto'>
+                            <div style='height: 15vh'>
+                                <div class='card-title text-center fw-bolder' style=''>" . $row3['pro_name'] . "</div>
+                            </div>
+                            <div class='m-auto' style='width: fit-content'>
+                                <form action='product_confirm.php' method='post'>
+                                    <input type='hidden' name='product_name' value='" . $row3['pro_picture'] . "'>
+                                    <button type='submit' class='btn btn-primary'>CHOOSE</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div style='width: 2vh'>
+                        </div>
+                    </div>";
+                }
+            echo "</div>";
+            ?>
+        </div>
 
         <h1 style="text-align:center;">ALL Product</h1>
         <!-- php select * from product pakai AJAX -->
-        <div id="all_product" style="height: auto; width: 100%;display: flex;">
+        <div id="all_product" style="height: auto;">
             <!-- ajax fetch_product -->
         </div>
 

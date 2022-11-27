@@ -9,6 +9,8 @@ if (isset($_REQUEST['submit'])) {
     header("location:product_detail.php?size=" . $_REQUEST['size'] . "&name=" . $_REQUEST['nama'] . "");
 }
 
+$curProduct = $_GET['product'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,6 +28,12 @@ if (isset($_REQUEST['submit'])) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <style>
+        body{
+            background-color: lightgray;
+        }
+    </style>
 </head>
 
 <body>
@@ -104,8 +112,17 @@ if (isset($_REQUEST['submit'])) {
     <!-- template detail product -->
     <div class="container">
 
-        <div class="row">
-            <div class="col-sm"></div>
+        <div class="m-auto" style='width: fit-content'>
+            <div class="col-sm">
+                <?php
+                    $select_query = "SELECT * FROM product WHERE pro_name = '$curProduct' GROUP BY pro_name";
+                    $res = mysqli_query($con, $select_query);
+                    $row = mysqli_fetch_assoc($res);
+                    
+
+                    echo "<img src='img_product/" . $row['pro_picture'] . "' width='300px'>";
+                ?>
+            </div>
             <form>
                 Size : <br>
 
@@ -130,6 +147,7 @@ if (isset($_REQUEST['submit'])) {
                 </div>
                 <br>
                 <input type="hidden" name="nama" value="<?= $name ?>">
+                <button type="submit" class="btn btn-danger mt-2" formaction="./user_home.php">CANCEL</button>
                 <button type="submit" class="btn btn-success mt-2" name="submit">SUBMIT</button>
             </form>
             <div class="col-sm"></div>
