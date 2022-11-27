@@ -146,7 +146,7 @@ $err = "";
             r = new XMLHttpRequest();
             r.onreadystatechange = function() {
                 if ((this.readyState == 4) && (this.status == 200)) {
-                    <?php $err = "BERHASIL TAMBAHKAN KE KERANJANG!" ?>
+                    <?php  ?>
                     qty.value = "1";
                 }
             }

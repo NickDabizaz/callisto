@@ -102,11 +102,15 @@ if(!isset($_SESSION['userLogin'])) header('location:login.php');
         <!-- semua barang di cart -->
         
     </div>
-    <div class="container">
+    <!-- <div class="container">
         <div id="allcart">
-            <!-- ajax fetch cart -->
         </div>
-    </div>
+    </div> -->
+
+    <!-- tombol bayar -->
+    <form action="user_payment.php" method="post">
+        <div class="btn btn-primary">BAYAR</div>
+    </form>
 
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>

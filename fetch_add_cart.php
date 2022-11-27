@@ -14,5 +14,5 @@ $row_user = mysqli_fetch_assoc($res_user);
 $query_insert = "INSERT INTO cart VALUES ('".$row_user['acc_id']."' , '".$product_id."' , '".$qty."')";
 $res = $con->query($query_insert);
 
-
+$err = "BERHASIL TAMBAHKAN KE KERANJANG!";
 ?>
