@@ -99,7 +99,7 @@ if(!isset($_SESSION['userLogin'])) header('location:login.php');
     <!--Main Navigation-->
     
     <div id="semuacart">
-        <!-- semua barang di card -->
+        <!-- semua barang di cart -->
         
     </div>
     <div class="container">
@@ -125,9 +125,23 @@ if(!isset($_SESSION['userLogin'])) header('location:login.php');
                 }
             }
 
-            r.open('GET', 'fetch_cart.php?user='+<?= $_SESSION['userLogin'] ?>);
+            r.open('GET', 'fetch_cart.php');
             r.send();
         }
+
+        function deleteItem(obj){
+            update_id = obj.value;
+			r = new XMLHttpRequest();
+			r.onreadystatechange = function() {
+				if ((this.readyState==4) && (this.status==200)) {
+					fetch_cart();
+				}
+			}
+			
+			r.open('GET', 'delete_cart_item.php?update_id='+update_id);
+            r.send();
+        }
+
     </script>
 </body>
 
