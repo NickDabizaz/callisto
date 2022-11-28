@@ -114,18 +114,13 @@ $err = "";
                 <h5 class="card-title"><?= $rows2['pro_name'];  ?></h5>
                 <p class="card-text">Harga : <?= $rows2['pro_price'];  ?></p>
                 <p class="card-text">Tersedia : <?= $rows2['pro_stock'];  ?></p>
-                <p class="card-text">Size : <?= $rows2['pro_size'];  ?></p>
+                <p class="card-text">Size : <?= strtoupper($rows2['pro_size']);  ?></p>
                 <p class="card-text">Detail : <?= $rows2['pro_detail'];  ?></p>
-                <input type="number" style="width:50px ;" class="mx-auto" min="1" value="1" max="$row['stok']" id="qty"> <br>
+                <input type="number" style="width:50px ;" class="mx-auto" min="1" value="1" max="$row['stok']" id="qty"> <br><br>
+                <div id="successmsg"></div>
                 <button class="btn btn-warning mx-auto" onclick="addCart(this)" value="<?= $rows2['pro_id'] ?>">
                     <li class=" fas fa-shopping-cart"></li> ADD TO CART
-                </button>
-                <div style="color:green ;">
-                    <?php 
-                        if($err != "")
-                            echo $err;
-                    ?>
-                </div>
+                </button>                
             </div>
         </div>
     </div>
@@ -140,13 +135,14 @@ $err = "";
     <script>
         // code ajax
         qty = document.querySelector("#qty");
+        successmsg = document.querySelector("#successmsg");
 
         function addCart(obj) {
             update_id = obj.value;
             r = new XMLHttpRequest();
             r.onreadystatechange = function() {
                 if ((this.readyState == 4) && (this.status == 200)) {
-                    <?php  ?>
+                    successmsg.innerHTML = this.responseText;
                     qty.value = "1";
                 }
             }

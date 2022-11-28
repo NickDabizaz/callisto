@@ -1,7 +1,72 @@
 <?php
 require('helper.php');
+
+function generateIdProduct(){
+    global $con;
+    //cari max dari id
+    $query = "SELECT MAX(pro_id) as 'id' FROM `product`";
+    $res = mysqli_query($con, $query);
+    $row = mysqli_fetch_assoc($res);
+    //ambil id
+    $getId = substr($row['id'],2);
+    //nambah no urut
+    $noUrut = (int) $getId;
+    $noUrut++;
+    $noUrut = str_pad($noUrut,3,"0",STR_PAD_LEFT);
+    //return id dengan no urut naik
+    return "PD" . $noUrut;
+}
+
 if(!isset($_SESSION['userLogin'])) header('location:login.php');
 
+if(isset($_POST['btnRequest'])){
+    $size = $_POST['size'];
+    $detail = $_POST['detail'];
+
+    if($size == ""){
+        $error = "Size Tidak Boleh Kosong";
+    }
+    else{
+        if($detail == ""){
+            $error = "Detail Custom Harus Diisi";
+        }
+        else{
+            $getId = mysqli_query($con, "SELECT * FROM account WHERE acc_user = '".$_SESSION['userLogin']."' ");
+            $rowId = mysqli_fetch_assoc($getId);
+            $customer_id = $rowId['acc_id'];
+
+            $product_id = generateIdProduct();
+
+            if($size == "s"){                
+                $name = "Custom - Size S";
+                $price = 12000000;
+                $img = "kaos-s.jpg";
+            }
+            else if($size == "m"){                
+                $name = "Custom - Size M";
+                $price = 17000000;
+                $img = "kaos-m.jpg";
+            }
+            else if($size == "l"){                
+                $name = "Custom - Size L";
+                $price = 22000000;
+                $img = "kaos-l.jpg";
+            }
+            else if($size == "xl"){                
+                $name = "Custom - Size XL";
+                $price = 27000000;
+                $img = "kaos-xl.jpg";
+            }
+
+            $queryInsert = "INSERT INTO product VALUES ( '".$product_id."' , '".$name."' , '".$price."' , 1, '".$size."' , '".$detail."' , '".$img."' , 1, '".$customer_id."')";
+            $resInsert = mysqli_query($con, $queryInsert);
+
+            $cartInsert = "INSERT INTO cart VALUES ('".$customer_id."' , '".$product_id."' , 1)";
+            $rescartInsert = mysqli_query($con, $cartInsert);
+            if($resInsert) $success = 'Berhasil Custom Produk!';
+        }
+    }        
+}
 
 ?>
 <!DOCTYPE html>
@@ -31,6 +96,12 @@ if(!isset($_SESSION['userLogin'])) header('location:login.php');
             margin: auto;
 
             /* background-color: yellow; */
+        }
+        .error {
+            color: rgb(185, 80, 90);
+        }
+        .success {
+            color: green;
         }
     </style>
 </head>
@@ -112,7 +183,25 @@ if(!isset($_SESSION['userLogin'])) header('location:login.php');
                 <h1 class="text-center">CUSTOM</h1>
                 <div class="row">
                     <div class="col-sm"></div>
-                    <form>
+                    <div class="error">
+                        <?php
+                        if (isset($error)) {
+                            if (strlen($error) > 0) {
+                                echo $error;
+                            }
+                        }
+                        ?>
+                    </div>
+                    <div class="success">
+                        <?php
+                        if (isset($success)) {
+                            if (strlen($success) > 0) {
+                                echo $success;
+                            }
+                        }
+                        ?>
+                    </div>
+                    <form method="post">
                         Size : <br>
                         
                         <div class="form-check form-check-inline mb-2">
@@ -141,8 +230,8 @@ if(!isset($_SESSION['userLogin'])) header('location:login.php');
                         
                         <div class="form-group my-2">
                             <label for="detail">Detail</label>
-                            <input type="text" class="form-control" id="detail" aria-describedby="emailHelp" placeholder="Detail Custom here...">
-                        </div>
+                            <input type="text" class="form-control" id="detail" name="detail" aria-describedby="emailHelp" placeholder="Detail Custom here...">
+                        </div>                        
                         
                         <button type="submit" class="btn btn-success mt-2" name="btnRequest">REQUEST</button>
                     </form>
@@ -160,6 +249,7 @@ if(!isset($_SESSION['userLogin'])) header('location:login.php');
 <script>
     function load_img() {
         sizeimg =  document.getElementById("sizeimg");
+        successmsg = document.querySelector("#successmsg");
 	}
 
     function fetch_size(obj) {	

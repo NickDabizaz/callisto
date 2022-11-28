@@ -1,7 +1,7 @@
 <?php
 require("helper.php");
 
-$select_query = "SELECT * FROM product GROUP BY pro_name ORDER BY pro_id asc";
+$select_query = "SELECT * FROM product WHERE pro_cust_id IS NULL GROUP BY pro_name ORDER BY pro_id asc";
 $res = mysqli_query($con,$select_query);
 
 $ctr = 0;
