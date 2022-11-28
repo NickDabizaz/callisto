@@ -3,36 +3,40 @@ require('helper.php');
 
 $err = "";
 
-function generateIdProduct(){
+function generateIdProduct()
+{
     global $con;
     //cari max dari id
     $query = "SELECT MAX(pro_id) as 'id' FROM `product`";
     $res = mysqli_query($con, $query);
     $row = mysqli_fetch_assoc($res);
     //ambil id
-    $getId = substr($row['id'],2);
-    //nambah no urut
-    $noUrut = (int) $getId;
-    $noUrut++;
-    $noUrut = str_pad($noUrut,3,"0",STR_PAD_LEFT);
-    //return id dengan no urut naik
-    return "PD" . $noUrut;
+    if ($row['id'] == null) {
+        return "DT001";
+    } else {
+        $getId = substr($row['id'], 2);
+        //nambah no urut
+        $noUrut = (int) $getId;
+        $noUrut++;
+        $noUrut = str_pad($noUrut, 3, "0", STR_PAD_LEFT);
+        //return id dengan no urut naik
+        return "PD" . $noUrut;
+    }
 }
 
-if(!isset($_SESSION['userLogin'])){
+if (!isset($_SESSION['userLogin'])) {
     header('location: ./login.php');
-}
-else{
-    if($_SESSION['userLogin'] != "barang"){
+} else {
+    if ($_SESSION['userLogin'] != "barang") {
         header(('location: ./login.php'));
     }
 }
 
 if (isset($_REQUEST['add'])) {
-    $nama = $_REQUEST['nama']; 
-    $size = $_REQUEST['size']; 
-    $harga = $_REQUEST['harga']; 
-    $detail = $_REQUEST['detail']; 
+    $nama = $_REQUEST['nama'];
+    $size = $_REQUEST['size'];
+    $harga = $_REQUEST['harga'];
+    $detail = $_REQUEST['detail'];
 
 
     if (isset($_FILES['image']["name"])) {
@@ -53,16 +57,15 @@ if (isset($_REQUEST['add'])) {
         }
 
         if ($nama != "" && $size != "" && $harga != "" && $file_name != "") {
-            $queryInsert = "INSERT INTO product VALUES ( '".generateIdProduct()."' , '".$nama."' , '".$harga."' , '50' , '".$size."' , '".$detail."' , '" . $_FILES['image']['name'] . "' , 1, NULL)";
-            $resInsert = mysqli_query($con,$queryInsert);
-            if($resInsert) $err = 'Product Berhasil ditambahkan!';
+            $queryInsert = "INSERT INTO product VALUES ( '" . generateIdProduct() . "' , '" . $nama . "' , '" . $harga . "' , '50' , '" . $size . "' , '" . $detail . "' , '" . $_FILES['image']['name'] . "' , 1, NULL)";
+            $resInsert = mysqli_query($con, $queryInsert);
+            if ($resInsert) $err = 'Product Berhasil ditambahkan!';
         } else {
             $err = 'Field Tidak Boleh Kosong!';
         }
-    }else{
+    } else {
         $err = "Semua harus diisi!";
     }
-
 }
 
 ?>
@@ -170,33 +173,33 @@ if (isset($_REQUEST['add'])) {
 
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="size" id="size" value="m">
-                            <label class="form-check-label" for="size">M</label>    
+                            <label class="form-check-label" for="size">M</label>
 
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="size" id="size" value="l">
-                            <label class="form-check-label" for="size">L</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="size" id="size" value="l">
+                                <label class="form-check-label" for="size">L</label>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="size" id="size" value="xl">
+                                <label class="form-check-label" for="size">XL</label>
+                            </div>
                         </div>
 
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="size" id="size" value="xl">
-                            <label class="form-check-label" for="size">XL</label>
+                        <div class="form-group my-2">
+                            <label>Detail Baju</label>
+                            <input type="text" name="detail" class="form-control">
                         </div>
-                    </div>
 
-                    <div class="form-group my-2">
-                        <label>Detail Baju</label>
-                        <input type="text" name="detail" class="form-control">
-                    </div>
+                        <div class="form_group my-2">
+                            <label>Gambar Baju</label>
+                            <input type="file" name="image" id="imageFile" class="form-control" onchange="viewImage()" accept=".jpg, .jpeg, .png">
+                        </div>
 
-                    <div class="form_group my-2">
-                        <label>Gambar Baju</label>
-                        <input type="file" name="image" id="imageFile" class="form-control" onchange="viewImage()" accept=".jpg, .jpeg, .png">
-                    </div>
+                        <img id="uploadedImage" width="200" />
 
-                    <img id="uploadedImage" width="200" />
-
-                    <button type="submit" class="btn btn-primary btn-block mt-2" name="add">Tambah Item</button>
-                    <div style="color:green;"><?= $err; ?></div>
+                        <button type="submit" class="btn btn-primary btn-block mt-2" name="add">Tambah Item</button>
+                        <div style="color:green;"><?= $err; ?></div>
                 </form>
 
             </div>

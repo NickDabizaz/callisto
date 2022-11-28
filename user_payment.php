@@ -241,8 +241,7 @@ require("helper.php");
                 if ((this.readyState == 4) && (this.status == 200)) {}
             }
 
-            r.open('POST', `ajax_bayar.php`);
-            r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            r.open('GET', `ajax_bayar.php`);
             r.send();
         }
     </script>

@@ -4,20 +4,25 @@ require('helper.php');
 $success = "";
 $error = "";
 
-function generateIdAccount(){
+function generateIdAccount()
+{
     global $con;
     //cari max dari id
     $query = "SELECT MAX(acc_id) as 'id' FROM `account`";
     $res = mysqli_query($con, $query);
     $row = mysqli_fetch_assoc($res);
-    //ambil id
-    $getId = substr($row['id'],2);
-    //nambah no urut
-    $noUrut = (int) $getId;
-    $noUrut++;
-    $noUrut = str_pad($noUrut,3,"0",STR_PAD_LEFT);
-    //return id dengan no urut naik
-    return "AC" . $noUrut;
+    if ($row['id'] == null) {
+        return "DT001";
+    } else {
+        //ambil id
+        $getId = substr($row['id'], 2);
+        //nambah no urut
+        $noUrut = (int) $getId;
+        $noUrut++;
+        $noUrut = str_pad($noUrut, 3, "0", STR_PAD_LEFT);
+        //return id dengan no urut naik
+        return "AC" . $noUrut;
+    }
 }
 
 if (isset($_REQUEST['register'])) {
@@ -47,7 +52,7 @@ if (isset($_REQUEST['register'])) {
             }
 
             if ($error == "") {
-                $result = mysqli_query($con, "INSERT INTO `ACCOUNT` VALUES ( '".generateIdAccount()."' , '".$email."' , '".$username."' , '".$fname."' , '".$password."' , '".$telp."' , '".$gender."' , '".$alamat."' , 'no-profile.jpg' , '".$tglLahir."' )");
+                $result = mysqli_query($con, "INSERT INTO `ACCOUNT` VALUES ( '" . generateIdAccount() . "' , '" . $email . "' , '" . $username . "' , '" . $fname . "' , '" . $password . "' , '" . $telp . "' , '" . $gender . "' , '" . $alamat . "' , 'no-profile.jpg' , '" . $tglLahir . "' )");
                 if ($result) {
                     $error = "Register berhasil";
                 } else {
