@@ -31,7 +31,7 @@ while ($row = mysqli_fetch_assoc($res)) {
                 </div>
                 <div class='m-auto' style='width: fit-content'>
                     <form action='product_confirm.php' method='post'>
-                        <input type='hidden' name='product_name' value='" . $row['pro_picture'] . "'>
+                        <input type='hidden' name='product' value='" . $row['pro_name'] . "'>
                         <button type='submit' class='btn btn-primary'>CHOOSE</button>
                     </form>
                 </div>
@@ -54,7 +54,7 @@ while ($row = mysqli_fetch_assoc($res)) {
                     </div>
                     <div class='m-auto' style='width: fit-content'>
                         <form action='product_confirm.php' method='post'>
-                            <input type='hidden' name='product_name' value='" . $row['pro_picture'] . "'>
+                            <input type='hidden' name='product' value='" . $row['pro_name'] . "'>
                             <button type='submit' class='btn btn-primary'>CHOOSE</button>
                         </form>
                     </div>

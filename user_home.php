@@ -207,8 +207,8 @@ if (!isset($_SESSION['userLogin'])) header('location:login.php');
                                 <div class='card-title text-center fw-bolder' style=''>" . $row3['pro_name'] . "</div>
                             </div>
                             <div class='m-auto' style='width: fit-content'>
-                                <form action='product_confirm.php' method='post'>
-                                    <input type='hidden' name='product_name' value='" . $row3['pro_picture'] . "'>
+                                <form action='product_confirm.php' method='get'>
+                                    <input type='hidden' name='product' value='" . $row3['pro_name'] . "'>
                                     <button type='submit' class='btn btn-primary'>CHOOSE</button>
                                 </form>
                             </div>
