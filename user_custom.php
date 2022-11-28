@@ -35,7 +35,7 @@ if(!isset($_SESSION['userLogin'])) header('location:login.php');
     </style>
 </head>
 
-<body>
+<body onload="load_img()">
     <!--Main Navigation-->
     <header>
         <!-- Jumbotron -->
@@ -116,25 +116,28 @@ if(!isset($_SESSION['userLogin'])) header('location:login.php');
                         Size : <br>
                         
                         <div class="form-check form-check-inline mb-2">
-                            <input class="form-check-input" type="radio" name="size" id="size" value="s">
+                            <input onclick="fetch_size(this)" class="form-check-input" type="radio" name="size" id="size" value="s">
                             <label class="form-check-label" for="size">S</label>
                         </div>
                         
                         <div class="form-check form-check-inline my-2">
-                            <input class="form-check-input" type="radio" name="size" id="size" value="m">
-                        <label class="form-check-label" for="size">M</label>
+                            <input onclick="fetch_size(this)" class="form-check-input" type="radio" name="size" id="size" value="m">
+                            <label class="form-check-label" for="size">M</label>
                         </div>
                         
                         <div class="form-check form-check-inline my-2">
-                            <input class="form-check-input" type="radio" name="size" id="size" value="l">
+                            <input onclick="fetch_size(this)" class="form-check-input" type="radio" name="size" id="size" value="l">
                             <label class="form-check-label" for="size">L</label>
                         </div>
                         
                         <div class="form-check form-check-inline my-2">
-                            <input class="form-check-input" type="radio" name="size" id="size" value="xl">
+                            <input onclick="fetch_size(this)" class="form-check-input" type="radio" name="size" id="size" value="xl">
                             <label class="form-check-label" for="size">XL</label>
                         </div>
                         <br>
+
+                        <div id="sizeimg">
+                        </div>
                         
                         <div class="form-group my-2">
                             <label for="detail">Detail</label>
@@ -154,4 +157,23 @@ if(!isset($_SESSION['userLogin'])) header('location:login.php');
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
 </body>
 
+<script>
+    function load_img() {
+        sizeimg =  document.getElementById("sizeimg");
+	}
+
+    function fetch_size(obj) {	
+        sizevalue = obj.value    
+		r = new XMLHttpRequest();
+		r.onreadystatechange = function() {
+			if ((this.readyState==4) && (this.status==200)) {
+				sizeimg.innerHTML = this.responseText;
+			}
+		}
+
+        r.open('POST', `fetch_size.php`);
+		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		r.send(`sizevalue=${sizevalue}`);
+	}    
+</script>
 </html>

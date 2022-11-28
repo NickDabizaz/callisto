@@ -178,7 +178,7 @@ if (!isset($_SESSION['userLogin'])) header('location:login.php');
         </div>
 
         <div style='height: 90vh;'>
-            <h1 style="text-align:center;">Reccomendation Product</h1>
+            <h1 style="text-align:center;">Recomendation Product</h1>
             <!-- php fetch top 5/10? (pakai limit) stok di order by dari besar ke kecil -->
             <?php
             // $select_query3 = "SELECT * FROM product GROUP BY pro_name ORDER BY pro_stock asc LIMIT 5 ";
