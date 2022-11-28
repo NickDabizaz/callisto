@@ -92,9 +92,9 @@ require("helper.php");
 
                             <?php
 
-                                $sql = "SELECT * FROM account WHERE acc_user = '".$_SESSION['userLogin']."' ";
-                                $res = mysqli_query($con, $sql);
-                                $rows = mysqli_fetch_assoc($res);
+                            $sql = "SELECT * FROM account WHERE acc_user = '" . $_SESSION['userLogin'] . "' ";
+                            $res = mysqli_query($con, $sql);
+                            $rows = mysqli_fetch_assoc($res);
 
                             ?>
 
@@ -137,15 +137,15 @@ require("helper.php");
         $select = mysqli_query($con, $select_query);
         while ($row = mysqli_fetch_assoc($select)) { ?>
             <tr>
-                <td><?= $nomer++; ?></td>
+                <td><?= ++$nomer; ?></td>
                 <td><?= $row['nama']; ?></td>
                 <td><?= $row['size']; ?></td>
                 <td><?= $row['qty']; ?></td>
                 <td><?= $row['harga']; ?></td>
                 <td><?= $row['subtotal']; ?></td>
             </tr>
-        <?php 
-        $total += $row['subtotal'];
+        <?php
+            $total += $row['subtotal'];
         }
         ?>
         <tr>
@@ -190,6 +190,16 @@ require("helper.php");
                         text.innerHTML = "Payment Succes!";
                         text.style.color = "green";
                         text.style.visibility = '';
+                        var timeleft = 1;
+                        var downloadTimer = setInterval(function() {
+                            if (timeleft <= 0) {
+                                clearInterval(downloadTimer);
+                                location.reload();
+
+                            }
+                            timeleft -= 1;
+                        }, 1000);
+
                     } else {
                         width++;
                         elem.style.width = width + "%";
@@ -202,12 +212,12 @@ require("helper.php");
                     text.innerHTML = "Proccesing...";
                     text.style.color = "gray";
                 }, blink_speed);
+
             }
 
             //ajax bayar
             konfirmasi();
             bayar();
-
 
         }
 
@@ -219,8 +229,7 @@ require("helper.php");
                 if ((this.readyState == 4) && (this.status == 200)) {}
             }
 
-            r.open('POST', `ajax_confirmasi.php`);
-            r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            r.open('GET', 'ajax_confirmasi.php?total=<?= $total; ?>');
             r.send();
         }
 
