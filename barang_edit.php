@@ -1,5 +1,6 @@
 <?php
 require('helper.php');
+if(!isset($_SESSION['userLogin'])) header('location:login.php');
 
 $err = "";
 

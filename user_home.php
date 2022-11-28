@@ -120,11 +120,10 @@ if (!isset($_SESSION['userLogin'])) header('location:login.php');
             </div>
         </div>
         <!-- Jumbotron -->
-
-
-
     </header>
     <!--Main Navigation-->
+
+    
     <div class="container">
         <div style='height: 90vh;'>
             <h1 style="text-align:center;">Best Seller</h1>

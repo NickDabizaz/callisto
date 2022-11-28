@@ -1,5 +1,7 @@
 <?php
 	require("helper.php");
+if(!isset($_SESSION['userLogin'])) header('location:login.php');
+
     function generatePaymentID(){
         #your code here
 
@@ -9,8 +11,6 @@
    //bikin payment (insert into payment)
         #your code here
 
-    alert('iya bayar!');
+    echo "bayar";
 
-    
-
-?>
+    ?>

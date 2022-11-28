@@ -50,9 +50,114 @@ require("helper.php");
 </head>
 
 <body>
+    <!--Main Navigation-->
+    <header>
+        <!-- Jumbotron -->
+        <div class="p-3 text-center bg-white nav-border">
+            <div class="container mt-4">
+                <div class="row">
+                    <div class="col-md-4 d-flex justify-content-center justify-content-md-start align-items-center">
+                        <ul class="navbar-nav d-flex flex-row">
+                            <li class="nav-item me-3 me-lg-0 mt-4">
+                                <!-- lupa cara biar klik link open new windows -->
+                                <a class="nav-link" href="https://www.facebook.com/Maisonfashion">
+                                    <i class="fab fa-facebook" style="height:50px ; width:50px ;"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item me-3 me-lg-0 ms-2 mt-4">
+                                <a class="nav-link" href="https://www.instagram.com/maisonde_fashion/">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-4">
+                        <a href="user_home.php">
+                            <img src="asset/logo.png" height="70" />
+                        </a>
+                    </div>
+
+                    <div class="col-md-4 d-flex justify-content-center justify-content-md-end align-items-center">
+                        <div class="d-flex">
+                            <!-- Cart -->
+                            <a class="text-reset me-3" href="user_cart.php">
+                                <span><i class="fas fa-shopping-cart"></i></span>
+                                <span class="badge rounded-pill badge-notification bg-danger"></span>
+                            </a>
+                            <a class="text-reset me-3" href="user_custom.php">
+                                <span><i class="fas fa-palette"></i></span>
+                                <span class="badge rounded-pill badge-notification bg-danger"></span>
+                            </a>
+
+                            <?php
+
+                                $sql = "SELECT * FROM account WHERE acc_user = '".$_SESSION['userLogin']."' ";
+                                $res = mysqli_query($con, $sql);
+                                $rows = mysqli_fetch_assoc($res);
+
+                            ?>
+
+                            <!-- User -->
+                            <div class="dropdown">
+                                <a class="text-reset dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                                    <img src="img_profile/<?= $rows['acc_profile'] ?>" class="rounded-circle" height="25" alt="" loading="lazy" />
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                                    <li><a class="dropdown-item" href="user_profile.php">My profile</a></li>
+                                    <li><a class="dropdown-item" href="login.php">Logout</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Jumbotron -->
+    </header>
+    <!--Main Navigation-->
+
     <!-- tabel semua isi cart -->
     <?php //your code here  
+    $nomer = 0;
+    $total = 0;
     ?>
+    <table class="table">
+        <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Size</th>
+            <th>Qty</th>
+            <th>Harga</th>
+            <th>Subtotal</th>
+        </tr>
+
+        <?php
+        $select_query = "SELECT p.pro_name AS 'nama' , p.pro_size AS 'size' , c.qty AS 'qty' , p.pro_price AS 'harga' , (c.qty * p.pro_price) AS 'subtotal' FROM cart c JOIN product p ON c.cart_pro_id = p.pro_id";
+        $select = mysqli_query($con, $select_query);
+        while ($row = mysqli_fetch_assoc($select)) { ?>
+            <tr>
+                <td><?= $nomer++; ?></td>
+                <td><?= $row['nama']; ?></td>
+                <td><?= $row['size']; ?></td>
+                <td><?= $row['qty']; ?></td>
+                <td><?= $row['harga']; ?></td>
+                <td><?= $row['subtotal']; ?></td>
+            </tr>
+        <?php 
+        $total += $row['subtotal'];
+        }
+        ?>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Subtotal : </td>
+            <td><?= $total; ?></td>
+        </tr>
+    </table>
+
     <!-- tombol bayar -->
     <button class="btn btn-primary" onclick="animasi()">BAYAR</button>
     <!-- animasi loading bayar -->
@@ -107,12 +212,11 @@ require("helper.php");
         }
 
         function konfirmasi() {
-                // bikin htrans
+            // bikin htrans
 
             r = new XMLHttpRequest();
             r.onreadystatechange = function() {
-                if ((this.readyState == 4) && (this.status == 200)) {
-                }
+                if ((this.readyState == 4) && (this.status == 200)) {}
             }
 
             r.open('POST', `ajax_confirmasi.php`);
@@ -121,12 +225,11 @@ require("helper.php");
         }
 
         function bayar() {
-                // bikin payment
+            // bikin payment
 
             r = new XMLHttpRequest();
             r.onreadystatechange = function() {
-                if ((this.readyState == 4) && (this.status == 200)) {
-                }
+                if ((this.readyState == 4) && (this.status == 200)) {}
             }
 
             r.open('POST', `ajax_bayar.php`);
