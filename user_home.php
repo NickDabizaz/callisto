@@ -1,6 +1,10 @@
 <?php
 require('helper.php');
 
+if(isset($_REQUEST['logout'])){
+    unset($_SESSION["userLogin"]);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +24,7 @@ require('helper.php');
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <style>
-        body{
+        body {
             background-color: lightgray;
         }
 
@@ -29,7 +33,7 @@ require('helper.php');
             margin-bottom: 3vh;
         }
 
-        .card-container{
+        .card-container {
             width: 100%;
             height: fit-content;
             display: flex;
@@ -38,7 +42,7 @@ require('helper.php');
             /* background-color: pink; */
         }
 
-        #card:hover{
+        #card:hover {
             width: 25vw !important;
 
             /* background-color: black !important; */
@@ -47,7 +51,7 @@ require('helper.php');
             box-shadow: 0px 0px 10px #888888;
         }
 
-        a{
+        a {
             text-decoration: none;
             color: black !important;
         }
@@ -65,12 +69,12 @@ require('helper.php');
                         <ul class="navbar-nav d-flex flex-row">
                             <li class="nav-item me-3 me-lg-0 mt-4">
                                 <!-- lupa cara biar klik link open new windows -->
-                                <a class="nav-link" href="https://www.facebook.com/Maisonfashion">
+                                <a class="nav-link" href="https://www.facebook.com/Maisonfashion" target="_blank">
                                     <i class="fab fa-facebook" style="height:50px ; width:50px ;"></i>
                                 </a>
                             </li>
                             <li class="nav-item me-3 me-lg-0 ms-2 mt-4">
-                                <a class="nav-link" href="https://www.instagram.com/maisonde_fashion/">
+                                <a class="nav-link" href="https://www.instagram.com/maisonde_fashion/" target="_blank">
                                     <i class="fab fa-instagram"></i>
                                 </a>
                             </li>
@@ -95,24 +99,29 @@ require('helper.php');
                                 <span class="badge rounded-pill badge-notification bg-danger"></span>
                             </a>
 
-                            <?php
 
-                            $query = "SELECT * FROM account WHERE acc_user = '" . $_SESSION['userLogin'] . "' ";
-                            $res = mysqli_query($con, $query);
-                            $row = mysqli_fetch_assoc($res);
 
-                            ?>
+                            <?php if (isset($_SESSION['userLogin'])) { ?>
+                                <?php
 
-                            <!-- User -->
-                            <div class="dropdown">
-                                <a class="text-reset dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                                    <img src="img_profile/<?= $row['acc_profile'] ?>" class="rounded-circle" height="25" alt="" loading="lazy" />
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                                    <li><a class="dropdown-item" href="user_profile.php">My profile</a></li>
-                                    <li><a class="dropdown-item" href="login.php">Logout</a></li>
-                                </ul>
-                            </div>
+                                $query = "SELECT * FROM account WHERE acc_user = '" . $_SESSION['userLogin'] . "' ";
+                                $res = mysqli_query($con, $query);
+                                $row = mysqli_fetch_assoc($res);
+
+                                ?>
+                                <!-- User -->
+                                <div class="dropdown">
+                                    <a class="text-reset dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                                        <img src="img_profile/<?= $row['acc_profile'] ?>" class="rounded-circle" height="25" alt="" loading="lazy" />
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                                        <li><a class="dropdown-item" href="user_profile.php">My profile</a></li>
+                                        <li><form method="post"><button type="submit" name="logout" class="dropdown-item">Log out</button></form></li>
+                                    </ul>
+                                </div>
+                            <?php } else { ?>
+                                <a href="login.php"><button class="btn btn-primary">Login</button></a>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -122,7 +131,7 @@ require('helper.php');
     </header>
     <!--Main Navigation-->
 
-    
+
     <div class="container">
         <div style='height: 90vh;'>
             <h1 style="text-align:center;">Best Seller</h1>
@@ -130,22 +139,22 @@ require('helper.php');
             <?php
             $select_query2 = "SELECT * FROM product GROUP BY pro_name ORDER BY pro_stock desc LIMIT 5 ";
             $res2 = mysqli_query($con, $select_query2);
-            
+
             echo "<div class='card-container'>";
             while ($row2 = mysqli_fetch_assoc($res2)) {
-                echo 
-                "<a class='card ms-2' style='width: 20vw; background-color: lightgray; height: fit-content;font-size: 1vw;' id='card' href='product_confirm.php?product=".$row2['pro_name']."'>
+                echo
+                "<a class='card ms-2' style='width: 20vw; background-color: lightgray; height: fit-content;font-size: 1vw;' id='card' href='product_detail.php?product=" . $row2['pro_name'] . "'>
                     <img src='img_product/" . $row2['pro_picture'] . "' class='card-img-top'>
                     <div class='card-body m-auto'>
                         <div style='height: 15vh'>
                             <div class='card-title text-center fw-bolder' style=''>" . $row2['pro_name'] . "</div>
                         </div>" .
-                        // <div class='m-auto' style='width: fit-content'>
-                        //     <form action='product_confirm.php' method='post'>
-                        //         <input type='hidden' name='product_name' value='" . $row2['pro_picture'] . "'>
-                        //         <button type='submit' class='btn btn-primary' style='width: 10vw; font-size: 1vw; padding: 0.5vw;'>CHOOSE</button>
-                        //     </form>
-                        // </div>
+                    // <div class='m-auto' style='width: fit-content'>
+                    //     <form action='product_confirm.php' method='post'>
+                    //         <input type='hidden' name='product_name' value='" . $row2['pro_picture'] . "'>
+                    //         <button type='submit' class='btn btn-primary' style='width: 10vw; font-size: 1vw; padding: 0.5vw;'>CHOOSE</button>
+                    //     </form>
+                    // </div>
                     "</div>
                     <div style='width: 2vh'>
                     </div>
@@ -184,28 +193,28 @@ require('helper.php');
             $res3 = mysqli_query($con, $select_query3);
 
             echo "<div class='card-container'>";
-                while ($row3 = mysqli_fetch_assoc($res3)) {
-                    // echo
-                    // "<div class='card ms-2' style='width: 18rem; display: flex;'>
-                    //     <img src='img_product/" . $row3['pro_picture'] . "' class='card-img-top' width='150px' height='300px'>
-                    //     <div class='card-body m-auto'>
-                    //         <h5 class='card-title text-center'>" . $row3['pro_name'] . "</h5>
-                    //         <form action='product_confirm.php' method='post'>
-                    //             <input type='hidden' name='product_name' value='" . $row3['pro_picture'] . "'>
-                    //             <button type='submit' class='btn btn-primary'>CHOOSE</button>
-                    //         </form>
-                    //     </div>
-                    // </div>";
-                    
-                    echo 
-                    "<div class='card ms-2' style='width: 20vw; background-color: lightgray; height: fit-content;font-size: 1vw;' id='card'>
+            while ($row3 = mysqli_fetch_assoc($res3)) {
+                // echo
+                // "<div class='card ms-2' style='width: 18rem; display: flex;'>
+                //     <img src='img_product/" . $row3['pro_picture'] . "' class='card-img-top' width='150px' height='300px'>
+                //     <div class='card-body m-auto'>
+                //         <h5 class='card-title text-center'>" . $row3['pro_name'] . "</h5>
+                //         <form action='product_confirm.php' method='post'>
+                //             <input type='hidden' name='product_name' value='" . $row3['pro_picture'] . "'>
+                //             <button type='submit' class='btn btn-primary'>CHOOSE</button>
+                //         </form>
+                //     </div>
+                // </div>";
+
+                echo
+                "<div class='card ms-2' style='width: 20vw; background-color: lightgray; height: fit-content;font-size: 1vw;' id='card'>
                         <img src='img_product/" . $row3['pro_picture'] . "' class='card-img-top'>
                         <div class='card-body m-auto'>
                             <div style='height: 15vh'>
                                 <div class='card-title text-center fw-bolder' style=''>" . $row3['pro_name'] . "</div>
                             </div>
                             <div class='m-auto' style='width: fit-content'>
-                                <form action='product_confirm.php' method='get'>
+                                <form action='product_detail.php' method='get'>
                                     <input type='hidden' name='product' value='" . $row3['pro_name'] . "'>
                                     <button type='submit' class='btn btn-primary'>CHOOSE</button>
                                 </form>
@@ -214,7 +223,7 @@ require('helper.php');
                         <div style='width: 2vh'>
                         </div>
                     </div>";
-                }
+            }
             echo "</div>";
             ?>
         </div>

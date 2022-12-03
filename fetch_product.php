@@ -30,7 +30,7 @@ while ($row = mysqli_fetch_assoc($res)) {
                     <div class='card-title text-center fw-bolder' style=''>" . $row['pro_name'] . "</div>
                 </div>
                 <div class='m-auto' style='width: fit-content'>
-                    <form action='product_confirm.php' method='get'>
+                    <form action='product_detail.php' method='get'>
                         <input type='hidden' name='product' value='" . $row['pro_name'] . "'>
                         <button type='submit' class='btn btn-primary'>CHOOSE</button>
                     </form>

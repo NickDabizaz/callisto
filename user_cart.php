@@ -1,6 +1,8 @@
 <?php
 require('helper.php');
-
+if (isset($_REQUEST['logout'])) {
+    unset($_SESSION["userLogin"]);
+}
 
 ?>
 <!DOCTYPE html>
@@ -19,7 +21,7 @@ require('helper.php');
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
 
     <style>
-        .nav-border{
+        .nav-border {
             border: 1px solid gray;
             margin-bottom: 3vh;
         }
@@ -30,7 +32,7 @@ require('helper.php');
     <!--Main Navigation-->
     <header>
         <!-- Jumbotron -->
-        <div class="p-3 text-center bg-white nav-border">
+        <div class="p-3 text-center bg-white nav-border" style="background-color: lightgray !important;">
             <div class="container mt-4">
                 <div class="row">
                     <div class="col-md-4 d-flex justify-content-center justify-content-md-start align-items-center">
@@ -67,40 +69,48 @@ require('helper.php');
                                 <span class="badge rounded-pill badge-notification bg-danger"></span>
                             </a>
 
-                            <?php
 
-                                $sql = "SELECT * FROM account WHERE acc_user = '".$_SESSION['userLogin']."' ";
-                                $res = mysqli_query($con, $sql);
-                                $rows = mysqli_fetch_assoc($res);
 
-                            ?>
+                            <?php if (isset($_SESSION['userLogin'])) { ?>
+                                <?php
 
-                            <!-- User -->
-                            <div class="dropdown">
-                                <a class="text-reset dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                                    <img src="img_profile/<?= $rows['acc_profile'] ?>" class="rounded-circle" height="25" alt="" loading="lazy" />
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                                    <li><a class="dropdown-item" href="user_profile.php">My profile</a></li>
-                                    <li><a class="dropdown-item" href="login.php">Logout</a></li>
-                                </ul>
-                            </div>
+                                $query = "SELECT * FROM account WHERE acc_user = '" . $_SESSION['userLogin'] . "' ";
+                                $res = mysqli_query($con, $query);
+                                $row = mysqli_fetch_assoc($res);
+
+                                ?>
+                                <!-- User -->
+                                <div class="dropdown">
+                                    <a class="text-reset dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                                        <img src="img_profile/<?= $row['acc_profile'] ?>" class="rounded-circle" height="25" alt="" loading="lazy" />
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                                        <li><a class="dropdown-item" href="user_profile.php">My profile</a></li>
+                                        <li>
+                                            <form method="post"><button type="submit" name="logout" class="dropdown-item">Log out</button></form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            <?php } else { ?>
+                                <a href="login.php"><button class="btn btn-primary">Login</button></a>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Jumbotron -->
-
-
-
     </header>
     <!--Main Navigation-->
-    
-    <div id="semuacart">
-        <!-- semua barang di cart -->
-        
-    </div>
+
+    <?php if (isset($_SESSION['userLogin'])) { ?>
+        <div id="semuacart">
+            <!-- semua barang di cart -->
+
+        </div>
+    <?php } else { ?>
+        <span style='color:red;'>Login terlebih dahulu untuk bisa melihat isi cart anda!</span>
+    <?php } ?>
     <!-- <div class="container">
         <div id="allcart">
         </div>
@@ -132,19 +142,18 @@ require('helper.php');
             r.send();
         }
 
-        function deleteItem(obj){
+        function deleteItem(obj) {
             delete_id = obj.value;
-			r = new XMLHttpRequest();
-			r.onreadystatechange = function() {
-				if ((this.readyState==4) && (this.status==200)) {
-					fetch_cart();
-				}
-			}
-			
-			r.open('GET', 'delete_cart_item.php?delete_id='+delete_id);
+            r = new XMLHttpRequest();
+            r.onreadystatechange = function() {
+                if ((this.readyState == 4) && (this.status == 200)) {
+                    fetch_cart();
+                }
+            }
+
+            r.open('GET', 'delete_cart_item.php?delete_id=' + delete_id);
             r.send();
         }
-
     </script>
 </body>
 
