@@ -257,7 +257,7 @@ if (isset($_REQUEST['cancel'])) {
             while ($row = mysqli_fetch_assoc($res)) { ?>
                 <tr>
                     <td><?= $row['invoice'] ?></td>
-                    <td><?= $row['total'] ?></td>
+                    <td><?= rupiah($row['total']) ?></td>
                     <td><?= $row['status'] ?></td>
                     <?php if ($row['status'] == 'pending') { ?>
                         <td>
