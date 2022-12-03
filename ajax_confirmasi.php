@@ -44,7 +44,7 @@
     $row_acc = mysqli_fetch_assoc($res_acc);
 
     $invoice = generateInvoice();
-    $insert = "INSERT INTO h_trans VALUES ( '".$invoice."' , '".date("d-m-Y")."' , '".$total."' , '".$row_acc['acc_id']."' )";
+    $insert = "INSERT INTO h_trans VALUES ( '".$invoice."' , '".date("d-m-Y")."' , '".$total."' , '".$row_acc['acc_id']."' , 'pending' )";
     $res_insert = mysqli_query($con,$insert);
 
     //pindah semua isi cart ke dtrans (insert into dtrans)

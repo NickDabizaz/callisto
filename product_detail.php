@@ -118,30 +118,29 @@ $err = "";
             <div class="card mx-auto" style="width: 30rem;">
                 <img src="img_product/<?= $rows2['pro_picture'] ?>" class='card-img-top' width='150px' height='300px'>
                 <div class="card-body mx-auto">
-                    <h5 class="card-title" id="nama"><?= $rows2['pro_name'];  ?></h5>
-                    <p class="card-text">Harga : <?= $rows2['pro_price'];  ?></p>
+                    <h5 class="card-title"><?= $rows2['pro_name'];  ?></h5>
                     <p class="card-text" id="harga"></p>
                     <p class="card-text">Tersedia : <?= $rows2['pro_stock'];  ?></p>
 
                     Size : <br>
 
                     <div class="form-check form-check-inline mb-2">
-                        <input class="form-check-input" type="radio" name="size" id="size" value="s" checked>
+                        <input class="form-check-input" type="radio" name="size" id="size" value="s" onchange="update_size()" checked>
                         <label class="form-check-label" for="size">S</label>
                     </div>
 
                     <div class="form-check form-check-inline my-2">
-                        <input class="form-check-input" type="radio" name="size" id="size" value="m">
+                        <input class="form-check-input" type="radio" name="size" id="size" value="m" onchange="update_size()">
                         <label class="form-check-label" for="size">M</label>
                     </div>
 
                     <div class="form-check form-check-inline my-2">
-                        <input class="form-check-input" type="radio" name="size" id="size" value="l">
+                        <input class="form-check-input" type="radio" name="size" id="size" value="l" onchange="update_size()">
                         <label class="form-check-label" for="size">L</label>
                     </div>
 
                     <div class="form-check form-check-inline my-2">
-                        <input class="form-check-input" type="radio" name="size" id="size" value="xl">
+                        <input class="form-check-input" type="radio" name="size" id="size" value="xl" onchange="update_size()">
                         <label class="form-check-label" for="size">XL</label>
                     </div>
                     <br>
@@ -173,7 +172,6 @@ $err = "";
             detailprodcut = document.getElementById("detailprodcut");
             qty = document.querySelector("#qty");
             harga = document.querySelector("#harga");
-            name = document.querySelector("#nama");
             successmsg = document.querySelector("#successmsg");
             fetch_harga_product();
         }
@@ -193,7 +191,26 @@ $err = "";
                 }
             }
 
-            r.open('GET', 'fetch_harga_product.php?name='+ name + '&size=' + size);
+            r.open('GET', 'fetch_harga_product.php?name='+ '<?= $name; ?>' + '&size=' + size);
+            r.send();
+        }
+
+        function update_size(){
+            const sizes = document.querySelectorAll('input[name="size"]');
+            var size;
+            for (const s of sizes) {
+                if (s.checked) {
+                    size = s.value;
+                }
+            }
+            r = new XMLHttpRequest();
+            r.onreadystatechange = function() {
+                if ((this.readyState == 4) && (this.status == 200)) {
+                    fetch_harga_product();
+                }
+            }
+
+            r.open('GET', 'fetch_harga_product.php?name='+ '<?= $name; ?>' + '&size=' + size);
             r.send();
         }
 

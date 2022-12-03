@@ -3,24 +3,21 @@ require('helper.php');
 
 $err = "";
 
-if(!isset($_SESSION['userLogin'])){
+if (!isset($_SESSION['userLogin'])) {
     header('location: ./login.php');
-}
-else{
-    if($_SESSION['userLogin'] != "barang"){
+} else {
+    if ($_SESSION['userLogin'] != "barang") {
         header(('location: ./login.php'));
-    }
-    else{
-        if(!isset($_SESSION['idproduk'])){
+    } else {
+        if (!isset($_SESSION['idproduk'])) {
             header('location: ./barang_home.php');
-        }
-        else{
+        } else {
             $id = $_SESSION['idproduk'];
         }
     }
 }
 
-if(isset($_POST['back'])){
+if (isset($_POST['back'])) {
     header('location: ./barang_home.php');
 }
 
@@ -43,8 +40,7 @@ if (isset($_FILES["image"]["name"])) {
         document.location.href = './barang_edit.php';
         </script>
         ";
-    } 
-    elseif ($imageSize > 1200000) {
+    } elseif ($imageSize > 1200000) {
         echo
         "
         <script>
@@ -52,8 +48,7 @@ if (isset($_FILES["image"]["name"])) {
         document.location.href = './barang_edit.php';
         </script>
         ";
-    } 
-    else {
+    } else {
         $query2 = "UPDATE product SET pro_picture = '" . $_FILES["image"]["name"] . "' WHERE pro_id = '" . $id . "'";
         mysqli_query($con, $query2);
         move_uploaded_file($tmpName, 'img_product/' . $_FILES["image"]["name"]);
@@ -66,22 +61,21 @@ if (isset($_FILES["image"]["name"])) {
     }
 }
 
-if(isset($_POST['edit'])){    
+if (isset($_POST['edit'])) {
     $price = $_POST['price'];
     $stock = $_POST['stock'];
     $detail = $_POST['detail'];
 
-    if($price == ""){
-        $err = "Price tidak boleh kosong";        
-    }
-    else{
-        if(strpos($detail, "'") !== false){
+    if ($price == "") {
+        $err = "Price tidak boleh kosong";
+    } else {
+        if (strpos($detail, "'") !== false) {
             $modify = str_split($detail);
-            for($i = 0; $i < count($modify); $i++){
-                if($modify[$i] == "'"){
+            for ($i = 0; $i < count($modify); $i++) {
+                if ($modify[$i] == "'") {
                     $modify[$i] = "\'";
-                } 
-            }                       
+                }
+            }
 
             $detail = join("", $modify);
         }
@@ -110,14 +104,13 @@ if(isset($_POST['edit'])){
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <style>
-        
-        a{
+        a {
             text-decoration: none;
             color: black;
             font-size: 14pt;
         }
 
-        a:hover{
+        a:hover {
             font-weight: bold;
             color: black;
         }
@@ -147,7 +140,7 @@ if(isset($_POST['edit'])){
             cursor: pointer;
         }
 
-        .nav-border{
+        .nav-border {
             border: 1px solid gray;
             margin-bottom: 3vh;
         }
@@ -156,7 +149,7 @@ if(isset($_POST['edit'])){
 
 <body>
     <header>
-        <div class="p-3 text-center bg-white nav-border">        
+        <div class="p-3 text-center bg-white nav-border">
             <div class="container mt-4">
                 <div class="row">
                     <div class="col-md-4 d-flex justify-content-center justify-content-md-start align-items-center">
@@ -166,6 +159,9 @@ if(isset($_POST['edit'])){
                             </li>
                             <li class="nav-item mx-3">
                                 <a href="barang_insert.php">Insert</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="barang_admin.php">Admin</a>
                             </li>
                         </ul>
                     </div>
@@ -178,62 +174,63 @@ if(isset($_POST['edit'])){
 
                     <div class="col-md-4 d-flex justify-content-center justify-content-md-end align-items-center">
                         <div class="d-flex">
-                            <a href="login.php">Logout</a>
+                            <a href="user_home.php">Logout</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-    <h1 class="text-center">EDIT BARANG</h1>    
+    <h1 class="text-center">EDIT BARANG</h1>
     <?php
     $query = "SELECT * FROM product WHERE pro_id='" . $id . "'";
     $result = mysqli_query($con, $query);
     $row = mysqli_fetch_assoc($result);
     ?>
 
-    <div class="card mx-auto" style="width: 30rem;">        
-            <form method="post" class="form" id="form" enctype="multipart/form-data">
-                <img src="./img_product/<?php echo $row['pro_picture']; ?>" class="card-img-top" width="150px" height="550px" title="<?php echo $row['pro_picture']; ?>">
-                <!-- gnti profile -->
-                <div class="round">
-                    <input type="hidden" name="id" value="<?php echo $row['pro_id']; ?>">
-                    <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png">
-                    <i class="fa fa-camera" style="color: #fff;"></i>
-                </div>
-            </form>
-            <form method="post">          
+    <div class="card mx-auto" style="width: 30rem;">
+        <form method="post" class="form" id="form" enctype="multipart/form-data">
+            <img src="./img_product/<?php echo $row['pro_picture']; ?>" class="card-img-top" width="150px" height="550px" title="<?php echo $row['pro_picture']; ?>">
+            <!-- gnti profile -->
+            <div class="round">
+                <input type="hidden" name="id" value="<?php echo $row['pro_id']; ?>">
+                <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png">
+                <i class="fa fa-camera" style="color: #fff;"></i>
+            </div>
+        </form>
+        <form method="post">
             <div class="card-body mx-auto">
-                <?php 
-                if($err != ""){
-                    echo "<div style='color:green;'>".$err."</div>";
-                } 
+                <?php
+                if ($err != "") {
+                    echo "<div style='color:green;'>" . $err . "</div>";
+                }
                 ?>
                 <h5><?= $row['pro_name'] ?></h5>
                 <p style="font-weight: 500;">Size : <?= $row['pro_size'] ?></p>
                 <div class="form-floating mb-3">
                     Product Price : (In Rupiah) <br>
-                    <input type="text" class="form-control" id="price" name="price" value="<?= $row['pro_price'] ?>" style="height: 35px;">                
+                    <input type="text" class="form-control" id="price" name="price" value="<?= $row['pro_price'] ?>" style="height: 35px;">
                 </div>
                 <div class="form-floating mb-3">
                     Product Stock : <br>
-                    <input type="number" class="form-control" min="0" id="stock" name="stock" value="<?= $row['pro_stock'] ?>" style="height: 35px;">                
-                </div>                
+                    <input type="number" class="form-control" min="0" id="stock" name="stock" value="<?= $row['pro_stock'] ?>" style="height: 35px;">
+                </div>
                 <div class="form-floating mb-3">
                     Product Detail : <br>
-                    <input type="text" class="form-control" id="detail" name="detail" value="<?= $row['pro_detail'] ?>" style="height: 35px;">                
-                </div>            
+                    <input type="text" class="form-control" id="detail" name="detail" value="<?= $row['pro_detail'] ?>" style="height: 35px;">
+                </div>
                 <button type="submit" name="edit" class="btn btn-primary">Edit Product</button>
                 <button type="submit" name="back" class="btn btn-primary">Back</button>
             </div>
         </form>
     </div>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
-<script type="text/javascript">
-    document.getElementById("image").onchange = function() {
-        document.getElementById("form").submit();
-    };
-</script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
+    <script type="text/javascript">
+        document.getElementById("image").onchange = function() {
+            document.getElementById("form").submit();
+        };
+    </script>
 </body>
+
 </html>

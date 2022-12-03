@@ -24,13 +24,6 @@ function generateIdProduct()
     }
 }
 
-if (!isset($_SESSION['userLogin'])) {
-    header('location: ./login.php');
-} else {
-    if ($_SESSION['userLogin'] != "barang") {
-        header(('location: ./login.php'));
-    }
-}
 
 if (isset($_REQUEST['add'])) {
     $nama = $_REQUEST['nama'];
@@ -126,6 +119,9 @@ if (isset($_REQUEST['add'])) {
                             <li class="nav-item mx-3">
                                 <a href="barang_insert.php">Insert</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="barang_admin.php">Admin</a>
+                            </li>
                         </ul>
                     </div>
 
@@ -137,7 +133,7 @@ if (isset($_REQUEST['add'])) {
 
                     <div class="col-md-4 d-flex justify-content-center justify-content-md-end align-items-center">
                         <div class="d-flex">
-                            <a href="login.php">Logout</a>
+                            <a href="user_home.php">Logout</a>
                         </div>
                     </div>
                 </div>

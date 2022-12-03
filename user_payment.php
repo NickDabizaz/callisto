@@ -167,68 +167,23 @@ if(isset($_REQUEST['logout'])){
     </table>
 
     <!-- tombol bayar -->
-    <button class="btn btn-primary" onclick="animasi()">BAYAR</button>
+    <button class="btn btn-primary" id="btn-bayar" onclick="pembayaran()">BAYAR</button>
     <!-- animasi loading bayar -->
-    <div class="kotak" id="kotak">
-        <div id="text">Processing...</div>
-        <div id="myProgress">
-            <div id="myBar">1%</div>
-        </div>
+    <div class="msg" id="msg">
+        
     </div>
     <script>
-        var i = 0;
-        var elem = document.getElementById("myBar");
-        var text = document.getElementById("text");
-        var kotak = document.getElementById("kotak");
 
-        // animasi
-        function animasi() {
-            //animasi
-            if (i == 0) {
-                i = 1;
-                kotak.style.display = 'block';
-                var width = 1;
-                var id = setInterval(frame, 40);
-
-                function frame() {
-                    if (width >= 100) {
-                        clearInterval(id);
-                        clearInterval(t);
-                        i = 0;
-                        text.innerHTML = "Payment Succes!";
-                        text.style.color = "green";
-                        text.style.visibility = '';
-                        var timeleft = 1;
-                        var downloadTimer = setInterval(function() {
-                            if (timeleft <= 0) {
-                                clearInterval(downloadTimer);
-                                location.reload();
-
-                            }
-                            timeleft -= 1;
-                        }, 1000);
-
-                    } else {
-                        width++;
-                        elem.style.width = width + "%";
-                        elem.innerHTML = width + "%";
-                    }
-                }
-                var blink_speed = 200; // every 1000 == 1 second, adjust to suit
-                var t = setInterval(function() {
-                    text.style.visibility = (text.style.visibility == 'hidden' ? '' : 'hidden');
-                    text.innerHTML = "Proccesing...";
-                    text.style.color = "gray";
-                }, blink_speed);
-
-            }
-
+        function pembayaran() {
+            
+            msg = document.querySelector("#msg");
+            msg.innerHTML = "Berhasil Bayar!";
             //ajax bayar
             konfirmasi();
             bayar();
-
+            btn = document.querySelector("#btn-bayar");
+            btn.style.display = "none";
         }
-
         function konfirmasi() {
             // bikin htrans
 

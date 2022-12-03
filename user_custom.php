@@ -1,73 +1,69 @@
 <?php
 require('helper.php');
 
-function generateIdProduct(){
+function generateIdProduct()
+{
     global $con;
     //cari max dari id
     $query = "SELECT MAX(pro_id) as 'id' FROM `product`";
     $res = mysqli_query($con, $query);
     $row = mysqli_fetch_assoc($res);
     //ambil id
-    $getId = substr($row['id'],2);
+    $getId = substr($row['id'], 2);
     //nambah no urut
     $noUrut = (int) $getId;
     $noUrut++;
-    $noUrut = str_pad($noUrut,3,"0",STR_PAD_LEFT);
+    $noUrut = str_pad($noUrut, 3, "0", STR_PAD_LEFT);
     //return id dengan no urut naik
     return "PD" . $noUrut;
 }
 
-if(isset($_REQUEST['logout'])){
+if (isset($_REQUEST['logout'])) {
     unset($_SESSION["userLogin"]);
 }
 
-if(isset($_POST['btnRequest'])){
+if (isset($_POST['btnRequest'])) {
     $size = $_POST['size'];
     $detail = $_POST['detail'];
 
-    if($size == ""){
+    if ($size == "") {
         $error = "Size Tidak Boleh Kosong";
-    }
-    else{
-        if($detail == ""){
+    } else {
+        if ($detail == "") {
             $error = "Detail Custom Harus Diisi";
-        }
-        else{
-            $getId = mysqli_query($con, "SELECT * FROM account WHERE acc_user = '".$_SESSION['userLogin']."' ");
+        } else {
+            $getId = mysqli_query($con, "SELECT * FROM account WHERE acc_user = '" . $_SESSION['userLogin'] . "' ");
             $rowId = mysqli_fetch_assoc($getId);
             $customer_id = $rowId['acc_id'];
 
             $product_id = generateIdProduct();
 
-            if($size == "s"){                
+            if ($size == "s") {
                 $name = "Custom - Size S";
                 $price = 12000000;
                 $img = "kaos-s.jpg";
-            }
-            else if($size == "m"){                
+            } else if ($size == "m") {
                 $name = "Custom - Size M";
                 $price = 17000000;
                 $img = "kaos-m.jpg";
-            }
-            else if($size == "l"){                
+            } else if ($size == "l") {
                 $name = "Custom - Size L";
                 $price = 22000000;
                 $img = "kaos-l.jpg";
-            }
-            else if($size == "xl"){                
+            } else if ($size == "xl") {
                 $name = "Custom - Size XL";
                 $price = 27000000;
                 $img = "kaos-xl.jpg";
             }
 
-            $queryInsert = "INSERT INTO product VALUES ( '".$product_id."' , '".$name."' , '".$price."' , 1, '".$size."' , '".$detail."' , '".$img."' , 1, '".$customer_id."')";
+            $queryInsert = "INSERT INTO product VALUES ( '" . $product_id . "' , '" . $name . "' , '" . $price . "' , 1, '" . $size . "' , '" . $detail . "' , '" . $img . "' , 1, '" . $customer_id . "')";
             $resInsert = mysqli_query($con, $queryInsert);
 
-            $cartInsert = "INSERT INTO cart VALUES ('".$customer_id."' , '".$product_id."' , 1)";
+            $cartInsert = "INSERT INTO cart VALUES ('" . $customer_id . "' , '" . $product_id . "' , 1)";
             $rescartInsert = mysqli_query($con, $cartInsert);
-            if($resInsert) $success = 'Berhasil Custom Produk!';
+            if ($resInsert) $success = 'Berhasil Custom Produk!';
         }
-    }        
+    }
 }
 
 ?>
@@ -87,21 +83,23 @@ if(isset($_POST['btnRequest'])){
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
 
     <style>
-        .nav-border{
+        .nav-border {
             border: 1px solid gray;
             margin-bottom: 3vh;
         }
 
-        .custom-container{
+        .custom-container {
             width: 40vw;
             padding: 2vh;
             margin: auto;
 
             /* background-color: yellow; */
         }
+
         .error {
             color: rgb(185, 80, 90);
         }
+
         .success {
             color: green;
         }
@@ -166,7 +164,9 @@ if(isset($_POST['btnRequest'])){
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                                         <li><a class="dropdown-item" href="user_profile.php">My profile</a></li>
-                                        <li><form method="post"><button type="submit" name="logout" class="dropdown-item">Log out</button></form></li>
+                                        <li>
+                                            <form method="post"><button type="submit" name="logout" class="dropdown-item">Log out</button></form>
+                                        </li>
                                     </ul>
                                 </div>
                             <?php } else { ?>
@@ -181,7 +181,7 @@ if(isset($_POST['btnRequest'])){
     </header>
     <!--Main Navigation-->
 
-
+    <?php if (isset($_SESSION['userLogin'])) { ?>
         <div class="container">
             <div class="custom-container">
 
@@ -208,22 +208,22 @@ if(isset($_POST['btnRequest'])){
                     </div>
                     <form method="post">
                         Size : <br>
-                        
+
                         <div class="form-check form-check-inline mb-2">
                             <input onclick="fetch_size(this)" class="form-check-input" type="radio" name="size" id="size" value="s">
                             <label class="form-check-label" for="size">S</label>
                         </div>
-                        
+
                         <div class="form-check form-check-inline my-2">
                             <input onclick="fetch_size(this)" class="form-check-input" type="radio" name="size" id="size" value="m">
                             <label class="form-check-label" for="size">M</label>
                         </div>
-                        
+
                         <div class="form-check form-check-inline my-2">
                             <input onclick="fetch_size(this)" class="form-check-input" type="radio" name="size" id="size" value="l">
                             <label class="form-check-label" for="size">L</label>
                         </div>
-                        
+
                         <div class="form-check form-check-inline my-2">
                             <input onclick="fetch_size(this)" class="form-check-input" type="radio" name="size" id="size" value="xl">
                             <label class="form-check-label" for="size">XL</label>
@@ -232,20 +232,24 @@ if(isset($_POST['btnRequest'])){
 
                         <div id="sizeimg">
                         </div>
-                        
+
                         <div class="form-group my-2">
                             <label for="detail">Detail</label>
                             <input type="text" class="form-control" id="detail" name="detail" aria-describedby="emailHelp" placeholder="Detail Custom here...">
-                        </div>                        
-                        
+                        </div>
+
                         <button type="submit" class="btn btn-success mt-2" name="btnRequest">REQUEST</button>
                     </form>
                     <div class="col-sm"></div>
                 </div>
             </div>
         </div>
-        
-        
+    <?php } else { ?>
+        <span style='color:red;'>Login terlebih dahulu untuk bisa request custom!</span>
+    <?php } ?>
+
+
+
 
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
@@ -253,22 +257,23 @@ if(isset($_POST['btnRequest'])){
 
 <script>
     function load_img() {
-        sizeimg =  document.getElementById("sizeimg");
+        sizeimg = document.getElementById("sizeimg");
         successmsg = document.querySelector("#successmsg");
-	}
+    }
 
-    function fetch_size(obj) {	
-        sizevalue = obj.value    
-		r = new XMLHttpRequest();
-		r.onreadystatechange = function() {
-			if ((this.readyState==4) && (this.status==200)) {
-				sizeimg.innerHTML = this.responseText;
-			}
-		}
+    function fetch_size(obj) {
+        sizevalue = obj.value
+        r = new XMLHttpRequest();
+        r.onreadystatechange = function() {
+            if ((this.readyState == 4) && (this.status == 200)) {
+                sizeimg.innerHTML = this.responseText;
+            }
+        }
 
         r.open('POST', `fetch_size.php`);
-		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		r.send(`sizevalue=${sizevalue}`);
-	}    
+        r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        r.send(`sizevalue=${sizevalue}`);
+    }
 </script>
+
 </html>

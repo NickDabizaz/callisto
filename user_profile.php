@@ -1,7 +1,13 @@
 <?php
 require('helper.php');
-if(isset($_REQUEST['logout'])){
+if (isset($_REQUEST['logout'])) {
     unset($_SESSION["userLogin"]);
+}
+
+if (isset($_REQUEST['cancel'])) {
+    $invoice = $_REQUEST['invoice'];
+    $updatequery = "update h_trans set ht_status = 'cancel' where ht_invoice = '" . $invoice . "'";
+    mysqli_query($con, $updatequery);
 }
 
 ?>
@@ -116,7 +122,9 @@ if(isset($_REQUEST['logout'])){
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                                         <li><a class="dropdown-item" href="user_profile.php">My profile</a></li>
-                                        <li><form method="post"><button type="submit" name="logout" class="dropdown-item">Log out</button></form></li>
+                                        <li>
+                                            <form method="post"><button type="submit" name="logout" class="dropdown-item">Log out</button></form>
+                                        </li>
                                     </ul>
                                 </div>
                             <?php } else { ?>
@@ -235,6 +243,38 @@ if(isset($_REQUEST['logout'])){
                 </div>
             </div>
         </div>
+
+        <table class="table">
+            <tr>
+                <td>Invoice</td>
+                <td>Total</td>
+                <td>Status</td>
+                <td>Action</td>
+            </tr>
+            <?php
+            $query = "SELECT ht.ht_invoice 'invoice' , ht.ht_total 'total' , ht.ht_status 'status' FROM h_trans ht JOIN `account` acc ON acc.acc_id = ht.ht_customer_id WHERE acc.acc_user ='".$_SESSION['userLogin']."'";
+            $res = mysqli_query($con, $query);
+            while ($row = mysqli_fetch_assoc($res)) { ?>
+                <tr>
+                    <td><?= $row['invoice'] ?></td>
+                    <td><?= $row['total'] ?></td>
+                    <td><?= $row['status'] ?></td>
+                    <?php if ($row['status'] == 'pending') { ?>
+                        <td>
+                            <form method="post">
+                                <input type="hidden" name="invoice" value="<?= $row['invoice'] ?>">
+                                <button type="submit" name="cancel" class="btn btn-danger">Cancel</button>
+                            </form>
+                        </td>
+                    <?php } else { ?>
+                        <td></td>
+                    <?php } ?>
+
+                </tr>
+            <?php } ?>
+        </table>
+
+
     </div>
     <!--Main Navigation-->
 

@@ -7,7 +7,6 @@ if (isset($_REQUEST["login"])) {
     $username = $_REQUEST['username'];
     $password = $_REQUEST['password'];
     if($username == "admin" && $password == "admin")
-        $_SESSION["userLogin"] = "admin";
         header('location:barang_home.php');
     if ($username == "" || $password == ""){
         $error = "Ada isian kosong!";

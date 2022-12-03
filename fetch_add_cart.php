@@ -25,7 +25,7 @@ if($row_cart != NULL){
     $qtynow = $row_cart['qty'];
     $qtynow += $qty;
 
-    $query_update = "UPDATE cart set qty = '".$qtynow."' where cart_customer_id = '".$row_user['acc_id']."' AND '".$product_id."' = cart_pro_id";
+    $query_update = "UPDATE cart set qty = '".$qtynow."' where cart_customer_id = '".$row_user['acc_id']."' AND '".$row_product['pro_id']."' = cart_pro_id";
     mysqli_query($con, $query_update);
 }
 else{

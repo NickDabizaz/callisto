@@ -1,13 +1,17 @@
 <?php
 require('helper.php');
 
-unset($_SESSION["idproduk"]);
 
+if (isset($_REQUEST['confirm'])) {
+    $invoice = $_REQUEST['invoice'];
+    $updatequery = "update h_trans set ht_status = 'success' where ht_invoice = '" . $invoice . "'";
+    mysqli_query($con, $updatequery);
+}
 
-if(isset($_POST['edit'])){
-    $id = $_POST['id'];
-    $_SESSION['idproduk'] = $id;
-    header('location: ./barang_edit.php');
+if (isset($_REQUEST['reject'])) {
+    $invoice = $_REQUEST['invoice'];
+    $updatequery = "update h_trans set ht_status = 'reject' where ht_invoice = '" . $invoice . "'";
+    mysqli_query($con, $updatequery);
 }
 
 ?>
@@ -29,43 +33,43 @@ if(isset($_POST['edit'])){
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <style>
-        a{
+        a {
             text-decoration: none;
             color: black;
             font-size: 14pt;
         }
 
-        a:hover{
+        a:hover {
             font-weight: bold;
             color: black;
         }
 
-        .prod-id{
+        .prod-id {
             font-size: 10pt;
             /* background-color: red; */
         }
 
-        .prod-name{
+        .prod-name {
             font-size: 24pt;
             /* background-color: yellow; */
         }
 
-        .prod-price{
+        .prod-price {
             font-size: 14pt;
             /* background-color: pink; */
         }
 
-        .prod-stock{
+        .prod-stock {
             font-size: 14pt;
             /* background-color: lightblue; */
         }
 
-        .prod-size{
+        .prod-size {
             font-size: 14pt;
             /* background-color: gray; */
         }
 
-        .prod-list-container{
+        .prod-list-container {
             width: fit-content;
             margin: auto;
         }
@@ -78,40 +82,16 @@ if(isset($_POST['edit'])){
             border: 1px solid black;
         } */
 
-        .nav-border{
+        .nav-border {
             border: 1px solid gray;
             margin-bottom: 3vh;
         }
     </style>
 </head>
 
-<body onload="load_product()">
-    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container"> -->
-            <!-- <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="barang_home.php">Home</a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a href="barang_insert.php">Insert</a>
-                    </li>
-                    
-
-                    <div class="col-md-4">
-                        <a href="user_home.php">
-                            <img src="asset/logo.jpg" height="70" />
-                        </a>
-                    </div>
-                    
-                    <li class="breadcrumb-item active" aria-current="page">
-                        <a href="login.php">Logout</a>
-                    </li>
-                </ol>
-            </nav> -->
-    
+<body>
     <header>
-        <div class="p-3 text-center bg-white nav-border">        
+        <div class="p-3 text-center bg-white nav-border">
             <div class="container mt-4">
                 <div class="row">
                     <div class="col-md-4 d-flex justify-content-center justify-content-md-start align-items-center">
@@ -136,7 +116,7 @@ if(isset($_POST['edit'])){
 
                     <div class="col-md-4 d-flex justify-content-center justify-content-md-end align-items-center">
                         <div class="d-flex">
-                        <a href="user_home.php">Logout</a>
+                            <a href="user_home.php">Logout</a>
                         </div>
                     </div>
                 </div>
@@ -144,62 +124,42 @@ if(isset($_POST['edit'])){
         </div>
     </header>
 
-    <div class="container">
 
-        <div class="prod-list-container">
 
-            <h1 class="text-center">Product List</h1>
+    <table class="table">
+        <tr>
+            <td>Invoice</td>
+            <td>Total</td>
+            <td>Name</td>
+            <td>Status</td>
+            <td>Action</td>
+        </tr>
+        <?php
+        $query = "SELECT ht.ht_invoice 'invoice' , ht.ht_total 'total' , acc.acc_name 'name' , ht.ht_status 'status' FROM h_trans ht JOIN `account` acc ON acc.acc_id = ht.ht_customer_id";
+        $res = mysqli_query($con, $query);
+        while ($row = mysqli_fetch_assoc($res)) { ?>
+            <tr>
+                <td><?= $row['invoice'] ?></td>
+                <td><?= $row['total'] ?></td>
+                <td><?= $row['name'] ?></td>
+                <td><?= $row['status'] ?></td>
+                <?php if ($row['status'] == 'pending') { ?>
+                    <td>
+                        <form method="post">
+                            <input type="hidden" name="invoice" value="<?= $row['invoice'] ?>">
+                            <button type="submit" name="confirm" class="btn btn-primary">Confirm</button>
+                            <button type="submit" name="reject" class="btn btn-danger">Reject</button>
+                        </form>
+                    </td>
+                <?php } else { ?>
+                    <td></td>
+                <?php } ?>
 
-            <form action="" method="post">
-                <table id="productlist">
-                    <!-- <thead>
-                    <th style="width: 5vw;">ID</th>
-                    <th style="width: 10vw;">Name</th>
-                    <th style="width: 10vw;">Price</th>
-                    <th style="width: 5vw;">Stok</th>
-                    <th style="width: 10vw;">Size</th>
-                    <th style="width: 10vw;">Action</th>
-                    </thead> -->
+            </tr>
+        <?php } ?>
+    </table>
 
-                    <!-- Isi Tabel List Product Pindah Ke File fetch_product.php -->
-                </table>
-            </form>
-        </div>
-    </div>
 </body>
 
-<script>
-    function load_product() {
-        productlist =  document.getElementById("productlist");		
-		fetch_product();
-	}
-
-    function fetch_product() {			
-		r = new XMLHttpRequest();
-		r.onreadystatechange = function() {
-			if ((this.readyState==4) && (this.status==200)) {
-				productlist.innerHTML = this.responseText;
-			}
-		}
-
-		r.open('GET', 'fetch_barang.php');
-		r.send();
-	}
-
-    function delete_product(obj){;
-		product_id = obj.value;
-
-		r = new XMLHttpRequest();
-		r.onreadystatechange = function() {
-			if ((this.readyState==4) && (this.status==200)) {
-				fetch_product();
-			}
-		}
-			
-		r.open('POST', `delete_barang.php`);
-		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		r.send(`product_id=${product_id}`);
-	}
-</script>
 
 </html>
