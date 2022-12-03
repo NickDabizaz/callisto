@@ -1,6 +1,5 @@
 <?php
 	require("helper.php");
-    if(!isset($_SESSION['userLogin'])) header('location:login.php');
     $total = $_REQUEST['total'];
     function generateDtransId(){
         global $con;

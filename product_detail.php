@@ -1,6 +1,5 @@
 <?php
 require('helper.php');
-if(!isset($_SESSION['userLogin'])) header('location:login.php');
 
 $size = $_REQUEST['size'];
 $name = $_REQUEST['name'];

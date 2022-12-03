@@ -3,14 +3,6 @@ require('helper.php');
 
 unset($_SESSION["idproduk"]);
 
-if(!isset($_SESSION['userLogin'])){
-    header('location: ./login.php');
-}
-else{
-    if($_SESSION['userLogin'] != "barang"){
-        header(('location: ./login.php'));
-    }
-}
 
 if(isset($_POST['edit'])){
     $id = $_POST['id'];

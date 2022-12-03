@@ -17,7 +17,6 @@ function generateIdProduct(){
     return "PD" . $noUrut;
 }
 
-if(!isset($_SESSION['userLogin'])) header('location:login.php');
 
 if(isset($_POST['btnRequest'])){
     $size = $_POST['size'];
