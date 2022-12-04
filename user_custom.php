@@ -20,6 +20,7 @@ function generateIdProduct()
 
 if (isset($_REQUEST['logout'])) {
     unset($_SESSION["userLogin"]);
+    header("Location: user_home.php");
 }
 
 if (isset($_POST['btnRequest'])) {
@@ -160,7 +161,7 @@ if (isset($_POST['btnRequest'])) {
                                 <!-- User -->
                                 <div class="dropdown">
                                     <a class="text-reset dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                                        <img src="img_profile/<?= $row['acc_profile'] ?>" class="rounded-circle" height="25" alt="" loading="lazy" />
+                                        <img src="img_profile/<?= $row['acc_profile'] ?>" class="rounded-circle" height="25" width='25' alt="" loading="lazy" />
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                                         <li><a class="dropdown-item" href="user_profile.php">My profile</a></li>

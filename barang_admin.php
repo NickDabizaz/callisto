@@ -103,7 +103,7 @@ if (isset($_REQUEST['reject'])) {
                                 <a href="barang_insert.php">Insert</a>
                             </li>
                             <li class="nav-item">
-                                <a href="barang_admin.php">Admin saiapa</a>
+                                <a href="barang_admin.php">Admin</a>
                             </li>
                         </ul>
                     </div>
@@ -126,38 +126,40 @@ if (isset($_REQUEST['reject'])) {
 
 
 
-    <table class="table">
-        <tr>
-            <td>Invoice</td>
-            <td>Total</td>
-            <td>Name</td>
-            <td>Status</td>
-            <td>Action</td>
-        </tr>
-        <?php
-        $query = "SELECT ht.ht_invoice 'invoice' , ht.ht_total 'total' , acc.acc_name 'name' , ht.ht_status 'status' FROM h_trans ht JOIN `account` acc ON acc.acc_id = ht.ht_customer_id";
-        $res = mysqli_query($con, $query);
-        while ($row = mysqli_fetch_assoc($res)) { ?>
+    <div class="container">
+        <table class="table">
             <tr>
-                <td><?= $row['invoice'] ?></td>
-                <td><?= $row['total'] ?></td>
-                <td><?= $row['name'] ?></td>
-                <td><?= $row['status'] ?></td>
-                <?php if ($row['status'] == 'pending') { ?>
-                    <td>
-                        <form method="post">
-                            <input type="hidden" name="invoice" value="<?= $row['invoice'] ?>">
-                            <button type="submit" name="confirm" class="btn btn-primary">Confirm</button>
-                            <button type="submit" name="reject" class="btn btn-danger">Reject</button>
-                        </form>
-                    </td>
-                <?php } else { ?>
-                    <td></td>
-                <?php } ?>
-
+                <td width='20%'>Invoice</td>
+                <td width='20%'>Total</td>
+                <td width='20%'>Customer ID</td>
+                <td width='20%'>Status</td>
+                <td width='20%'>Action</td>
             </tr>
-        <?php } ?>
-    </table>
+            <?php
+            $query = "SELECT ht.ht_invoice 'invoice' , ht.ht_total 'total' , ht.ht_customer_id 'id' , ht.ht_status 'status' FROM h_trans ht JOIN `account` acc ON acc.acc_id = ht.ht_customer_id";
+            $res = mysqli_query($con, $query);
+            while ($row = mysqli_fetch_assoc($res)) { ?>
+                <tr>
+                    <td><?= $row['invoice'] ?></td>
+                    <td><?= $row['total'] ?></td>
+                    <td><?= $row['id'] ?></td>
+                    <td><?= $row['status'] ?></td>
+                    <?php if ($row['status'] == 'pending') { ?>
+                        <td>
+                            <form method="post">
+                                <input type="hidden" name="invoice" value="<?= $row['invoice'] ?>">
+                                <button type="submit" name="confirm" class="btn btn-primary">Confirm</button>
+                                <button type="submit" name="reject" class="btn btn-danger">Reject</button>
+                            </form>
+                        </td>
+                    <?php } else { ?>
+                        <td></td>
+                    <?php } ?>
+
+                </tr>
+            <?php } ?>
+        </table>
+    </div>
 
 </body>
 

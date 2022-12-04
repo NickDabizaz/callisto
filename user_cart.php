@@ -2,6 +2,7 @@
 require('helper.php');
 if (isset($_REQUEST['logout'])) {
     unset($_SESSION["userLogin"]);
+    header("Location: user_home.php");
 }
 
 ?>
@@ -24,6 +25,11 @@ if (isset($_REQUEST['logout'])) {
         .nav-border {
             border: 1px solid gray;
             margin-bottom: 3vh;
+        }
+
+        div#contain-cart:hover{
+            border: 10px sollid gray !important;
+            box-shadow: 0px 0px 10px #888888;
         }
     </style>
 </head>
@@ -82,7 +88,7 @@ if (isset($_REQUEST['logout'])) {
                                 <!-- User -->
                                 <div class="dropdown">
                                     <a class="text-reset dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                                        <img src="img_profile/<?= $row['acc_profile'] ?>" class="rounded-circle" height="25" alt="" loading="lazy" />
+                                        <img src="img_profile/<?= $row['acc_profile'] ?>" class="rounded-circle" height="25" width="25" alt="" loading="lazy" />
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                                         <li><a class="dropdown-item" href="user_profile.php">My profile</a></li>
@@ -104,12 +110,17 @@ if (isset($_REQUEST['logout'])) {
     <!--Main Navigation-->
 
     <?php if (isset($_SESSION['userLogin'])) { ?>
-        <div id="semuacart">
-            <!-- semua barang di cart -->
+        <div class="container">
+            <div id="semuacart">
+                <!-- semua barang di cart -->
 
+            </div>
         </div>
-    <?php } else { ?>
-        <span style='color:red;'>Login terlebih dahulu untuk bisa melihat isi cart anda!</span>
+    <?php } else { 
+        header("Location: login.php");
+        ?>
+        
+        <!-- <span style='color:red;'>Login terlebih dahulu untuk bisa melihat isi cart anda!</span> -->
     <?php } ?>
     <!-- <div class="container">
         <div id="allcart">

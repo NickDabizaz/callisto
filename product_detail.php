@@ -82,7 +82,7 @@ $err = "";
                                 <!-- User -->
                                 <div class="dropdown">
                                     <a class="text-reset dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                                        <img src="img_profile/<?= $row['acc_profile'] ?>" class="rounded-circle" height="25" alt="" loading="lazy" />
+                                        <img src="img_profile/<?= $row['acc_profile'] ?>" class="rounded-circle" height="25" width='25' alt="" loading="lazy" />
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                                         <li><a class="dropdown-item" href="user_profile.php">My profile</a></li>
@@ -104,8 +104,6 @@ $err = "";
     <!--Main Navigation-->
 
 
-    <?php if (isset($_SESSION['userLogin'])) { ?>
-        
         <!-- template detail product -->
         <div class="container">
             <?php
@@ -115,50 +113,67 @@ $err = "";
             $rows2 = mysqli_fetch_assoc($res2);
 
             ?>
-            <div class="card mx-auto" style="width: 30rem;">
-                <img src="img_product/<?= $rows2['pro_picture'] ?>" class='card-img-top' width='150px' height='300px'>
-                <div class="card-body mx-auto">
-                    <h5 class="card-title"><?= $rows2['pro_name'];  ?></h5>
-                    <p class="card-text" id="harga"></p>
-                    <p class="card-text">Tersedia : <?= $rows2['pro_stock'];  ?></p>
-
-                    Size : <br>
-
-                    <div class="form-check form-check-inline mb-2">
-                        <input class="form-check-input" type="radio" name="size" id="size" value="s" onchange="update_size()" checked>
-                        <label class="form-check-label" for="size">S</label>
+            <div class="card mx-auto mt-4" style="width: 100%;">
+                <div class='row no-gutters'>
+                    <div style='width: 30%; margin-left: 5%;'>
+                        <div style="margin: auto; width: fit-content;">
+                            <img src="img_product/<?= $rows2['pro_picture'] ?>" class='card-img-top' style='width: 40vh; height: 40vh;'>
+                        </div>
                     </div>
+                    <di style="width: 60%; margin-left: 5%;">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= $rows2['pro_name'];  ?></h5>
+                            <p class="card-text" id="harga"></p>
+                            <p class="card-text">Tersedia : <?= $rows2['pro_stock'];  ?></p>
 
-                    <div class="form-check form-check-inline my-2">
-                        <input class="form-check-input" type="radio" name="size" id="size" value="m" onchange="update_size()">
-                        <label class="form-check-label" for="size">M</label>
+                            Size : <br>
+
+                            <div class="form-check form-check-inline mb-2">
+                                <input class="form-check-input" type="radio" name="size" id="size" value="s" onchange="update_size()" checked>
+                                <label class="form-check-label" for="size">S</label>
+                            </div>
+
+                            <div class="form-check form-check-inline my-2">
+                                <input class="form-check-input" type="radio" name="size" id="size" value="m" onchange="update_size()">
+                                <label class="form-check-label" for="size">M</label>
+                            </div>
+
+                            <div class="form-check form-check-inline my-2">
+                                <input class="form-check-input" type="radio" name="size" id="size" value="l" onchange="update_size()">
+                                <label class="form-check-label" for="size">L</label>
+                            </div>
+
+                            <div class="form-check form-check-inline my-2">
+                                <input class="form-check-input" type="radio" name="size" id="size" value="xl" onchange="update_size()">
+                                <label class="form-check-label" for="size">XL</label>
+                            </div>
+                            <br>
+
+                            <p class="card-text">Detail : <?= $rows2['pro_detail'];  ?></p>
+                            <input type="number" style="width:50px ;" class="mx-auto" min="1" value="1" max="$row['stok']" id="qty"> <br><br>
+                            <div id="successmsg"></div>
+                            
+                            <?php 
+                            if(isset($_SESSION['userLogin'])){
+                                ?>
+                                <button class="btn btn-warning mx-auto" onclick="addCart(this)" value="<?= $name ?>">
+                                    <li class=" fas fa-shopping-cart"></li> ADD TO CART
+                                </button>
+                                <?php
+                            }else{
+                                ?>
+                                <span style="color: red;">Harus login untuk berbelanja</span>
+                                <?php
+                            }
+                            ?>
+                        </div>
                     </div>
-
-                    <div class="form-check form-check-inline my-2">
-                        <input class="form-check-input" type="radio" name="size" id="size" value="l" onchange="update_size()">
-                        <label class="form-check-label" for="size">L</label>
-                    </div>
-
-                    <div class="form-check form-check-inline my-2">
-                        <input class="form-check-input" type="radio" name="size" id="size" value="xl" onchange="update_size()">
-                        <label class="form-check-label" for="size">XL</label>
-                    </div>
-                    <br>
-
-                    <p class="card-text">Detail : <?= $rows2['pro_detail'];  ?></p>
-                    <input type="number" style="width:50px ;" class="mx-auto" min="1" value="1" max="$row['stok']" id="qty"> <br><br>
-                    <div id="successmsg"></div>
-                    <button class="btn btn-warning mx-auto" onclick="addCart(this)" value="<?= $name ?>">
-                        <li class=" fas fa-shopping-cart"></li> ADD TO CART
-                    </button>
                 </div>
             </div>
         </div>
 
+
         <!-- template detail product -->
-    <?php } else { ?>
-        <span style='color:red;'>Login terlebih dahulu untuk bisa memesan product!</span>
-    <?php } ?>
 
 
 
@@ -234,6 +249,7 @@ $err = "";
 
             r.open('GET', 'fetch_add_cart.php?pro_name=' + name + '&qty=' + qty.value + '&size=' + size);
             r.send();
+
         }
     </script>
 </body>
