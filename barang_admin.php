@@ -103,7 +103,7 @@ if (isset($_REQUEST['reject'])) {
                                 <a href="barang_insert.php">Insert</a>
                             </li>
                             <li class="nav-item">
-                                <a href="barang_admin.php">Admin</a>
+                                <a href="barang_admin.php">Admin saiapa</a>
                             </li>
                         </ul>
                     </div>
