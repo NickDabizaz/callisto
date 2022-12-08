@@ -3,19 +3,13 @@ require('helper.php');
 
 $err = "";
 
-if (!isset($_SESSION['userLogin'])) {
-    header('location: ./login.php');
+
+if (!isset($_SESSION['idproduk'])) {
+    header('location: ./barang_home.php');
 } else {
-    if ($_SESSION['userLogin'] != "barang") {
-        header(('location: ./login.php'));
-    } else {
-        if (!isset($_SESSION['idproduk'])) {
-            header('location: ./barang_home.php');
-        } else {
-            $id = $_SESSION['idproduk'];
-        }
-    }
+    $id = $_SESSION['idproduk'];
 }
+
 
 if (isset($_POST['back'])) {
     header('location: ./barang_home.php');

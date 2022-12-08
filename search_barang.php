@@ -5,8 +5,9 @@
 	$select_query = "SELECT * FROM product WHERE pro_name LIKE '%".$text."%'";
 	$res = $con->query($select_query);
 
-
+    $ctr = 0;
     while($row = $res->fetch_assoc()){
+        $ctr++;
         echo 
         "<tr><td colspan='4'><hr></td></tr>
         <tr>
@@ -47,5 +48,9 @@
         </tr>
                         
     ";
+    }
+
+    if($ctr == 0){
+        echo "<h5>Barang Not Found!</h5>";
     }
 ?>

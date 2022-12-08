@@ -253,7 +253,7 @@ if (isset($_REQUEST['cancel'])) {
                 <td>Action</td>
             </tr>
             <?php
-            $query = "SELECT ht.ht_invoice 'invoice' , ht.ht_total 'total' , ht.ht_status 'status' FROM h_trans ht JOIN `account` acc ON acc.acc_id = ht.ht_customer_id WHERE acc.acc_user ='".$_SESSION['userLogin']."'";
+            $query = "SELECT ht.ht_invoice 'invoice' , ht.ht_total 'total' , ht.ht_status 'status' FROM h_trans ht JOIN `account` acc ON acc.acc_id = ht.ht_customer_id WHERE acc.acc_user ='" . $_SESSION['userLogin'] . "'";
             $res = mysqli_query($con, $query);
             while ($row = mysqli_fetch_assoc($res)) { ?>
                 <tr>

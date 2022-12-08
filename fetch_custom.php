@@ -1,6 +1,7 @@
 <?php
 	require("helper.php");
 
+
     $imagecustom = $_REQUEST['imagecustom'];
     $custom = substr($imagecustom, 12);
 
