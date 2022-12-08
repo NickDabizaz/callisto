@@ -1,78 +1,53 @@
 <?php
 require('helper.php');
 
-function generateIdProduct(){
-    global $con;
-    //cari max dari id
-    $query = "SELECT MAX(pro_id) as 'id' FROM `product`";
-    $res = mysqli_query($con, $query);
-    $row = mysqli_fetch_assoc($res);
-    //ambil id
-    $getId = substr($row['id'],2);
-    //nambah no urut
-    $noUrut = (int) $getId;
-    $noUrut++;
-    $noUrut = str_pad($noUrut,3,"0",STR_PAD_LEFT);
-    //return id dengan no urut naik
-    return "PD" . $noUrut;
-}
 
-if(!isset($_SESSION['userLogin'])) header('location:login.php');
 
-if(isset($_POST['btnRequest'])){
-    if(isset($_POST['size'])){
-        $size = $_POST['size'];
-    }
-    else{
-        $size = "";
-    }
-    
-    $detail = $_POST['detail'];
 
-    if($size == ""){
-        $error = "Size Tidak Boleh Kosong";
-    }
-    else{
-        if($detail == ""){
-            $error = "Detail Custom Harus Diisi";
-        }
-        else{
-            $getId = mysqli_query($con, "SELECT * FROM account WHERE acc_user = '".$_SESSION['userLogin']."' ");
-            $rowId = mysqli_fetch_assoc($getId);
-            $customer_id = $rowId['acc_id'];
+// if (isset($_POST['btnRequest'])) {
+//     if (isset($_POST['size'])) {
+//         $size = $_POST['size'];
+//     } else {
+//         $size = "";
+//     }
 
-            $product_id = generateIdProduct();
 
-            if($size == "s"){                
-                $name = "Custom - Size S";
-                $price = 12000000;
-                $img = "kaos-s.jpg";
-            }
-            else if($size == "m"){                
-                $name = "Custom - Size M";
-                $price = 17000000;
-                $img = "kaos-m.jpg";
-            }
-            else if($size == "l"){                
-                $name = "Custom - Size L";
-                $price = 22000000;
-                $img = "kaos-l.jpg";
-            }
-            else if($size == "xl"){                
-                $name = "Custom - Size XL";
-                $price = 27000000;
-                $img = "kaos-xl.jpg";
-            }
+//     if ($size == "") {
+//         $error = "Size Tidak Boleh Kosong";
+//     } else {
+//         $getId = mysqli_query($con, "SELECT * FROM account WHERE acc_user = '" . $_SESSION['userLogin'] . "' ");
+//         $rowId = mysqli_fetch_assoc($getId);
+//         $customer_id = $rowId['acc_id'];
 
-            $queryInsert = "INSERT INTO product VALUES ( '".$product_id."' , '".$name."' , '".$price."' , 1, '".$size."' , '".$detail."' , '".$img."' , 1, '".$customer_id."')";
-            $resInsert = mysqli_query($con, $queryInsert);
+//         $product_id = generateIdProduct();
 
-            $cartInsert = "INSERT INTO cart VALUES ('".$customer_id."' , '".$product_id."' , 1)";
-            $rescartInsert = mysqli_query($con, $cartInsert);
-            if($resInsert) $success = 'Berhasil Custom Produk!';
-        }
-    }        
-}
+//         if ($size == "s") {
+//             $name = "Custom - Size S";
+//             $price = 12000000;
+//             $img = "kaos-s.jpg";
+//         } else if ($size == "m") {
+//             $name = "Custom - Size M";
+//             $price = 17000000;
+//             $img = "kaos-m.jpg";
+//         } else if ($size == "l") {
+//             $name = "Custom - Size L";
+//             $price = 22000000;
+//             $img = "kaos-l.jpg";
+//         } else if ($size == "xl") {
+//             $name = "Custom - Size XL";
+//             $price = 27000000;
+//             $img = "kaos-xl.jpg";
+//         }
+
+//         $queryInsert = "INSERT INTO product VALUES ( '" . $product_id . "' , '" . $name . "' , '" . $price . "' , 1, '" . $size . "' , '" . $detail . "' , '" . $img . "' , 1, '" . $customer_id . "')";
+//         $resInsert = mysqli_query($con, $queryInsert);
+
+//         $cartInsert = "INSERT INTO cart VALUES ('" . $customer_id . "' , '" . $product_id . "' , 1)";
+//         $rescartInsert = mysqli_query($con, $cartInsert);
+//         if ($resInsert) $success = 'Berhasil Custom Produk!';
+//     }
+// }
+
 
 ?>
 <!DOCTYPE html>
@@ -91,21 +66,23 @@ if(isset($_POST['btnRequest'])){
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
 
     <style>
-        .nav-border{
+        .nav-border {
             border: 1px solid gray;
             margin-bottom: 3vh;
         }
 
-        .custom-container{
+        .custom-container {
             width: 40vw;
             padding: 2vh;
             margin: auto;
 
             /* background-color: yellow; */
         }
+
         .error {
             color: rgb(185, 80, 90);
         }
+
         .success {
             color: green;
         }
@@ -155,9 +132,9 @@ if(isset($_POST['btnRequest'])){
 
                             <?php
 
-                                $sql = "SELECT * FROM account WHERE acc_user = '".$_SESSION['userLogin']."' ";
-                                $res = mysqli_query($con, $sql);
-                                $rows = mysqli_fetch_assoc($res);
+                            $sql = "SELECT * FROM account WHERE acc_user = '" . $_SESSION['userLogin'] . "' ";
+                            $res = mysqli_query($con, $sql);
+                            $rows = mysqli_fetch_assoc($res);
 
                             ?>
 
@@ -183,101 +160,113 @@ if(isset($_POST['btnRequest'])){
     </header>
     <!--Main Navigation-->
 
-        <div class="container">
-            <div class="custom-container">
+    <div class="container">
+        <div class="custom-container">
 
-                <h1 class="text-center">CUSTOM</h1>
-                <div class="row">
-                    <div class="col-sm"></div>
-                    <div class="error">
-                        <?php
-                        if (isset($error)) {
-                            if (strlen($error) > 0) {
-                                echo $error;
-                            }
+            <h1 class="text-center">CUSTOM</h1>
+            <div class="row">
+                <div class="col-sm"></div>
+                <div class="error">
+                    <?php
+                    if (isset($error)) {
+                        if (strlen($error) > 0) {
+                            echo $error;
                         }
-                        ?>
-                    </div>
-                    <div class="success">
-                        <?php
-                        if (isset($success)) {
-                            if (strlen($success) > 0) {
-                                echo $success;
-                            }
-                        }
-                        ?>
-                    </div>
-                    <form method="post">
-                        Size : <br>
-                        
-                        <div class="form-check form-check-inline mb-2">
-                            <input class="form-check-input" type="radio" name="size" id="size" value="s">
-                            <label class="form-check-label" for="size">S</label>
-                        </div>
-                        
-                        <div class="form-check form-check-inline my-2">
-                            <input class="form-check-input" type="radio" name="size" id="size" value="m">
-                            <label class="form-check-label" for="size">M</label>
-                        </div>
-                        
-                        <div class="form-check form-check-inline my-2">
-                            <input  class="form-check-input" type="radio" name="size" id="size" value="l">
-                            <label class="form-check-label" for="size">L</label>
-                        </div>
-                        
-                        <div class="form-check form-check-inline my-2">
-                            <input class="form-check-input" type="radio" name="size" id="size" value="xl">
-                            <label class="form-check-label" for="size">XL</label>
-                        </div>
-                        <br>
-                        
-                        <div id="customimg">
-                        </div>
-
-                        <div class="form-group my-2">                            
-                            Choose Custom Image :<br>
-                            <input type="file" name="custom" id="custom" accept=".jpg, .jpeg, .png">                            
-                        </div>
-                        
-                        <div class="form-group my-2">
-                            <label for="detail">Detail</label>
-                            <input type="text" class="form-control" id="detail" name="detail" aria-describedby="emailHelp" placeholder="Detail Custom here...">
-                        </div>                        
-                        
-                        <button type="submit" class="btn btn-success mt-2" name="btnRequest">REQUEST</button>
-                    </form>
-                    <div class="col-sm"></div>
+                    }
+                    ?>
                 </div>
+                <div class="success">
+                    <?php
+                    if (isset($success)) {
+                        if (strlen($success) > 0) {
+                            echo $success;
+                        }
+                    }
+                    ?>
+                </div>
+                <form method="post">
+                    Size : <br>
+
+                    <div class="form-check form-check-inline mb-2">
+                        <input class="form-check-input" type="radio" name="size" id="size" value="s">
+                        <label class="form-check-label" for="size">S</label>
+                    </div>
+
+                    <div class="form-check form-check-inline my-2">
+                        <input class="form-check-input" type="radio" name="size" id="size" value="m">
+                        <label class="form-check-label" for="size">M</label>
+                    </div>
+
+                    <div class="form-check form-check-inline my-2">
+                        <input class="form-check-input" type="radio" name="size" id="size" value="l">
+                        <label class="form-check-label" for="size">L</label>
+                    </div>
+
+                    <div class="form-check form-check-inline my-2">
+                        <input class="form-check-input" type="radio" name="size" id="size" value="xl">
+                        <label class="form-check-label" for="size">XL</label>
+                    </div>
+                    <br>
+
+                    <div id="customimg">
+                        <img src='./kaos_custom/kaos.png' id="kaospolos" style='width: 40vw; height: auto;'>
+                        <img src="" id="customPicture" style='width: 16vw; height: auto; position: absolute; top: 70vh; left: 43vw;'>
+                    </div>
+
+                    <div class="form-group my-2">
+                        Choose Custom Image :<br>
+                        <input type="file" name="fileImg" id="fileImg" accept=".jpg, .jpeg, .png">
+                    </div>
+
+                    <button class="btn btn-success mt-2" name="btnRequest" onclick="submitData()">REQUEST</button>
+                </form>
+                <div class="col-sm"></div>
             </div>
         </div>
-        
-        
+    </div>
+
+
 
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </body>
 
 <script>
-    function load_img() {
-        successmsg = document.querySelector("#successmsg");
-        document.getElementById("custom").onchange = function() {
-            customing = document.getElementById("custom");           
-            fetch_custom(customing);            
-        };
-	}    
-    
-    function fetch_custom(imgcustom) { 
-        imagecustom = imgcustom.value;             
-        r = new XMLHttpRequest();
-		r.onreadystatechange = function() {
-			if ((this.readyState==4) && (this.status==200)) {
-				customimg.innerHTML = this.responseText;
-			}
-		}
+    fileImg.onchange = evt => {
+        const [file] = fileImg.files
+        if (file) {
+            $("#kaospolos").show();
+            customPicture.src = URL.createObjectURL(file)
+        }
+    }
 
-        r.open('POST', `fetch_custom.php`);
-		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		r.send(`imagecustom=${imagecustom}`);
+    function load_img() {
+        $("#kaospolos").hide();
+    }
+
+    function submitData() {
+        size = $('input[name="size"]:checked').val();
+        $(document).ready(function() {
+            var size = $('input[name="size"]:checked').val();
+            var formData = new FormData();
+            var files = $('#fileImg')[0].files;
+            formData.append('fileImg', files[0]);
+            formData.append('size', size);
+
+            $.ajax({
+                url: 'fetch_custom.php',
+                type: 'post',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function() {
+                    alert("Berhasil Request Custom!");
+                }
+            });
+        });
     }
 </script>
+
 </html>

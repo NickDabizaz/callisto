@@ -18,7 +18,14 @@ while($row = $res->fetch_assoc()){
     "<div class='card my-2' style='width: 100%; display: flex;' id='contain-cart'>
         <div class='row no-gutters'>
             <div class='col-sm-4'>
-                <img src='./img_product/".$rowId2['pro_picture']."' class='card-img-top' style='width: 40vh; height: 40vh;'>
+            ";
+            if($rowId2['pro_name'] == "Custom"){
+                echo "<img src='./kaos_custom/kaos.png' id='kaospolos' style='width: 20vw; height: auto;'>
+                <img src='./kaos_custom/".$rowId2['pro_picture']."' alt='".$rowId2['pro_picture']."' style='width: 5vw; height: auto; position: absolute; top: 10vh; left: 8vw;'>";
+            }else{
+                echo "<img src='./img_product/".$rowId2['pro_picture']."' class='card-img-top' style='width: 40vh; height: 40vh;'>";
+            }
+            echo "
             </div>
             <div class='col-sm-5'>
                 <div class='card-body m-auto'>
