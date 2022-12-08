@@ -149,7 +149,7 @@ if(isset($_POST['edit'])){
         <div class="prod-list-container">
 
             <h1 class="text-center">Product List</h1>
-
+            Search : <input type="text" name="" id="searchtext" onkeyup="filter()">
             <form action="" method="post">
                 <table id="productlist">
                     <!-- <thead>
@@ -185,6 +185,21 @@ if(isset($_POST['edit'])){
 		r.open('GET', 'fetch_barang.php');
 		r.send();
 	}
+
+    function filter(){
+        text = searchtext.value;
+			
+			r = new XMLHttpRequest();
+			r.onreadystatechange = function() {
+				if ((this.readyState==4) && (this.status==200)) {
+					// Selesai insert > Bersihkan input & Refresh table list user
+					productlist.innerHTML = this.responseText; 
+				}
+			}
+
+			r.open('GET', `search_barang.php?text=${text}`);
+			r.send();
+    }
 
     function delete_product(obj){;
 		product_id = obj.value;
