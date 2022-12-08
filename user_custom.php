@@ -211,22 +211,22 @@ if(isset($_POST['btnRequest'])){
                         Size : <br>
                         
                         <div class="form-check form-check-inline mb-2">
-                            <input onclick="fetch_size(this)" class="form-check-input" type="radio" name="size" id="size" value="s">
+                            <input class="form-check-input" type="radio" name="size" id="size" value="s">
                             <label class="form-check-label" for="size">S</label>
                         </div>
                         
                         <div class="form-check form-check-inline my-2">
-                            <input onclick="fetch_size(this)" class="form-check-input" type="radio" name="size" id="size" value="m">
+                            <input class="form-check-input" type="radio" name="size" id="size" value="m">
                             <label class="form-check-label" for="size">M</label>
                         </div>
                         
                         <div class="form-check form-check-inline my-2">
-                            <input onclick="fetch_size(this)" class="form-check-input" type="radio" name="size" id="size" value="l">
+                            <input  class="form-check-input" type="radio" name="size" id="size" value="l">
                             <label class="form-check-label" for="size">L</label>
                         </div>
                         
                         <div class="form-check form-check-inline my-2">
-                            <input onclick="fetch_size(this)" class="form-check-input" type="radio" name="size" id="size" value="xl">
+                            <input class="form-check-input" type="radio" name="size" id="size" value="xl">
                             <label class="form-check-label" for="size">XL</label>
                         </div>
                         <br>
