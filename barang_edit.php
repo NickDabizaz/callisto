@@ -133,10 +133,14 @@ if (isset($_POST['edit'])) {
         input[type=file]::-webkit-file-upload-button {
             cursor: pointer;
         }
+        body{
+            background-color: #f7fbfc;
+        }
 
         .nav-border {
-            border: 1px solid gray;
+            border-bottom: 1px solid gray;
             margin-bottom: 3vh;
+            background-color: #f7fbfc;
         }
     </style>
 </head>
@@ -144,7 +148,7 @@ if (isset($_POST['edit'])) {
 <body>
     <header>
         <div class="p-3 text-center bg-white nav-border">
-            <div class="container mt-4">
+            <div class="container">
                 <div class="row">
                     <div class="col-md-4 d-flex justify-content-center justify-content-md-start align-items-center">
                         <ul class="navbar-nav d-flex flex-row">
@@ -213,11 +217,19 @@ if (isset($_POST['edit'])) {
                     Product Detail : <br>
                     <input type="text" class="form-control" id="detail" name="detail" value="<?= $row['pro_detail'] ?>" style="height: 35px;">
                 </div>
-                <button type="submit" name="edit" class="btn btn-primary">Edit Product</button>
+                <button type="submit" name="edit" class="btn btn-primary">Save</button>
                 <button type="submit" name="back" class="btn btn-primary">Back</button>
             </div>
         </form>
     </div>
+
+    <footer class="bg-light text-center text-lg-start mt-4" style="border-top: 1px solid gray">
+    <!-- Copyright -->
+    <div class="text-center p-3">
+        &copy;Melvin - 221116971; Nicklaus - 221116978; Reza - 221116984; Steven T - 221116992
+    </div>
+    <!-- Copyright -->
+    </footer>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
     <script type="text/javascript">

@@ -26,6 +26,19 @@ $err = "";
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <style>
+        
+        body{
+            background-color: #f7fbfc;
+        }
+
+        .nav-border {
+            border-bottom: 1px solid gray;
+            margin-bottom: 3vh;
+            background-color: #f7fbfc;
+        }
+    </style>
 </head>
 
 <body onload="load_product()">
@@ -33,17 +46,17 @@ $err = "";
     <header>
         <!-- Jumbotron -->
         <div class="p-3 text-center bg-white nav-border" style="background-color: lightgray !important;">
-            <div class="container mt-4">
+            <div class="container">
                 <div class="row">
                     <div class="col-md-4 d-flex justify-content-center justify-content-md-start align-items-center">
                         <ul class="navbar-nav d-flex flex-row">
-                            <li class="nav-item me-3 me-lg-0 mt-4">
+                            <li class="nav-item me-3">
                                 <!-- lupa cara biar klik link open new windows -->
                                 <a class="nav-link" href="https://www.facebook.com/Maisonfashion" target="_blank">
-                                    <i class="fab fa-facebook" style="height:50px ; width:50px ;"></i>
+                                    <i class="fab fa-facebook"></i>
                                 </a>
                             </li>
-                            <li class="nav-item me-3 me-lg-0 ms-2 mt-4">
+                            <li class="nav-item me-3">
                                 <a class="nav-link" href="https://www.instagram.com/maisonde_fashion/" target="_blank">
                                     <i class="fab fa-instagram"></i>
                                 </a>
@@ -65,7 +78,7 @@ $err = "";
                                 <span class="badge rounded-pill badge-notification bg-danger"></span>
                             </a>
                             <a class="text-reset me-3" href="user_custom.php">
-                                <span><i class="fas fa-palette"></i></span>
+                                <span><i class="fas fa-tshirt"></i></span>
                                 <span class="badge rounded-pill badge-notification bg-danger"></span>
                             </a>
 
@@ -105,72 +118,80 @@ $err = "";
 
 
         <!-- template detail product -->
-        <div class="container">
-            <?php
+    <div class="container">
+        <?php
 
-            $sql2 = "SELECT * FROM product WHERE pro_name = '" . $name . "' AND pro_size = 's' ";
-            $res2 = mysqli_query($con, $sql2);
-            $rows2 = mysqli_fetch_assoc($res2);
+        $sql2 = "SELECT * FROM product WHERE pro_name = '" . $name . "' AND pro_size = 's' ";
+        $res2 = mysqli_query($con, $sql2);
+        $rows2 = mysqli_fetch_assoc($res2);
 
-            ?>
-            <div class="card mx-auto mt-4" style="width: 100%;">
-                <div class='row no-gutters'>
-                    <div style='width: 30%; margin-left: 5%;'>
-                        <div style="margin: auto; width: fit-content;">
-                            <img src="img_product/<?= $rows2['pro_picture'] ?>" class='card-img-top' style='width: 40vh; height: 40vh;'>
-                        </div>
+        ?>
+        <div class="card mx-auto mt-4" style="width: 100%;">
+            <div class='row no-gutters'>
+                <div style='width: 30%; margin-left: 5%;'>
+                    <div style="margin: auto; width: fit-content;">
+                        <img src="img_product/<?= $rows2['pro_picture'] ?>" class='card-img-top' style='width: 40vh; height: 40vh;'>
                     </div>
-                    <di style="width: 60%; margin-left: 5%;">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= $rows2['pro_name'];  ?></h5>
-                            <p class="card-text" id="harga"></p>
-                            <p class="card-text">Tersedia : <?= $rows2['pro_stock'];  ?></p>
+                </div>
+                <di style="width: 60%; margin-left: 5%;">
+                    <div class="card-body">
+                        <h5 class="card-title"><?= $rows2['pro_name'];  ?></h5>
+                        <p class="card-text" id="harga"></p>
+                        <p class="card-text">Tersedia : <?= $rows2['pro_stock'];  ?></p>
 
-                            Size : <br>
+                        Size : <br>
 
-                            <div class="form-check form-check-inline mb-2">
-                                <input class="form-check-input" type="radio" name="size" id="size" value="s" onchange="update_size()" checked>
-                                <label class="form-check-label" for="size">S</label>
-                            </div>
-
-                            <div class="form-check form-check-inline my-2">
-                                <input class="form-check-input" type="radio" name="size" id="size" value="m" onchange="update_size()">
-                                <label class="form-check-label" for="size">M</label>
-                            </div>
-
-                            <div class="form-check form-check-inline my-2">
-                                <input class="form-check-input" type="radio" name="size" id="size" value="l" onchange="update_size()">
-                                <label class="form-check-label" for="size">L</label>
-                            </div>
-
-                            <div class="form-check form-check-inline my-2">
-                                <input class="form-check-input" type="radio" name="size" id="size" value="xl" onchange="update_size()">
-                                <label class="form-check-label" for="size">XL</label>
-                            </div>
-                            <br>
-
-                            <p class="card-text">Detail : <?= $rows2['pro_detail'];  ?></p>
-                            <input type="number" style="width:50px ;" class="mx-auto" min="1" value="1" max="$row['stok']" id="qty"> <br><br>
-                            <div id="successmsg"></div>
-                            
-                            <?php 
-                            if(isset($_SESSION['userLogin'])){
-                                ?>
-                                <button class="btn btn-warning mx-auto" onclick="addCart(this)" value="<?= $name ?>">
-                                    <li class=" fas fa-shopping-cart"></li> ADD TO CART
-                                </button>
-                                <?php
-                            }else{
-                                ?>
-                                <span style="color: red;">Harus login untuk berbelanja</span>
-                                <?php
-                            }
-                            ?>
+                        <div class="form-check form-check-inline mb-2">
+                            <input class="form-check-input" type="radio" name="size" id="size" value="s" onchange="update_size()" checked>
+                            <label class="form-check-label" for="size">S</label>
                         </div>
+
+                        <div class="form-check form-check-inline my-2">
+                            <input class="form-check-input" type="radio" name="size" id="size" value="m" onchange="update_size()">
+                            <label class="form-check-label" for="size">M</label>
+                        </div>
+
+                        <div class="form-check form-check-inline my-2">
+                            <input class="form-check-input" type="radio" name="size" id="size" value="l" onchange="update_size()">
+                            <label class="form-check-label" for="size">L</label>
+                        </div>
+
+                        <div class="form-check form-check-inline my-2">
+                            <input class="form-check-input" type="radio" name="size" id="size" value="xl" onchange="update_size()">
+                            <label class="form-check-label" for="size">XL</label>
+                        </div>
+                        <br>
+
+                        <p class="card-text">Detail : <?= $rows2['pro_detail'];  ?></p>
+                        <input type="number" style="width:50px ;" class="mx-auto" min="1" value="1" max="$row['stok']" id="qty"> <br><br>
+                        <div id="successmsg"></div>
+                        
+                        <?php 
+                        if(isset($_SESSION['userLogin'])){
+                            ?>
+                            <button class="btn btn-warning mx-auto" onclick="addCart(this)" value="<?= $name ?>">
+                                <li class=" fas fa-shopping-cart"></li> ADD TO CART
+                            </button>
+                            <?php
+                        }else{
+                            ?>
+                            <span style="color: red;">Harus login untuk berbelanja</span>
+                            <?php
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <footer class="bg-light text-center text-lg-start" style="border-top: 1px solid gray">
+    <!-- Copyright -->
+    <div class="text-center p-3">
+        &copy;Melvin - 221116971; Nicklaus - 221116978; Reza - 221116984; Steven T - 221116992
+    </div>
+    <!-- Copyright -->
+    </footer>
 
 
         <!-- template detail product -->

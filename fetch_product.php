@@ -25,7 +25,7 @@ while ($row = mysqli_fetch_assoc($res)) {
     
     if(($ctr-1) % 5 != 0){
         echo 
-        "<a class='card ms-2' style='width: 19%; background-color: lightgray; height: fit-content;font-size: 1vw;' id='card' href='product_detail.php?product=".$row['pro_name']."'>
+        "<a class='card ms-2' style='width: 19%;; height: fit-content;font-size: 1vw;' id='card' href='product_detail.php?product=".$row['pro_name']."'>
             <img src='img_product/" . $row['pro_picture'] . "' class='card-img-top' width='150px' height='300px'>
             <div class='card-body m-auto'>
                 <div style='height: 15vh'>
@@ -61,7 +61,7 @@ while ($row = mysqli_fetch_assoc($res)) {
 
         echo 
         "<div class='card-container my-2' style='flex-wrap: no-wrap;'>
-            <a class='card ms-2' style='width: 19%; background-color: lightgray; height: fit-content;font-size: 1vw;' id='card' href='product_detail.php?product=".$row['pro_name']."'>
+            <a class='card ms-2' style='width: 19%; height: fit-content;font-size: 1vw;' id='card' href='product_detail.php?product=".$row['pro_name']."'>
                 <img src='img_product/" . $row['pro_picture'] . "' class='card-img-top' width='150px' height='300px'>
                 <div class='card-body m-auto'>
                     <div style='height: 15vh'>

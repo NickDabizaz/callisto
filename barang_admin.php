@@ -73,18 +73,15 @@ if (isset($_REQUEST['reject'])) {
             width: fit-content;
             margin: auto;
         }
-
-        /* td{
-            border: 1px solid black;
+        
+        body{
+            background-color: #f7fbfc;
         }
 
-        th{
-            border: 1px solid black;
-        } */
-
         .nav-border {
-            border: 1px solid gray;
+            border-bottom: 1px solid gray;
             margin-bottom: 3vh;
+            background-color: #f7fbfc;
         }
     </style>
 </head>
@@ -92,7 +89,7 @@ if (isset($_REQUEST['reject'])) {
 <body>
     <header>
         <div class="p-3 text-center bg-white nav-border">
-            <div class="container mt-4">
+            <div class="container">
                 <div class="row">
                     <div class="col-md-4 d-flex justify-content-center justify-content-md-start align-items-center">
                         <ul class="navbar-nav d-flex flex-row">
@@ -126,7 +123,7 @@ if (isset($_REQUEST['reject'])) {
 
 
 
-    <div class="container">
+    <div class="container" style="height: 80vh;">
         <table class="table">
             <tr>
                 <td width='20%'>Invoice</td>
@@ -160,6 +157,14 @@ if (isset($_REQUEST['reject'])) {
             <?php } ?>
         </table>
     </div>
+
+    <footer class="bg-light text-center text-lg-start mt-2" style="border-top: 1px solid gray">
+    <!-- Copyright -->
+    <div class="text-center p-3">
+        &copy;Melvin - 221116971; Nicklaus - 221116978; Reza - 221116984; Steven T - 221116992
+    </div>
+    <!-- Copyright -->
+    </footer>
 
 </body>
 

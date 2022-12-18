@@ -22,9 +22,14 @@ if (isset($_REQUEST['logout'])) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
 
     <style>
+        body{
+            background-color: #f7fbfc;
+        }
+
         .nav-border {
-            border: 1px solid gray;
+            border-bottom: 1px solid gray;
             margin-bottom: 3vh;
+            background-color: #f7fbfc;
         }
 
         div#contain-cart:hover{
@@ -38,18 +43,18 @@ if (isset($_REQUEST['logout'])) {
     <!--Main Navigation-->
     <header>
         <!-- Jumbotron -->
-        <div class="p-3 text-center bg-white nav-border" style="background-color: lightgray !important;">
-            <div class="container mt-4">
+        <div class="p-3 text-center bg-white nav-border">
+            <div class="container">
                 <div class="row">
                     <div class="col-md-4 d-flex justify-content-center justify-content-md-start align-items-center">
                         <ul class="navbar-nav d-flex flex-row">
-                            <li class="nav-item me-3 me-lg-0 mt-4">
+                            <li class="nav-item me-3">
                                 <!-- lupa cara biar klik link open new windows -->
                                 <a class="nav-link" href="https://www.facebook.com/Maisonfashion">
-                                    <i class="fab fa-facebook" style="height:50px ; width:50px ;"></i>
+                                    <i class="fab fa-facebook""></i>
                                 </a>
                             </li>
-                            <li class="nav-item me-3 me-lg-0 ms-2 mt-4">
+                            <li class="nav-item me-3">
                                 <a class="nav-link" href="https://www.instagram.com/maisonde_fashion/">
                                     <i class="fab fa-instagram"></i>
                                 </a>
@@ -71,7 +76,7 @@ if (isset($_REQUEST['logout'])) {
                                 <span class="badge rounded-pill badge-notification bg-danger"></span>
                             </a>
                             <a class="text-reset me-3" href="user_custom.php">
-                                <span><i class="fas fa-palette"></i></span>
+                                <span><i class="fas fa-tshirt"></i></span>
                                 <span class="badge rounded-pill badge-notification bg-danger"></span>
                             </a>
 
@@ -126,6 +131,14 @@ if (isset($_REQUEST['logout'])) {
         <div id="allcart">
         </div>
     </div> -->
+
+    <footer class="bg-light text-center text-lg-start" style="border-top: 1px solid gray">
+    <!-- Copyright -->
+    <div class="text-center p-3">
+        &copy;Melvin - 221116971; Nicklaus - 221116978; Reza - 221116984; Steven T - 221116992
+    </div>
+    <!-- Copyright -->
+    </footer>
 
     
 

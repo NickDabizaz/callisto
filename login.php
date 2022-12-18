@@ -43,8 +43,8 @@ if (isset($_REQUEST["login"])) {
 
     <title>Callisto</title>
     <style>
-        body {
-            background-color: lightgray;
+        body{
+            background-color: #f7fbfc;
         }
 
         .error {

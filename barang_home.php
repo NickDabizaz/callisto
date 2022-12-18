@@ -78,9 +78,14 @@ if(isset($_POST['edit'])){
             border: 1px solid black;
         } */
 
-        .nav-border{
-            border: 1px solid gray;
+        body{
+            background-color: #f7fbfc;
+        }
+
+        .nav-border {
+            border-bottom: 1px solid gray;
             margin-bottom: 3vh;
+            background-color: #f7fbfc;
         }
     </style>
 </head>
@@ -112,7 +117,7 @@ if(isset($_POST['edit'])){
     
     <header>
         <div class="p-3 text-center bg-white nav-border">        
-            <div class="container mt-4">
+            <div class="container">
                 <div class="row">
                     <div class="col-md-4 d-flex justify-content-center justify-content-md-start align-items-center">
                         <ul class="navbar-nav d-flex flex-row">
@@ -145,11 +150,11 @@ if(isset($_POST['edit'])){
     </header>
 
     <div class="container">
-
+        
         <div class="prod-list-container">
-
             <h1 class="text-center">Product List</h1>
-            Search : <input type="text" name="" id="searchtext" onkeyup="filter()">
+            
+            <input type="text" name="" style="width: 30vh;" id="searchtext" onkeyup="filter()"><div class="fas fa-search ms-1"></div>
             <form action="" method="post">
                 <table id="productlist">
                     <!-- <thead>
@@ -166,6 +171,14 @@ if(isset($_POST['edit'])){
             </form>
         </div>
     </div>
+
+    <footer class="bg-light text-center text-lg-start mt-2" style="border-top: 1px solid gray">
+    <!-- Copyright -->
+    <div class="text-center p-3">
+        &copy;Melvin - 221116971; Nicklaus - 221116978; Reza - 221116984; Steven T - 221116992
+    </div>
+    <!-- Copyright -->
+    </footer>
 </body>
 
 <script>

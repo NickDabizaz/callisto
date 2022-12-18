@@ -99,9 +99,14 @@ if (isset($_REQUEST['add'])) {
             /* background-color: yellow; */
         }
 
+        body{
+            background-color: #f7fbfc;
+        }
+
         .nav-border {
-            border: 1px solid gray;
+            border-bottom: 1px solid gray;
             margin-bottom: 3vh;
+            background-color: #f7fbfc;
         }
     </style>
 </head>
@@ -109,7 +114,7 @@ if (isset($_REQUEST['add'])) {
 <body>
     <header>
         <div class="p-3 text-center bg-white nav-border">
-            <div class="container mt-4">
+            <div class="container">
                 <div class="row">
                     <div class="col-md-4 d-flex justify-content-center justify-content-md-start align-items-center">
                         <ul class="navbar-nav d-flex flex-row">
@@ -141,7 +146,7 @@ if (isset($_REQUEST['add'])) {
         </div>
     </header>
 
-    <div class="container">
+    <div class="container" style="height: 80vh;">
         <div class="form-container">
 
             <h1 class="text-center">Master Barang Insert</h1>
@@ -196,12 +201,21 @@ if (isset($_REQUEST['add'])) {
 
                         <button type="submit" class="btn btn-primary btn-block mt-2" name="add">Tambah Item</button>
                         <div style="color:green;"><?= $err; ?></div>
+                    </div>
                 </form>
 
             </div>
 
         </div>
     </div>
+
+    <footer class="bg-light text-center text-lg-start" style="border-top: 1px solid gray">
+    <!-- Copyright -->
+    <div class="text-center p-3">
+        &copy;Melvin - 221116971; Nicklaus - 221116978; Reza - 221116984; Steven T - 221116992
+    </div>
+    <!-- Copyright -->
+    </footer>
 
     <script lang="javascript">
         function viewImage() {

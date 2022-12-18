@@ -28,12 +28,13 @@ $lim = 10;
 
     <style>
         body{
-            background-color: lightgray;
+            background-color: #f7fbfc;
         }
 
         .nav-border {
-            border: 1px solid gray;
+            border-bottom: 1px solid gray;
             margin-bottom: 3vh;
+            background-color: #f7fbfc;
         }
 
         .card-container{
@@ -63,6 +64,10 @@ $lim = 10;
             text-decoration: none;
             color: black !important;
         }
+
+        .card{
+            background-color: #f7fbfc !important;
+        }
     </style>
 </head>
 
@@ -70,18 +75,18 @@ $lim = 10;
     <!--Main Navigation-->
     <header>
         <!-- Jumbotron -->
-        <div class="p-3 text-center bg-white nav-border" style="background-color: lightgray !important;">
-            <div class="container mt-4">
+        <div class="p-3 text-center bg-white nav-border">
+            <div class="container">
                 <div class="row">
                     <div class="col-md-4 d-flex justify-content-center justify-content-md-start align-items-center">
                         <ul class="navbar-nav d-flex flex-row">
-                            <li class="nav-item me-3 me-lg-0 mt-4">
+                            <li class="nav-item me-3">
                                 <!-- lupa cara biar klik link open new windows -->
                                 <a class="nav-link" href="https://www.facebook.com/Maisonfashion" target="_blank">
-                                    <i class="fab fa-facebook" style="height:50px ; width:50px ;"></i>
+                                    <i class="fab fa-facebook"></i>
                                 </a>
                             </li>
-                            <li class="nav-item me-3 me-lg-0 ms-2 mt-4">
+                            <li class="nav-item me-3">
                                 <a class="nav-link" href="https://www.instagram.com/maisonde_fashion/" target="_blank">
                                     <i class="fab fa-instagram"></i>
                                 </a>
@@ -103,7 +108,7 @@ $lim = 10;
                                 <span class="badge rounded-pill badge-notification bg-danger"></span>
                             </a>
                             <a class="text-reset me-3" href="user_custom.php">
-                                <span><i class="fas fa-palette"></i></span>
+                                <span><i class="fas fa-tshirt"></i></span>
                                 <span class="badge rounded-pill badge-notification bg-danger"></span>
                             </a>
 
@@ -128,7 +133,7 @@ $lim = 10;
                                     </ul>
                                 </div>
                             <?php } else { ?>
-                                <a href="login.php"><button class="btn btn-primary">Login</button></a>
+                                <a href="login.php"><button class="btn btn-primary" style="margin-top: -0.5rem;">Login</button></a>
                             <?php } ?>
                         </div>
                     </div>
@@ -151,7 +156,7 @@ $lim = 10;
             echo "<div class='card-container'>";
             while ($row2 = mysqli_fetch_assoc($res2)) {
                 echo 
-                "<a class='card ms-2' style='width: 19%; background-color: lightgray; height: fit-content;font-size: 1vw;' id='card' href='product_detail.php?product=".$row2['pro_name']."'>
+                "<a class='card ms-2' style='width: 19%; height: fit-content;font-size: 1vw;' id='card' href='product_detail.php?product=".$row2['pro_name']."'>
                     <img src='img_product/" . $row2['pro_picture'] . "' class='card-img-top' width='150px' height='300px'>
                     <div class='card-body m-auto'>
                         <div style='height: 15vh'>
@@ -194,7 +199,7 @@ $lim = 10;
             echo "<div class='card-container'>";
             while ($row3 = mysqli_fetch_assoc($res3)) {
                 echo 
-                "<a class='card ms-2' style='width: 19%; background-color: lightgray; height: fit-content;font-size: 1vw;' id='card' href='product_detail.php?product=".$row3['pro_name']."'>
+                "<a class='card ms-2' style='width: 19%; height: fit-content;font-size: 1vw;' id='card' href='product_detail.php?product=".$row3['pro_name']."'>
                     <img src='img_product/" . $row3['pro_picture'] . "' class='card-img-top' width='150px' height='300px'>
                     <div class='card-body m-auto'>
                         <div style='height: 15vh'>
@@ -215,13 +220,20 @@ $lim = 10;
             <!-- ajax fetch_product -->
         </div>
 
+        <h4 class="mt-4">Request Your Custom style<a href="user_custom.php" class="ms-4"><button class="btn btn-primary">Custom Request</button></a></h4>
+        <!-- <a href="user_custom.php" class="text-center"><button class="btn btn-primary">Custom Request</button></a> -->
 
-
-
-        <h1 style="text-align:center;">Click Here to Request Your Custom style</h1>
-        <a href="user_custom.php"><button class="btn btn-primary">Custom Request</button></a>
-
+        
     </div>
+
+    <footer class="bg-light text-center text-lg-start" style="border-top: 1px solid gray">
+    <!-- Copyright -->
+    <div class="text-center p-3">
+        &copy;Melvin - 221116971; Nicklaus - 221116978; Reza - 221116984; Steven T - 221116992
+    </div>
+    <!-- Copyright -->
+    </footer>
+    
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
     <script>

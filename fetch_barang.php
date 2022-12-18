@@ -1,7 +1,7 @@
 <?php
 	require("helper.php");
 
-	$select_query = "SELECT * FROM product";
+	$select_query = "SELECT * FROM product where pro_cust_id is null";
 	$res = $con->query($select_query);
 
 
@@ -16,7 +16,7 @@
 
         "</td>" .
                         
-        //ini buat spasi gamabr sama tulisan
+        //ini buat spasi gambar sama tulisan
         "<td style='width: 2vw;'></td>" .
 
         //ini tulisannya
@@ -25,7 +25,7 @@
                             
             "<div class='prod-name mb-2' style='margin-top: -1rem;'>" . $row['pro_name'] . "</div>" .
                             
-            "<div class='prod-price my-2'> Rp. " . $row['pro_price'] . "</div>" .
+            "<div class='prod-price my-2'>" . rupiah($row['pro_price']) . "</div>" .
                             
             "<div class='prod-size mt-2'> Size : " . $row['pro_size'] . "</div>" .
                         

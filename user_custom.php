@@ -66,9 +66,14 @@ require('helper.php');
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
 
     <style>
+        body{
+            background-color: #f7fbfc;
+        }
+
         .nav-border {
-            border: 1px solid gray;
+            border-bottom: 1px solid gray;
             margin-bottom: 3vh;
+            background-color: #f7fbfc;
         }
 
         .custom-container {
@@ -94,17 +99,17 @@ require('helper.php');
     <header>
         <!-- Jumbotron -->
         <div class="p-3 text-center bg-white nav-border">
-            <div class="container mt-4">
+            <div class="container">
                 <div class="row">
                     <div class="col-md-4 d-flex justify-content-center justify-content-md-start align-items-center">
                         <ul class="navbar-nav d-flex flex-row">
-                            <li class="nav-item me-3 me-lg-0 mt-4">
+                            <li class="nav-item me-3">
                                 <!-- lupa cara biar klik link open new windows -->
                                 <a class="nav-link" href="https://www.facebook.com/Maisonfashion">
-                                    <i class="fab fa-facebook" style="height:50px ; width:50px ;"></i>
+                                    <i class="fab fa-facebook"></i>
                                 </a>
                             </li>
-                            <li class="nav-item me-3 me-lg-0 ms-2 mt-4">
+                            <li class="nav-item me-3">
                                 <a class="nav-link" href="https://www.instagram.com/maisonde_fashion/">
                                     <i class="fab fa-instagram"></i>
                                 </a>
@@ -126,7 +131,7 @@ require('helper.php');
                                 <span class="badge rounded-pill badge-notification bg-danger"></span>
                             </a>
                             <a class="text-reset me-3" href="user_custom.php">
-                                <span><i class="fas fa-palette"></i></span>
+                                <span><i class="fas fa-tshirt"></i></span>
                                 <span class="badge rounded-pill badge-notification bg-danger"></span>
                             </a>
 
@@ -141,7 +146,7 @@ require('helper.php');
                             <!-- User -->
                             <div class="dropdown">
                                 <a class="text-reset dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                                    <img src="img_profile/<?= $rows['acc_profile'] ?>" class="rounded-circle" height="25" alt="" loading="lazy" />
+                                    <img src="img_profile/<?= $rows['acc_profile'] ?>" class="rounded-circle" height="25" width="25" alt="" loading="lazy" />
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                                     <li><a class="dropdown-item" href="user_profile.php">My profile</a></li>
@@ -160,7 +165,7 @@ require('helper.php');
     </header>
     <!--Main Navigation-->
 
-    <div class="container">
+    <div class="container" style="height: 80vh;">
         <div class="custom-container">
 
             <h1 class="text-center">CUSTOM</h1>
@@ -225,48 +230,56 @@ require('helper.php');
         </div>
     </div>
 
+    <footer class="bg-light text-center text-lg-start" style="border-top: 1px solid gray;height: 5vh;">
+    <!-- Copyright -->
+    <div class="text-center p-3">
+        &copy;Melvin - 221116971; Nicklaus - 221116978; Reza - 221116984; Steven T - 221116992
+    </div>
+    <!-- Copyright -->
+    </footer>
+
 
 
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-</body>
 
-<script>
-    fileImg.onchange = evt => {
-        const [file] = fileImg.files
-        if (file) {
-            $("#kaospolos").show();
-            customPicture.src = URL.createObjectURL(file)
+    <script>
+        fileImg.onchange = evt => {
+            const [file] = fileImg.files
+            if (file) {
+                $("#kaospolos").show();
+                customPicture.src = URL.createObjectURL(file)
+            }
         }
-    }
 
-    function load_img() {
-        $("#kaospolos").hide();
-    }
+        function load_img() {
+            $("#kaospolos").hide();
+        }
 
-    function submitData() {
-        size = $('input[name="size"]:checked').val();
-        $(document).ready(function() {
-            var size = $('input[name="size"]:checked').val();
-            var formData = new FormData();
-            var files = $('#fileImg')[0].files;
-            formData.append('fileImg', files[0]);
-            formData.append('size', size);
+        function submitData() {
+            size = $('input[name="size"]:checked').val();
+            $(document).ready(function() {
+                var size = $('input[name="size"]:checked').val();
+                var formData = new FormData();
+                var files = $('#fileImg')[0].files;
+                formData.append('fileImg', files[0]);
+                formData.append('size', size);
 
-            $.ajax({
-                url: 'fetch_custom.php',
-                type: 'post',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function() {
-                    alert("Berhasil Request Custom!");
-                }
+                $.ajax({
+                    url: 'fetch_custom.php',
+                    type: 'post',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function() {
+                        alert("Berhasil Request Custom!");
+                    }
+                });
             });
-        });
-    }
-</script>
+        }
+    </script>
+</body>
 
 </html>
