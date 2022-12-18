@@ -169,9 +169,7 @@ if (isset($_REQUEST['cancel'])) {
 
                         <h5 class="my-3"><?php echo $row['acc_name'];
                                             ?></h5>
-                        <p class="text-muted mb-1"><?php echo $row['acc_id'];
-                                                    ?></p>
-                        <p class="text-muted mb-4"><?php echo $row['acc_alamat'];
+                        <p class="text-muted mb-4"><?php echo $row['acc_user'];
                                                     ?></p>
                     </div>
                 </div>
@@ -250,6 +248,7 @@ if (isset($_REQUEST['cancel'])) {
             </div>
         </div>
 
+        <h1>Transaction</h1>
         <table class="table">
             <tr>
                 <td>Invoice</td>
@@ -284,7 +283,7 @@ if (isset($_REQUEST['cancel'])) {
     </div>
     <!--Main Navigation-->
 
-    <footer class="bg-light text-center text-lg-start" style="border-top: 1px solid gray">
+    <footer class="bg-light text-center text-lg-start" style="border-top: 1px solid gray;">
     <!-- Copyright -->
     <div class="text-center p-3">
         &copy;Melvin - 221116971; Nicklaus - 221116978; Reza - 221116984; Steven T - 221116992

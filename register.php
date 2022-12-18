@@ -78,7 +78,7 @@ if (isset($_REQUEST['register'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <title>Callisto</title>
     <style>
-        body{
+        body {
             background-color: #f7fbfc;
         }
 
@@ -113,7 +113,25 @@ if (isset($_REQUEST['register'])) {
 
             <img src="./asset/logo.png" alt="logo callisto" width="250px" height="125px" style="margin-left:240px">
 
+            <div class="success">
+                <?php
+                if (isset($success)) {
+                    if (strlen($success) > 0) {
+                        echo $success;
+                    }
+                }
+                ?>
+            </div>
 
+            <div class="error">
+                <?php
+                if (isset($error)) {
+                    if (strlen($error) > 0) {
+                        echo $error;
+                    }
+                }
+                ?>
+            </div>
             <form action="./register.php" method="post">
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" placeholder=" " id="username" name="username">
@@ -170,25 +188,7 @@ if (isset($_REQUEST['register'])) {
                 </div>
 
 
-                <div class="success">
-                    <?php
-                    if (isset($success)) {
-                        if (strlen($success) > 0) {
-                            echo $success;
-                        }
-                    }
-                    ?>
-                </div>
 
-                <div class="error">
-                    <?php
-                    if (isset($error)) {
-                        if (strlen($error) > 0) {
-                            echo $error;
-                        }
-                    }
-                    ?>
-                </div>
 
                 <div class="d-grid mt-4 mb-4">
                     <button type="submit" class="btn btn-dark" name="register">Register</button>

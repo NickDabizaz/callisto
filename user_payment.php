@@ -1,6 +1,6 @@
 <?php
 require("helper.php");
-if(isset($_REQUEST['logout'])){
+if (isset($_REQUEST['logout'])) {
     unset($_SESSION["userLogin"]);
 }
 ?>
@@ -19,7 +19,7 @@ if(isset($_REQUEST['logout'])){
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
     <style>
-        body{
+        body {
             background-color: #f7fbfc;
         }
 
@@ -59,37 +59,37 @@ if(isset($_REQUEST['logout'])){
             text-align: center;
         }
 
-        tr{
+        tr {
             border: 1px solid transparent;
         }
 
-        .prod-id{
+        .prod-id {
             font-size: 10pt;
             /* background-color: red; */
         }
 
-        .prod-name{
+        .prod-name {
             margin-top: 5vh;
             font-size: 18pt;
             /* background-color: yellow; */
         }
 
-        .prod-price{
+        .prod-price {
             font-size: 14pt;
             /* background-color: pink; */
         }
 
-        .prod-stock{
+        .prod-stock {
             font-size: 14pt;
             /* background-color: lightblue; */
         }
 
-        .prod-size{
+        .prod-size {
             font-size: 14pt;
             /* background-color: gray; */
         }
 
-        .prod-list-container{
+        .prod-list-container {
             width: fit-content;
             margin: auto;
         }
@@ -154,7 +154,9 @@ if(isset($_REQUEST['logout'])){
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                                         <li><a class="dropdown-item" href="user_profile.php">My profile</a></li>
-                                        <li><form method="post"><button type="submit" name="logout" class="dropdown-item">Log out</button></form></li>
+                                        <li>
+                                            <form method="post"><button type="submit" name="logout" class="dropdown-item">Log out</button></form>
+                                        </li>
                                     </ul>
                                 </div>
                             <?php } else { ?>
@@ -186,42 +188,53 @@ if(isset($_REQUEST['logout'])){
                 <th>Harga</th>
                 <th>Subtotal</th>
             </tr> -->
-    
+
             <?php
-            $select_query = "SELECT p.pro_picture AS 'picture', p.pro_name AS 'nama' , p.pro_size AS 'size' , c.qty AS 'qty' , p.pro_price AS 'harga' , (c.qty * p.pro_price) AS 'subtotal' FROM cart c JOIN product p ON c.cart_pro_id = p.pro_id";
+            $select_query = "SELECT p.pro_picture AS 'picture',p.pro_cust_id AS 'customer_id', p.pro_name AS 'nama' , p.pro_size AS 'size' , c.qty AS 'qty' , p.pro_price AS 'harga' , (c.qty * p.pro_price) AS 'subtotal' FROM cart c JOIN product p ON c.cart_pro_id = p.pro_id";
             $select = mysqli_query($con, $select_query);
             while ($row = mysqli_fetch_assoc($select)) { ?>
                 <tr>
-                    
+
                     <td>
-                        <img src='./img_product/<?=$row['picture']?>' width='200px'>
+                        <?php if ($row['customer_id'] == null) { ?>
+                            <img src='./img_product/<?= $row['picture'] ?>' width='200px'>
+                        <?php } else { ?>
+                            <!-- <img src='./kaos_custom/kaos.png<?= $row['picture'] ?>' width='200px'> -->
+                            <img src='./kaos_custom/kaos.png' id="kaospolos" width='200px'>
+                        <img src="./kaos_custom/<?= $row['picture'] ?>" id="customPicture" style='width: 4vw; height: auto; left:29vh; position: absolute; top: 27vh;'>
+                    
+                        <?php } ?>
                     </td>
 
                     <td style='width: 2vw;'></td>
-                    
+
                     <td style='width: 60vw;'>
-                                        
-                        <div class='prod-name mb-2'><?=$row['nama']?></div>
-                                        
-                        <div class='prod-price my-2'><?= rupiah($row['harga'])?></div>
-                                        
-                        <div class='prod-size mt-2'> Size : <?=$row['size']?></div>
-                                    
-                        <div class='prod-stock my-2'> Stock : <?=$row['qty']?></div>
+
+                        <div class='prod-name mb-2'><?= $row['nama'] ?></div>
+
+                        <div class='prod-price my-2'><?= rupiah($row['harga']) ?></div>
+
+                        <div class='prod-size mt-2'> Size : <?= $row['size'] ?></div>
+
+                        <div class='prod-stock my-2'> Stock : <?= $row['qty'] ?></div>
                     </td>
-                                        
+
                     <!-- <td>
                         <form method='post'>
                         <div>
-                        <input type='hidden' name='id' value='<?=$row['pro_id']?>'>
+                        <input type='hidden' name='id' value='<?= $row['pro_id'] ?>'>
                         <button class='btn btn-primary mb-2' type='submit' name='edit'>Edit</button><br>
-                        <button onclick='delete_product(this)' value='<?=$row['pro_id']?>' class='btn btn-danger'>Remove</button>
+                        <button onclick='delete_product(this)' value='<?= $row['pro_id'] ?>' class='btn btn-danger'>Remove</button>
                                         
                         </div>
                         </form>
                     </td> -->
                 </tr>
-                <tr><td colspan="3"><hr style="margin: 0;"></td></tr>
+                <tr>
+                    <td colspan="3">
+                        <hr style="margin: 0;">
+                    </td>
+                </tr>
             <?php
                 $total += $row['subtotal'];
             }
@@ -232,7 +245,7 @@ if(isset($_REQUEST['logout'])){
                 <td></td>
             </tr> -->
         </table>
-    
+
         <!-- tombol bayar -->
         <div style="font-size: 14pt; margin-left: 3vh;" class="mb-4">
             Subtotal : <?= rupiah($total); ?>
@@ -240,22 +253,21 @@ if(isset($_REQUEST['logout'])){
         </div>
         <!-- animasi loading bayar -->
         <div class="msg" id="msg">
-            
+
         </div>
     </div>
 
     <footer class="bg-light text-center text-lg-start" style="border-top: 1px solid gray">
-    <!-- Copyright -->
-    <div class="text-center p-3">
-        &copy;Melvin - 221116971; Nicklaus - 221116978; Reza - 221116984; Steven T - 221116992
-    </div>
-    <!-- Copyright -->
+        <!-- Copyright -->
+        <div class="text-center p-3">
+            &copy;Melvin - 221116971; Nicklaus - 221116978; Reza - 221116984; Steven T - 221116992
+        </div>
+        <!-- Copyright -->
     </footer>
 
     <script>
-
         function pembayaran() {
-            
+
             msg = document.querySelector("#msg");
             msg.innerHTML = "Berhasil Bayar!";
             //ajax bayar
@@ -264,6 +276,7 @@ if(isset($_REQUEST['logout'])){
             btn = document.querySelector("#btn-bayar");
             btn.style.display = "none";
         }
+
         function konfirmasi() {
             // bikin htrans
 

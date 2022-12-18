@@ -66,7 +66,7 @@ require('helper.php');
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
 
     <style>
-        body{
+        body {
             background-color: #f7fbfc;
         }
 
@@ -136,10 +136,13 @@ require('helper.php');
                             </a>
 
                             <?php
-
-                            $sql = "SELECT * FROM account WHERE acc_user = '" . $_SESSION['userLogin'] . "' ";
-                            $res = mysqli_query($con, $sql);
-                            $rows = mysqli_fetch_assoc($res);
+                            if (isset($_SESSION['userLogin'])) {
+                                $sql = "SELECT * FROM account WHERE acc_user = '" . $_SESSION['userLogin'] . "' ";
+                                $res = mysqli_query($con, $sql);
+                                $rows = mysqli_fetch_assoc($res);
+                            } else {
+                                header("Location: login.php");
+                            }
 
                             ?>
 
@@ -165,7 +168,7 @@ require('helper.php');
     </header>
     <!--Main Navigation-->
 
-    <div class="container" style="height: 80vh;">
+    <div class="container" style="height: 100vh;">
         <div class="custom-container">
 
             <h1 class="text-center">CUSTOM</h1>
@@ -230,13 +233,13 @@ require('helper.php');
         </div>
     </div>
 
-    <footer class="bg-light text-center text-lg-start" style="border-top: 1px solid gray;height: 5vh;">
-    <!-- Copyright -->
-    <div class="text-center p-3">
-        &copy;Melvin - 221116971; Nicklaus - 221116978; Reza - 221116984; Steven T - 221116992
-    </div>
-    <!-- Copyright -->
-    </footer>
+    <!-- <footer class="bg-light text-center text-lg-start" style="border-top: 1px solid gray;height: 5vh;"> -->
+        <!-- Copyright -->
+        <!-- <div class="text-center p-3"> -->
+            <!-- &copy;Melvin - 221116971; Nicklaus - 221116978; Reza - 221116984; Steven T - 221116992 -->
+        <!-- </div> -->
+        <!-- Copyright -->
+    <!-- </footer> -->
 
 
 
