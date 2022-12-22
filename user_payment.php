@@ -93,10 +93,21 @@ if (isset($_REQUEST['logout'])) {
             width: fit-content;
             margin: auto;
         }
+
+        .popup{
+            position: fixed;
+            height: 40vh;
+            width: 50vw;
+            top: 20vh;
+            left: 25vw;
+            background-color: white;
+            border: 1px solid gray;
+            padding: 3vh;
+        }
     </style>
 </head>
 
-<body>
+<body id="body">
     <!--Main Navigation-->
     <header>
         <!-- Jumbotron -->
@@ -252,29 +263,26 @@ if (isset($_REQUEST['logout'])) {
             <button class="btn btn-primary ms-3" style="font-size: 10pt;" id="btn-bayar" onclick="pembayaran()">BAYAR</button>
         </div>
         <!-- animasi loading bayar -->
-        <div class="msg" id="msg">
-
-        </div>
     </div>
 
-    <footer class="bg-light text-center text-lg-start" style="border-top: 1px solid gray">
-        <!-- Copyright -->
-        <div class="text-center p-3">
-            &copy;Melvin - 221116971; Nicklaus - 221116978; Reza - 221116984; Steven T - 221116992
-        </div>
-        <!-- Copyright -->
-    </footer>
 
     <script>
         function pembayaran() {
 
-            msg = document.querySelector("#msg");
-            msg.innerHTML = "Berhasil Bayar!";
+            // msg = document.querySelector("#msg");
+            // msg.innerHTML = "Berhasil Bayar!";
+            document.getElementById('body').innerHTML += "<div class='popup' id='popup'><div class='contain-popup' id='contain-popup'></div></div>";
+            document.getElementById('contain-popup').innerHTML += "<div class='fas fa-info-circle'></div>&nbsp;Pembayaran<br><hr>Silahkan lakukan pembayaran pada rekening di bawah ini <br>Bank Indonesia (BI): 0001-01-123456-789 a.n Melvin Nicklaus Steven<br>Bank Negara Indonesia (BNI): 007-123-456-789 a.n Melvin Nicklaus Steven<br>Bank Rakyat Indonesia (BRI): 0098-01-123456-789 a.n Melvin Nicklaus Steven <br>Bank Mandiri: 008-123-456-789 a.n Melvin Nicklaus Steven<br><hr><button class='btn btn-secondary' onclick='hapus()'>OK</button>";
+
             //ajax bayar
             konfirmasi();
             bayar();
             btn = document.querySelector("#btn-bayar");
             btn.style.display = "none";
+        }
+
+        function hapus(){
+            document.getElementById("popup").remove();
         }
 
         function konfirmasi() {

@@ -132,14 +132,6 @@ if (isset($_REQUEST['logout'])) {
         </div>
     </div> -->
 
-    <footer class="bg-light text-center text-lg-start" style="border-top: 1px solid gray">
-    <!-- Copyright -->
-    <div class="text-center p-3">
-        &copy;Melvin - 221116971; Nicklaus - 221116978; Reza - 221116984; Steven T - 221116992
-    </div>
-    <!-- Copyright -->
-    </footer>
-
     
 
     <!-- MDB -->
