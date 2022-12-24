@@ -115,12 +115,36 @@ if (isset($_REQUEST['logout'])) {
     <!--Main Navigation-->
 
     <?php if (isset($_SESSION['userLogin'])) { ?>
-        <div class="container">
+        <?php 
+            $resultt = mysqli_query($con,"SELECT * FROM account WHERE acc_user = '".$_SESSION['userLogin']."' ");
+            $rows = mysqli_fetch_assoc($resultt);
+
+            $counter = mysqli_query($con, "SELECT COUNT(*) AS 'jumlah' FROM product p JOIN cart c on p.pro_id = c.cart_pro_id WHERE cart_customer_id = '".$rows['acc_id']."'"); 
+            $ctr = mysqli_fetch_assoc($counter);
+
+            if($ctr['jumlah'] < 2){            
+        ?>
+        <div class="container" style="height: 75vh;">
             <div id="semuacart">
                 <!-- semua barang di cart -->
 
             </div>
         </div>
+
+        <?php 
+            }
+            else{
+        ?>
+
+        <div class="container" style="height: fit-content;">
+            <div id="semuacart">
+                <!-- semua barang di cart -->
+
+            </div>
+        </div>
+
+        <?php } ?>
+
     <?php } else { 
         header("Location: login.php");
         ?>

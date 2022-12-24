@@ -168,7 +168,7 @@ require('helper.php');
     </header>
     <!--Main Navigation-->
 
-    <div class="container" style="height: 100vh;">
+    <div class="container" style="height: 119vh;">
         <div class="custom-container">
 
             <h1 class="text-center">CUSTOM</h1>
@@ -196,7 +196,7 @@ require('helper.php');
                     Size : <br>
 
                     <div class="form-check form-check-inline mb-2">
-                        <input class="form-check-input" type="radio" name="size" id="size" value="s">
+                        <input class="form-check-input" type="radio" name="size" id="size" value="s" checked>
                         <label class="form-check-label" for="size">S</label>
                     </div>
 
@@ -218,7 +218,7 @@ require('helper.php');
 
                     <div id="customimg">
                         <img src='./kaos_custom/kaos.png' id="kaospolos" style='width: 40vw; height: auto;'>
-                        <img src="" id="customPicture" style='width: 16vw; height: auto; position: absolute; top: 70vh; left: 43vw;'>
+                        <img src="" id="customPicture" style='width: 16vw; height: auto; position: absolute; top: 53vh; left: 43vw;'>
                     </div>
 
                     <div class="form-group my-2">
@@ -233,13 +233,13 @@ require('helper.php');
         </div>
     </div>
 
-    <!-- <footer class="bg-light text-center text-lg-start" style="border-top: 1px solid gray;height: 5vh;"> -->
+    <footer class="bg-light text-center text-lg-start" style="border-top: 1px solid gray;height: 5vh;"> -->
         <!-- Copyright -->
-        <!-- <div class="text-center p-3"> -->
-            <!-- &copy;Melvin - 221116971; Nicklaus - 221116978; Reza - 221116984; Steven T - 221116992 -->
-        <!-- </div> -->
+        <div class="text-center p-3">
+            &copy;Melvin - 221116971; Nicklaus - 221116978; Reza - 221116984; Steven T - 221116992
+        </div>
         <!-- Copyright -->
-    <!-- </footer> -->
+    </footer>
 
 
 
@@ -261,7 +261,7 @@ require('helper.php');
             $("#kaospolos").hide();
         }
 
-        function submitData() {
+        function submitData() {            
             size = $('input[name="size"]:checked').val();
             $(document).ready(function() {
                 var size = $('input[name="size"]:checked').val();
@@ -275,10 +275,7 @@ require('helper.php');
                     type: 'post',
                     data: formData,
                     contentType: false,
-                    processData: false,
-                    success: function() {
-                        alert("Berhasil Request Custom!");
-                    }
+                    processData: false                    
                 });
             });
         }
