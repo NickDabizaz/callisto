@@ -28,7 +28,7 @@ $err = "";
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <style>
-        
+
         body{
             background-color: #f7fbfc;
         }
@@ -45,7 +45,7 @@ $err = "";
     <!--Main Navigation-->
     <header>
         <!-- Jumbotron -->
-        <div class="p-3 text-center bg-white nav-border" style="background-color: lightgray !important;">
+        <div class="p-3 text-center bg-white nav-border">
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 d-flex justify-content-center justify-content-md-start align-items-center">
@@ -118,7 +118,7 @@ $err = "";
 
 
         <!-- template detail product -->
-    <div class="container">
+    <div class="container" style="height: 80vh;">
         <?php
 
         $sql2 = "SELECT * FROM product WHERE pro_name = '" . $name . "' AND pro_size = 's' ";
