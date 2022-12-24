@@ -6,27 +6,27 @@ $error = "";
 if (isset($_REQUEST["login"])) {
     $username = $_REQUEST['username'];
     $password = $_REQUEST['password'];
-    if($username == "admin" && $password == "admin")
+    if ($username == "admin" && $password == "admin")
         header('location:barang_home.php');
-    if ($username == "" || $password == ""){
+    if ($username == "" || $password == "") {
         $error = "Ada isian kosong!";
     } else {
 
-            $result = mysqli_query($con, "select * from account where acc_user = '" . $username . "' or acc_email = '" . $username . "'");
-            if ($result) {
-                $result_row = mysqli_fetch_array($result);
-                if ($result_row != NULL) {
-                    if ($result_row["acc_pass"] == $password) {
-                        $_SESSION["userLogin"] = $result_row['acc_user'];
-                        header('location:user_home.php');
-                        // ke user home
-                    } else {
-                        $error = "Password salah!";
-                    }
+        $result = mysqli_query($con, "select * from account where acc_user = '" . $username . "' or acc_email = '" . $username . "'");
+        if ($result) {
+            $result_row = mysqli_fetch_array($result);
+            if ($result_row != NULL) {
+                if (password_verify($password, $result_row["acc_pass"])) {
+                    $_SESSION["userLogin"] = $result_row['acc_user'];
+                    header('location:user_home.php');
+                    // ke user home
                 } else {
-                    $error = "Username tidak terdaftar!";
+                    $error = "Password salah!";
                 }
-            } else $error = "Username tidak terdaftar!";
+            } else {
+                $error = "Username tidak terdaftar!";
+            }
+        } else $error = "Username tidak terdaftar!";
     }
 }
 ?>
@@ -43,7 +43,7 @@ if (isset($_REQUEST["login"])) {
 
     <title>Callisto</title>
     <style>
-        body{
+        body {
             background-color: #f7fbfc;
         }
 
@@ -109,6 +109,7 @@ if (isset($_REQUEST["login"])) {
             <form action="" method="post">
                 <div>Don't have an account? <a href="./register.php">Register</a></div>
             </form>
+            <a href="user_home.php">Back to Home</a>
         </div>
     </div>
 </body>

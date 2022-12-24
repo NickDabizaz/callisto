@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+if (isset($_REQUEST['logout'])) {
+    unset($_SESSION["userLogin"]);
+    header('location:user_home.php');
+}
+
 function alert($message)
 {
     echo "<script>alert('$message');</script>";

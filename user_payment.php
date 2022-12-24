@@ -1,8 +1,6 @@
 <?php
 require("helper.php");
-if (isset($_REQUEST['logout'])) {
-    unset($_SESSION["userLogin"]);
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,6 +16,9 @@ if (isset($_REQUEST['logout'])) {
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
     <style>
         body {
             background-color: #f7fbfc;
@@ -94,7 +95,7 @@ if (isset($_REQUEST['logout'])) {
             margin: auto;
         }
 
-        .popup{
+        .popup {
             position: fixed;
             height: 40vh;
             width: 50vw;
@@ -114,7 +115,7 @@ if (isset($_REQUEST['logout'])) {
         <div class="p-3 text-center bg-white nav-border">
             <div class="container">
                 <div class="row">
-                    <div class="col d-flex justify-content-center justify-content-md-start align-items-center">
+                    <div class="col-md-4 d-flex justify-content-center justify-content-md-start align-items-center">
                         <ul class="navbar-nav d-flex flex-row">
                             <li class="nav-item me-3">
                                 <!-- lupa cara biar klik link open new windows -->
@@ -130,13 +131,13 @@ if (isset($_REQUEST['logout'])) {
                         </ul>
                     </div>
 
-                    <div class="col">
+                    <div class="col-md-4">
                         <a href="user_home.php">
                             <img src="asset/logo.png" height="70" />
                         </a>
                     </div>
 
-                    <div class="col d-flex justify-content-center justify-content-md-end align-items-center">
+                    <div class="col-md-4 d-flex justify-content-center justify-content-md-end align-items-center">
                         <div class="d-flex">
                             <!-- Cart -->
                             <a class="text-reset me-3" href="user_cart.php">
@@ -171,7 +172,7 @@ if (isset($_REQUEST['logout'])) {
                                     </ul>
                                 </div>
                             <?php } else { ?>
-                                <a href="login.php"><button class="btn btn-primary">Login</button></a>
+                                <a href="login.php"><button class="btn btn-primary" style="margin-top: -0.5rem;">Login</button></a>
                             <?php } ?>
                         </div>
                     </div>
@@ -212,8 +213,8 @@ if (isset($_REQUEST['logout'])) {
                         <?php } else { ?>
                             <!-- <img src='./kaos_custom/kaos.png<?= $row['picture'] ?>' width='200px'> -->
                             <img src='./kaos_custom/kaos.png' id="kaospolos" width='200px'>
-                        <img src="./kaos_custom/<?= $row['picture'] ?>" id="customPicture" style='width: 4vw; height: auto; left:29vh; position: absolute; top: 27vh;'>
-                    
+                            <img src="./kaos_custom/<?= $row['picture'] ?>" id="customPicture" style='width: 4vw; height: auto; left:29vh; position: absolute; top: 27vh;'>
+
                         <?php } ?>
                     </td>
 
@@ -265,7 +266,8 @@ if (isset($_REQUEST['logout'])) {
         <!-- animasi loading bayar -->
     </div>
 
-
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
     <script>
         function pembayaran() {
 
@@ -281,7 +283,7 @@ if (isset($_REQUEST['logout'])) {
             btn.style.display = "none";
         }
 
-        function hapus(){
+        function hapus() {
             document.getElementById("popup").remove();
         }
 

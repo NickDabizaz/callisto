@@ -1,9 +1,6 @@
 <?php
 require('helper.php');
 
-if(isset($_REQUEST['logout'])){
-    unset($_SESSION["userLogin"]);
-}
 
 global $lim;
 $lim = 10;

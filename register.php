@@ -35,32 +35,41 @@ if (isset($_REQUEST['register'])) {
     $tglLahir = $_REQUEST['tglLahir'];
     $password = $_REQUEST['password'];
     $cpassword = $_REQUEST['cpassword'];
-    $gender = $_REQUEST['gender'];
 
-    if ($username != "" && $password != "" && $cpassword != "" && $fname != "" && $email != "" && $gender != ""  && $tglLahir != "" && $alamat != "" && $telp != "") {
-        if ($password == $cpassword) {
-            $result = mysqli_query($con, "select * from account where acc_user = '" . $username . "' or acc_email = '" . $email . "'");
+    if (isset($_REQUEST['gender'])) {
+        $gender = $_REQUEST['gender'];
+        if ($username != "" && $password != "" && $cpassword != "" && $fname != "" && $email != "" && $gender != ""  && $tglLahir != "" && $alamat != "" && $telp != "") {
+            if (ctype_digit($telp)) {
+                if ($password == $cpassword) {
+                    $result = mysqli_query($con, "select * from account where acc_user = '" . $username . "' or acc_email = '" . $email . "'");
 
-            while ($result_row = mysqli_fetch_array($result)) {
-                if ($result_row["acc_user"] == $username) {
-                    $error = "username sudah terdaftar!";
-                } else {
-                    if ($result_row['acc_email'] == $email) {
-                        $error = "email sudah terdaftar!";
+                    while ($result_row = mysqli_fetch_array($result)) {
+                        if ($result_row["acc_user"] == $username) {
+                            $error = "username sudah terdaftar!";
+                        } else {
+                            if ($result_row['acc_email'] == $email) {
+                                $error = "email sudah terdaftar!";
+                            }
+                        }
                     }
-                }
-            }
-
-            if ($error == "") {
-                $result = mysqli_query($con, "INSERT INTO `ACCOUNT` VALUES ( '" . generateIdAccount() . "' , '" . $email . "' , '" . $username . "' , '" . $fname . "' , '" . $password . "' , '" . $telp . "' , '" . $gender . "' , '" . $alamat . "' , 'no-profile.jpg' , '" . $tglLahir . "' )");
-                if ($result) {
-                    $error = "Register berhasil";
+                    //bcrypt password
+                    $password = password_hash($password, PASSWORD_DEFAULT);
+                    if ($error == "") {
+                        $result = mysqli_query($con, "INSERT INTO `ACCOUNT` VALUES ( '" . generateIdAccount() . "' , '" . $email . "' , '" . $username . "' , '" . $fname . "' , '" . $password . "' , '" . $telp . "' , '" . $gender . "' , '" . $alamat . "' , 'no-profile.jpg' , '" . $tglLahir . "' )");
+                        if ($result) {
+                            $error = "Register berhasil";
+                        } else {
+                            $error = "Register gagal";
+                        }
+                    }
                 } else {
-                    $error = "Register gagal";
+                    $error = "Password dan confirm password berbeda";
                 }
+            } else {
+                $error = "Nomor Telpon hanya boleh angka!";
             }
         } else {
-            $error = "Password dan confirm password berbeda";
+            $error = "Ada isian kosong!";
         }
     } else {
         $error = "Ada isian kosong!";
