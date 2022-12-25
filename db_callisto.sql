@@ -1,6 +1,6 @@
 /*
-SQLyog Community v13.1.9 (64 bit)
-MySQL - 10.4.24-MariaDB : Database - db_callisto
+SQLyog Ultimate v12.5.1 (64 bit)
+MySQL - 10.4.22-MariaDB : Database - db_callisto
 *********************************************************************
 */
 
@@ -36,9 +36,6 @@ CREATE TABLE `account` (
 
 /*Data for the table `account` */
 
-insert  into `account`(`acc_id`,`acc_email`,`acc_user`,`acc_name`,`acc_pass`,`acc_telp`,`acc_gender`,`acc_alamat`,`acc_profile`,`acc_tglLahir`) values 
-('AC001','akunpertama@gmail.com','akun_pertama','akun pertama','akun1','123456781234',1,'jl. rumah akun pertama 1 no 1','fanta.jpeg','2001-01-01');
-
 /*Table structure for table `cart` */
 
 DROP TABLE IF EXISTS `cart`;
@@ -54,9 +51,6 @@ CREATE TABLE `cart` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `cart` */
-
-insert  into `cart`(`cart_customer_id`,`cart_pro_id`,`qty`) values 
-('AC001','PD201',1);
 
 /*Table structure for table `d_trans` */
 
@@ -332,8 +326,7 @@ insert  into `product`(`pro_id`,`pro_name`,`pro_price`,`pro_stock`,`pro_size`,`p
 ('PD197','VERSACE Metallic Logo T-Shirt Black',2900000,50,'s','metallic-logo T-shirt','product_50.png',1,NULL),
 ('PD198','VERSACE Metallic Logo T-Shirt Black',2980000,50,'m','metallic-logo T-shirt','product_50.png',1,NULL),
 ('PD199','VERSACE Metallic Logo T-Shirt Black',3060000,50,'l','metallic-logo T-shirt','product_50.png',1,NULL),
-('PD200','VERSACE Metallic Logo T-Shirt Black',3140000,50,'xl','metallic-logo T-shirt','product_50.png',1,NULL),
-('PD201','Custom - Size L',22000000,1,'l','gambar kucing','kaos-l.jpg',1,'AC001');
+('PD200','VERSACE Metallic Logo T-Shirt Black',3140000,50,'xl','metallic-logo T-shirt','product_50.png',1,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

@@ -12,7 +12,7 @@ function generateIdAccount()
     $res = mysqli_query($con, $query);
     $row = mysqli_fetch_assoc($res);
     if ($row['id'] == null) {
-        return "DT001";
+        return "AC001";
     } else {
         //ambil id
         $getId = substr($row['id'], 2);
@@ -53,7 +53,7 @@ if (isset($_REQUEST['register'])) {
                         }
                     }
                     //bcrypt password
-                    $password = password_hash($password, PASSWORD_BCRYPT);
+                    $password = password_hash($password, PASSWORD_DEFAULT);
                     if ($error == "") {
                         $result = mysqli_query($con, "INSERT INTO `ACCOUNT` VALUES ( '" . generateIdAccount() . "' , '" . $email . "' , '" . $username . "' , '" . $fname . "' , '" . $password . "' , '" . $telp . "' , '" . $gender . "' , '" . $alamat . "' , 'no-profile.jpg' , '" . $tglLahir . "' )");
                         if ($result) {

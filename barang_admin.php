@@ -123,7 +123,7 @@ if (isset($_REQUEST['reject'])) {
 
 
 
-    <div class="container" style="height: 80vh;">
+    <div class="container" style="min-height: 80vh;">
         <table class="table">
             <tr>
                 <td width='20%'>Invoice</td>
@@ -138,7 +138,7 @@ if (isset($_REQUEST['reject'])) {
             while ($row = mysqli_fetch_assoc($res)) { ?>
                 <tr>
                     <td><?= $row['invoice'] ?></td>
-                    <td><?= $row['total'] ?></td>
+                    <td><?= rupiah($row['total']) ?></td>
                     <td><?= $row['id'] ?></td>
                     <td><?= $row['status'] ?></td>
                     <?php if ($row['status'] == 'pending') { ?>

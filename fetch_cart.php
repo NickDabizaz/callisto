@@ -38,11 +38,11 @@ while($row = $res->fetch_assoc()){
             </div>
         </div>
     </div>";
-    
-    echo "<form action='user_payment.php' method='post'>
+}
+
+echo "<form action='user_payment.php' method='post'>
             <button type='submit' class='btn btn-primary my-2'>BAYAR</button>
         </form>";
-}
 
 
 if($ctr == 0){
