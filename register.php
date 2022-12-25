@@ -53,7 +53,7 @@ if (isset($_REQUEST['register'])) {
                         }
                     }
                     //bcrypt password
-                    $password = password_hash($password, PASSWORD_DEFAULT);
+                    $password = password_hash($password, PASSWORD_BCRYPT);
                     if ($error == "") {
                         $result = mysqli_query($con, "INSERT INTO `ACCOUNT` VALUES ( '" . generateIdAccount() . "' , '" . $email . "' , '" . $username . "' , '" . $fname . "' , '" . $password . "' , '" . $telp . "' , '" . $gender . "' , '" . $alamat . "' , 'no-profile.jpg' , '" . $tglLahir . "' )");
                         if ($result) {
