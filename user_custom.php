@@ -1,54 +1,5 @@
 <?php
 require('helper.php');
-
-
-
-
-// if (isset($_POST['btnRequest'])) {
-//     if (isset($_POST['size'])) {
-//         $size = $_POST['size'];
-//     } else {
-//         $size = "";
-//     }
-
-
-//     if ($size == "") {
-//         $error = "Size Tidak Boleh Kosong";
-//     } else {
-//         $getId = mysqli_query($con, "SELECT * FROM account WHERE acc_user = '" . $_SESSION['userLogin'] . "' ");
-//         $rowId = mysqli_fetch_assoc($getId);
-//         $customer_id = $rowId['acc_id'];
-
-//         $product_id = generateIdProduct();
-
-//         if ($size == "s") {
-//             $name = "Custom - Size S";
-//             $price = 12000000;
-//             $img = "kaos-s.jpg";
-//         } else if ($size == "m") {
-//             $name = "Custom - Size M";
-//             $price = 17000000;
-//             $img = "kaos-m.jpg";
-//         } else if ($size == "l") {
-//             $name = "Custom - Size L";
-//             $price = 22000000;
-//             $img = "kaos-l.jpg";
-//         } else if ($size == "xl") {
-//             $name = "Custom - Size XL";
-//             $price = 27000000;
-//             $img = "kaos-xl.jpg";
-//         }
-
-//         $queryInsert = "INSERT INTO product VALUES ( '" . $product_id . "' , '" . $name . "' , '" . $price . "' , 1, '" . $size . "' , '" . $detail . "' , '" . $img . "' , 1, '" . $customer_id . "')";
-//         $resInsert = mysqli_query($con, $queryInsert);
-
-//         $cartInsert = "INSERT INTO cart VALUES ('" . $customer_id . "' , '" . $product_id . "' , 1)";
-//         $rescartInsert = mysqli_query($con, $cartInsert);
-//         if ($resInsert) $success = 'Berhasil Custom Produk!';
-//     }
-// }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,8 +31,6 @@ require('helper.php');
             width: 40vw;
             padding: 2vh;
             margin: auto;
-
-            /* background-color: yellow; */
         }
 
         .error {

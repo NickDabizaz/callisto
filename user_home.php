@@ -163,23 +163,6 @@ $lim = 10;
                     <div style='width: 1%'>
                     </div>
                 </a>";
-
-                // "<a class='card ms-2' style='width: 20vw; background-color: lightgray; height: fit-content;font-size: 1vw;' id='card' href='product_confirm.php?product=".$row2['pro_name']."'>
-                //     <img src='img_product/" . $row2['pro_picture'] . "' class='card-img-top'>
-                //     <div class='card-body m-auto'>
-                //         <div style='height: 15vh'>
-                //             <div class='card-title text-center fw-bolder' style=''>" . $row2['pro_name'] . "</div>
-                //         </div>" .
-                //         // <div class='m-auto' style='width: fit-content'>
-                //         //     <form action='product_confirm.php' method='post'>
-                //         //         <input type='hidden' name='product_name' value='" . $row2['pro_picture'] . "'>
-                //         //         <button type='submit' class='btn btn-primary' style='width: 10vw; font-size: 1vw; padding: 0.5vw;'>CHOOSE</button>
-                //         //     </form>
-                //         // </div>
-                //     "</div>
-                //     <div style='width: 2vh'>
-                //     </div>
-                // </a>";
             }
             echo "</div>";
             ?>

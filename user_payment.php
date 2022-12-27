@@ -181,25 +181,15 @@ require("helper.php");
         </div>
         <!-- Jumbotron -->
     </header>
-    <!--Main Navigation-->
-    <!--Main Navigation-->
 
 
     <!-- tabel semua isi cart -->
-    <?php //your code here  
+    <?php
     $nomer = 0;
     $total = 0;
     ?>
     <div class="container">
         <table class="table" style="width: 100%;">
-            <!-- <tr>
-                <th>No</th>
-                <th>Nama</th>
-                <th>Size</th>
-                <th>Qty</th>
-                <th>Harga</th>
-                <th>Subtotal</th>
-            </tr> -->
 
             <?php
             $select_query = "SELECT p.pro_picture AS 'picture',p.pro_cust_id AS 'customer_id', p.pro_name AS 'nama' , p.pro_size AS 'size' , c.qty AS 'qty' , p.pro_price AS 'harga' , (c.qty * p.pro_price) AS 'subtotal' FROM cart c JOIN product p ON c.cart_pro_id = p.pro_id";
@@ -211,10 +201,11 @@ require("helper.php");
                         <?php if ($row['customer_id'] == null) { ?>
                             <img src='./img_product/<?= $row['picture'] ?>' width='200px'>
                         <?php } else { ?>
-                            <!-- <img src='./kaos_custom/kaos.png<?= $row['picture'] ?>' width='200px'> -->
-                            <img src='./kaos_custom/kaos.png' id="kaospolos" width='200px'>
-                            <img src="./kaos_custom/<?= $row['picture'] ?>" id="customPicture" style='width: 4vw; height: auto; left:29vh; position: absolute; top: 27vh;'>
-
+                            <div style="background-image: url('./kaos_custom/kaos.png'); background-repeat: no-repeat; background-size: 80%; height: 250px;">
+                                <?php if($row['picture'] != null) { ?>
+                                    <img src="./kaos_custom/<?= $row['picture'] ?>" id="customPicture" style='width: 70px; height: auto; margin-top: 60px; margin-left: 100px;  ;'>
+                                <?php } ?>
+                            </div>
                         <?php } ?>
                     </td>
 
@@ -230,17 +221,6 @@ require("helper.php");
 
                         <div class='prod-stock my-2'> Stock : <?= $row['qty'] ?></div>
                     </td>
-
-                    <!-- <td>
-                        <form method='post'>
-                        <div>
-                        <input type='hidden' name='id' value='<?= $row['pro_id'] ?>'>
-                        <button class='btn btn-primary mb-2' type='submit' name='edit'>Edit</button><br>
-                        <button onclick='delete_product(this)' value='<?= $row['pro_id'] ?>' class='btn btn-danger'>Remove</button>
-                                        
-                        </div>
-                        </form>
-                    </td> -->
                 </tr>
                 <tr>
                     <td colspan="3">
@@ -251,11 +231,6 @@ require("helper.php");
                 $total += $row['subtotal'];
             }
             ?>
-            <!-- <tr>
-                <td style="font-size: 14pt;">Subtotal : <?= rupiah($total); ?></td>
-                <td></td>
-                <td></td>
-            </tr> -->
         </table>
 
         <!-- tombol bayar -->
@@ -263,16 +238,12 @@ require("helper.php");
             Subtotal : <?= rupiah($total); ?>
             <button class="btn btn-primary ms-3" style="font-size: 10pt;" id="btn-bayar" onclick="pembayaran()">BAYAR</button>
         </div>
-        <!-- animasi loading bayar -->
     </div>
 
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
     <script>
         function pembayaran() {
-
-            // msg = document.querySelector("#msg");
-            // msg.innerHTML = "Berhasil Bayar!";
             document.getElementById('body').innerHTML += "<div class='popup' id='popup'><div class='contain-popup' id='contain-popup'></div></div>";
             document.getElementById('contain-popup').innerHTML += "<div class='fas fa-info-circle'></div>&nbsp;Pembayaran<br><hr>Silahkan lakukan pembayaran pada rekening di bawah ini <br>Bank Indonesia (BI): 0001-01-123456-789 a.n Melvin Nicklaus Steven<br>Bank Negara Indonesia (BNI): 007-123-456-789 a.n Melvin Nicklaus Steven<br>Bank Rakyat Indonesia (BRI): 0098-01-123456-789 a.n Melvin Nicklaus Steven <br>Bank Mandiri: 008-123-456-789 a.n Melvin Nicklaus Steven<br><hr><button class='btn btn-secondary' onclick='hapus()'>OK</button>";
 

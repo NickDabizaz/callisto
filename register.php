@@ -57,7 +57,7 @@ if (isset($_REQUEST['register'])) {
                     if ($error == "") {
                         $result = mysqli_query($con, "INSERT INTO `ACCOUNT` VALUES ( '" . generateIdAccount() . "' , '" . $email . "' , '" . $username . "' , '" . $fname . "' , '" . $password . "' , '" . $telp . "' , '" . $gender . "' , '" . $alamat . "' , 'no-profile.jpg' , '" . $tglLahir . "' )");
                         if ($result) {
-                            $error = "Register berhasil";
+                            $success = "Register berhasil";
                         } else {
                             $error = "Register gagal";
                         }

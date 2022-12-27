@@ -121,7 +121,7 @@ $err = "";
     <div class="container" style="height: 80vh;">
         <?php
 
-        $sql2 = "SELECT * FROM product WHERE pro_name = '" . $name . "' AND pro_size = 's' ";
+        $sql2 = "SELECT * FROM product WHERE pro_name = \"" . $name . "\" AND pro_size = 's' ";
         $res2 = mysqli_query($con, $sql2);
         $rows2 = mysqli_fetch_assoc($res2);
 

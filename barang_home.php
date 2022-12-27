@@ -91,29 +91,6 @@ if(isset($_POST['edit'])){
 </head>
 
 <body onload="load_product()">
-    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container"> -->
-            <!-- <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="barang_home.php">Home</a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a href="barang_insert.php">Insert</a>
-                    </li>
-                    
-
-                    <div class="col-md-4">
-                        <a href="user_home.php">
-                            <img src="asset/logo.jpg" height="70" />
-                        </a>
-                    </div>
-                    
-                    <li class="breadcrumb-item active" aria-current="page">
-                        <a href="login.php">Logout</a>
-                    </li>
-                </ol>
-            </nav> -->
     
     <header>
         <div class="p-3 text-center bg-white nav-border">        
@@ -157,16 +134,7 @@ if(isset($_POST['edit'])){
             <input type="text" name="" style="width: 30vh;" id="searchtext" onkeyup="filter()"><div class="fas fa-search ms-1"></div>
             <form action="" method="post">
                 <table id="productlist">
-                    <!-- <thead>
-                    <th style="width: 5vw;">ID</th>
-                    <th style="width: 10vw;">Name</th>
-                    <th style="width: 10vw;">Price</th>
-                    <th style="width: 5vw;">Stok</th>
-                    <th style="width: 10vw;">Size</th>
-                    <th style="width: 10vw;">Action</th>
-                    </thead> -->
 
-                    <!-- Isi Tabel List Product Pindah Ke File fetch_product.php -->
                 </table>
             </form>
         </div>

@@ -148,13 +148,7 @@ if (isset($_REQUEST['logout'])) {
     <?php } else { 
         header("Location: login.php");
         ?>
-        
-        <!-- <span style='color:red;'>Login terlebih dahulu untuk bisa melihat isi cart anda!</span> -->
     <?php } ?>
-    <!-- <div class="container">
-        <div id="allcart">
-        </div>
-    </div> -->
 
     
 
