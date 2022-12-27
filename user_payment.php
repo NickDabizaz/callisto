@@ -217,7 +217,7 @@ require("helper.php");
 
                         <div class='prod-price my-2'><?= rupiah($row['harga']) ?></div>
 
-                        <div class='prod-size mt-2'> Size : <?= $row['size'] ?></div>
+                        <div class='prod-size mt-2'> Size : <?= strtoupper($row['size']) ?></div>
 
                         <div class='prod-stock my-2'> Stock : <?= $row['qty'] ?></div>
                     </td>

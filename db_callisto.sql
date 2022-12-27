@@ -1,6 +1,6 @@
 /*
-SQLyog Ultimate v12.5.1 (64 bit)
-MySQL - 10.4.22-MariaDB : Database - db_callisto
+SQLyog Community v13.1.9 (64 bit)
+MySQL - 10.4.24-MariaDB : Database - db_callisto
 *********************************************************************
 */
 
@@ -35,6 +35,9 @@ CREATE TABLE `account` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `account` */
+
+insert  into `account`(`acc_id`,`acc_email`,`acc_user`,`acc_name`,`acc_pass`,`acc_telp`,`acc_gender`,`acc_alamat`,`acc_profile`,`acc_tglLahir`) values 
+('AC001','akun@akun.com','TesAkun','user tes','$2y$10$SaiMg.6duynNVMnoMeh.FujplaQu13WNmCIUZjWIUFt2TUC1/Ti.i','123443211234',0,'jl jalanan','logo_kobo.jpg','2003-01-02');
 
 /*Table structure for table `cart` */
 
@@ -71,6 +74,11 @@ CREATE TABLE `d_trans` (
 
 /*Data for the table `d_trans` */
 
+insert  into `d_trans`(`dt_id`,`dt_amount`,`dt_subtotal`,`dt_ht_invoice`,`dt_pro_id`) values 
+('DT001',1,22000000,'20221227001','PD201'),
+('DT002',2,2600000,'20221227001','PD114'),
+('DT003',1,2220000,'20221227001','PD059');
+
 /*Table structure for table `h_trans` */
 
 DROP TABLE IF EXISTS `h_trans`;
@@ -88,6 +96,9 @@ CREATE TABLE `h_trans` (
 
 /*Data for the table `h_trans` */
 
+insert  into `h_trans`(`ht_invoice`,`ht_date`,`ht_total`,`ht_customer_id`,`ht_status`) values 
+('20221227001','27-12-2022',26820000,'AC001','success');
+
 /*Table structure for table `payment` */
 
 DROP TABLE IF EXISTS `payment`;
@@ -104,6 +115,9 @@ CREATE TABLE `payment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `payment` */
+
+insert  into `payment`(`pay_id`,`pay_ht_invoice`,`pay_customer_id`) values 
+('PM001','20221227001','AC001');
 
 /*Table structure for table `product` */
 
@@ -326,7 +340,8 @@ insert  into `product`(`pro_id`,`pro_name`,`pro_price`,`pro_stock`,`pro_size`,`p
 ('PD197','VERSACE Metallic Logo T-Shirt Black',2900000,50,'s','metallic-logo T-shirt','product_50.png',1,NULL),
 ('PD198','VERSACE Metallic Logo T-Shirt Black',2980000,50,'m','metallic-logo T-shirt','product_50.png',1,NULL),
 ('PD199','VERSACE Metallic Logo T-Shirt Black',3060000,50,'l','metallic-logo T-shirt','product_50.png',1,NULL),
-('PD200','VERSACE Metallic Logo T-Shirt Black',3140000,50,'xl','metallic-logo T-shirt','product_50.png',1,NULL);
+('PD200','VERSACE Metallic Logo T-Shirt Black',3140000,50,'xl','metallic-logo T-shirt','product_50.png',1,NULL),
+('PD201','Custom',22000000,1,'l','-','kobo.jpg',1,'AC001');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
