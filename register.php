@@ -4,6 +4,8 @@ require('helper.php');
 $success = "";
 $error = "";
 
+echo "testing";
+
 function generateIdAccount()
 {
     global $con;

@@ -3,6 +3,8 @@ require('helper.php');
 unset($_SESSION["userLogin"]);
 $error = "";
 
+echo "Testing" ;
+
 if (isset($_REQUEST["login"])) {
     $username = $_REQUEST['username'];
     $password = $_REQUEST['password'];
